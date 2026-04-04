@@ -1,45 +1,21 @@
 'use client'
-import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { raas } from '@/lib/copy'
 import { spring, staggerContainer } from '@/lib/motion'
 
-const verticalOffsets = [0, 24, 48]
-
-function TiltCard({ children, offset }: { children: React.ReactNode; offset: number }) {
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-  const rotateX = useTransform(y, [-0.5, 0.5], [7, -7])
-  const rotateY = useTransform(x, [-0.5, 0.5], [-7, 7])
-
-  function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = e.currentTarget.getBoundingClientRect()
-    x.set((e.clientX - rect.left) / rect.width - 0.5)
-    y.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-  function handleMouseLeave() {
-    x.set(0)
-    y.set(0)
-  }
-
+function FlatCard({ children, offset }: { children: React.ReactNode; offset: number }) {
   return (
-    <div style={{ perspective: '1000px', marginTop: offset }}>
+    <div style={{ marginTop: offset }}>
       <motion.div
         style={{
-          rotateX,
-          rotateY,
-          transformStyle: 'preserve-3d',
           background: '#0A0A0A',
           border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: '1rem',
           padding: '2rem',
           height: '100%',
         }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
         whileHover={{
-          y: -4,
-          borderColor: 'rgba(197,201,0,0.4)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
+          scale: 1.01,
+          borderColor: 'rgba(255,255,255,0.25)',
         }}
         transition={spring}
       >
@@ -49,10 +25,12 @@ function TiltCard({ children, offset }: { children: React.ReactNode; offset: num
   )
 }
 
+const verticalOffsets = [0, 24, 48]
+
 export default function RaaS() {
   return (
     <section
-      className="section-dark w-full flex flex-col justify-center"
+      className="section-type-black w-full flex flex-col justify-center"
       style={{
         minHeight: '100dvh',
         padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
@@ -64,7 +42,7 @@ export default function RaaS() {
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', marginBottom: '2rem' }}>
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+            style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)' }}
           >
             How it works
           </p>
@@ -105,7 +83,7 @@ export default function RaaS() {
               viewport={{ once: true }}
               transition={{ ...spring, delay: i * 0.1 }}
             >
-              <TiltCard offset={verticalOffsets[i]}>
+              <FlatCard offset={verticalOffsets[i]}>
                 <h3
                   className="mb-4"
                   style={{
@@ -123,13 +101,13 @@ export default function RaaS() {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontSize: '0.9375rem',
-                    color: 'var(--color-muted-dark)',
+                    color: 'rgba(255,255,255,0.4)',
                     lineHeight: 1.7,
                   }}
                 >
                   {card.body}
                 </p>
-              </TiltCard>
+              </FlatCard>
             </motion.div>
           ))}
         </motion.div>

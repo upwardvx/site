@@ -38,6 +38,16 @@ body {
   color: var(--color-text-dark);
 }
 
+/* variant/type: every section has full-bleed alternating */
+.section-type-black {
+  background: #000000;
+  color: #F5F5F0;
+}
+.section-type-white {
+  background: #F5F4F0;
+  color: #000000;
+}
+
 /* Animated grain overlay */
 body::before {
   content: '';

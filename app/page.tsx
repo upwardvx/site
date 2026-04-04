@@ -7,13 +7,10 @@ import Services from '@/components/sections/Services'
 import Credibility from '@/components/sections/Credibility'
 import CTA from '@/components/sections/CTA'
 import Footer from '@/components/sections/Footer'
-import SectionProgress from '@/components/SectionProgress'
-
 export default function Home() {
   return (
     <main>
       <Nav />
-      <SectionProgress />
       <div id="section-hero"><Hero /></div>
       <div id="section-tagline"><Tagline /></div>
       <div id="section-shift"><TheShift /></div>

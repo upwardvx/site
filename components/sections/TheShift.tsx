@@ -6,7 +6,7 @@ import { staggerContainer, staggerChild } from '@/lib/motion'
 export default function TheShift() {
   return (
     <section
-      className="section-dark w-full flex flex-col justify-center"
+      className="section-type-white w-full flex flex-col justify-center"
       style={{
         minHeight: '100dvh',
         padding: 'clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 5rem)',
@@ -15,10 +15,10 @@ export default function TheShift() {
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         {/* Section marker */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', marginBottom: '2rem' }}>
+        <div style={{ borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '2rem', marginBottom: '2rem' }}>
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+            style={{ color: 'rgba(0,0,0,0.4)', fontFamily: 'var(--font-body)' }}
           >
             The shift
           </p>
@@ -35,7 +35,7 @@ export default function TheShift() {
             fontFamily: 'var(--font-barlow)',
             fontSize: 'clamp(2rem, 4vw, 3.5rem)',
             fontWeight: 700,
-            color: '#FFFFFF',
+            color: '#000000',
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
           }}
@@ -48,7 +48,7 @@ export default function TheShift() {
           {/* Vertical divider — desktop only */}
           <div
             className="hidden md:block absolute top-0 bottom-0 left-1/2 w-px"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+            style={{ background: 'rgba(0,0,0,0.08)' }}
             aria-hidden="true"
           />
 
@@ -56,7 +56,7 @@ export default function TheShift() {
           <div className="md:pr-12 pb-12 md:pb-0">
             <p
               className="text-xs uppercase tracking-[0.1em] mb-6 font-medium"
-              style={{ color: 'var(--color-muted-dark)', fontFamily: 'var(--font-body)' }}
+              style={{ color: 'var(--color-muted-light)', fontFamily: 'var(--font-body)' }}
             >
               {shift.left.label}
             </p>
@@ -73,10 +73,10 @@ export default function TheShift() {
                   variants={staggerChild}
                   className="pl-4 text-sm leading-relaxed line-through"
                   style={{
-                    color: 'rgba(255,255,255,0.25)',
+                    color: 'rgba(0,0,0,0.25)',
                     fontFamily: 'var(--font-body)',
-                    borderLeft: '1px solid rgba(255,255,255,0.15)',
-                    textDecorationColor: 'rgba(255,255,255,0.15)',
+                    borderLeft: '1px solid rgba(0,0,0,0.15)',
+                    textDecorationColor: 'rgba(0,0,0,0.15)',
                   }}
                 >
                   {item}
@@ -89,7 +89,7 @@ export default function TheShift() {
           <div className="md:pl-12">
             <p
               className="text-xs uppercase tracking-[0.1em] mb-6 font-medium"
-              style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+              style={{ color: 'rgba(0,0,0,0.4)', fontFamily: 'var(--font-body)' }}
             >
               {shift.right.label}
             </p>
@@ -106,9 +106,9 @@ export default function TheShift() {
                   variants={staggerChild}
                   className="pl-4 text-sm leading-relaxed"
                   style={{
-                    color: '#FFFFFF',
+                    color: '#000000',
                     fontFamily: 'var(--font-body)',
-                    borderLeft: '2px solid rgba(197,201,0,0.6)',
+                    borderLeft: '2px solid rgba(0,0,0,0.6)',
                   }}
                 >
                   {item}

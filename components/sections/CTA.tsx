@@ -2,28 +2,18 @@
 import { motion } from 'framer-motion'
 import { cta } from '@/lib/copy'
 import { spring } from '@/lib/motion'
-
-const BOOKING_URL = 'https://calendar.app.google/aUBpNXrjnjj6jeUE9'
+import { BRAND } from '@/lib/brand'
 
 export default function CTA() {
   return (
     <section
-      className="section-dark relative w-full flex items-center justify-center overflow-hidden"
+      className="section-type-white relative w-full flex items-center justify-center overflow-hidden"
       style={{
         minHeight: '100dvh',
         padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
         scrollSnapAlign: 'start',
       }}
     >
-      {/* Accent glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 60% 70% at 50% 100%, rgba(197,201,0,0.07) 0%, transparent 65%)',
-        }}
-        aria-hidden="true"
-      />
-
       <div className="relative z-10 text-center" style={{ maxWidth: '42rem' }}>
         {/* Heading */}
         <motion.h2
@@ -36,7 +26,7 @@ export default function CTA() {
             fontFamily: 'var(--font-barlow)',
             fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
             fontWeight: 900,
-            color: '#FFFFFF',
+            color: '#000000',
             letterSpacing: '-0.02em',
             lineHeight: 1.0,
             textTransform: 'uppercase',
@@ -55,39 +45,33 @@ export default function CTA() {
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '1rem',
-            color: 'var(--color-muted-dark)',
+            color: 'rgba(0,0,0,0.5)',
           }}
         >
           {cta.sub}
         </motion.p>
 
-        {/* Button */}
+        {/* Button — black on white bg, full contrast */}
         <motion.a
-          href={BOOKING_URL}
+          href={BRAND.booking}
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ ...spring, delay: 0.2 }}
-          whileHover={{ scale: 1.04, y: -3 }}
-          whileTap={{ scale: 0.96, y: 1 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           className="inline-block font-semibold"
           style={{
-            background: '#C5C900',
-            color: '#000000',
+            background: '#000000',
+            color: '#FFFFFF',
             fontFamily: 'var(--font-body)',
             fontSize: '0.9375rem',
             padding: '1rem 2.5rem',
             borderRadius: 0,
-            transition: 'box-shadow 0.25s ease',
             letterSpacing: '0.04em',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 40px rgba(197,201,0,0.3)'
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.boxShadow = 'none'
+            textDecoration: 'none',
           }}
         >
           {cta.button}

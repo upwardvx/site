@@ -80,7 +80,7 @@ function HighlightParagraph({
 export default function Credibility() {
   return (
     <section
-      className="section-dark w-full flex flex-col justify-center"
+      className="section-type-black w-full flex flex-col justify-center"
       style={{
         minHeight: '100dvh',
         padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
