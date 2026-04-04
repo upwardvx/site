@@ -1,18 +1,18 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
-import { Cormorant_Garamond } from 'next/font/google'
+import { Barlow } from 'next/font/google'
 import LenisProvider from '@/components/LenisProvider'
 import './globals.css'
 
 const geist = Geist({
-  variable: '--font-geist-sans',
+  variable: '--font-body',
   subsets: ['latin'],
 })
 
-const cormorant = Cormorant_Garamond({
-  variable: '--font-cormorant',
+const barlow = Barlow({
+  variable: '--font-barlow',
   subsets: ['latin'],
-  weight: ['400', '600', '700'],
+  weight: ['400', '700', '900'],
 })
 
 export const metadata: Metadata = {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${geist.variable} ${barlow.variable}`}>
       <body>
         <LenisProvider>
           {children}

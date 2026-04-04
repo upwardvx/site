@@ -1,153 +1,376 @@
 'use client'
-import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
-import { gsap } from 'gsap'
-import { hero } from '@/lib/copy'
-import { spring } from '@/lib/motion'
 
-const ParticleField = dynamic(() => import('@/components/three/ParticleField'), {
-  ssr: false,
-})
-
-const BOOKING_URL = 'https://calendar.google.com/calendar/appointments'
+const SECTION_NAV = [
+  { label: 'Our Story', href: '#section-shift' },
+  { label: 'How It Works', href: '#section-raas' },
+  { label: 'Services', href: '#section-services' },
+  { label: 'Contact', href: '#section-cta' },
+]
 
 export default function Hero() {
-  const headlineRef = useRef<HTMLHeadingElement>(null)
-
-  useEffect(() => {
-    if (!headlineRef.current) return
-    const words = headlineRef.current.querySelectorAll<HTMLElement>('.word')
-    gsap.fromTo(
-      words,
-      { opacity: 0, y: 22 },
-      { opacity: 1, y: 0, duration: 0.7, stagger: 0.065, ease: 'power3.out', delay: 0.35 }
-    )
-  }, [])
-
-  const words = hero.headline.split(' ')
+  const scrollToSection = (href: string) => {
+    const id = href.replace('#', '')
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
     <section
-      className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden"
-      style={{ background: '#080808', scrollSnapAlign: 'start' }}
+      className="relative min-h-[100dvh] overflow-hidden section-light"
+      style={{ scrollSnapAlign: 'start' }}
     >
-      {/* Particle field — decorative, right-side atmosphere */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <ParticleField />
-      </div>
-
-      {/* Radial warm glow behind headline */}
+      {/* Large faint circle */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse 55% 50% at 30% 60%, rgba(201,169,110,0.06) 0%, transparent 70%)',
-        }}
         aria-hidden="true"
+        style={{
+          position: 'absolute',
+          width: '68vw',
+          height: '68vw',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          border: '1px solid rgba(0,0,0,0.07)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
       />
 
+      {/* Floating geometric decorations */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
+        {/* Plus sign */}
+        <span
+          style={{
+            position: 'absolute',
+            top: '18%',
+            left: '12%',
+            fontSize: '1.5rem',
+            color: 'rgba(0,0,0,0.12)',
+            fontWeight: 300,
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          +
+        </span>
+        {/* Small circle top-right */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '14%',
+            right: '28%',
+            width: 8,
+            height: 8,
+            borderRadius: '50%',
+            border: '1px solid rgba(0,0,0,0.2)',
+          }}
+        />
+        {/* Math symbol Σ */}
+        <span
+          style={{
+            position: 'absolute',
+            bottom: '30%',
+            left: '8%',
+            fontSize: '1.1rem',
+            color: 'rgba(0,0,0,0.1)',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          Σ
+        </span>
+        {/* Math symbol Ω */}
+        <span
+          style={{
+            position: 'absolute',
+            top: '25%',
+            right: '8%',
+            fontSize: '1rem',
+            color: 'rgba(0,0,0,0.1)',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          Ω
+        </span>
+        {/* Small dot */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '22%',
+            right: '24%',
+            width: 5,
+            height: 5,
+            borderRadius: '50%',
+            background: 'rgba(0,0,0,0.15)',
+          }}
+        />
+        {/* Horizontal line */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '55%',
+            left: '6%',
+            width: '4vw',
+            height: '1px',
+            background: 'rgba(0,0,0,0.12)',
+          }}
+        />
+      </div>
+
+      {/* Main layout: three-column */}
       <div
-        className="relative z-10 mx-auto w-full px-6 md:px-20 pt-36 pb-24"
-        style={{ maxWidth: '1280px' }}
+        className="relative z-10 w-full h-full min-h-[100dvh] flex items-center"
+        style={{ padding: '0 clamp(1.5rem, 4vw, 4rem)' }}
       >
-        {/* Eyebrow */}
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
-          className="text-xs font-semibold uppercase tracking-[0.14em] mb-10"
-          style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+        {/* Left column — massive display text */}
+        <div
+          className="flex flex-col justify-center"
+          style={{ width: '36%', paddingRight: '2vw', paddingTop: '5rem' }}
         >
-          Results as a Service
-        </motion.p>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h1
+              style={{
+                fontFamily: 'var(--font-barlow)',
+                fontWeight: 900,
+                fontSize: 'clamp(5rem, 12vw, 13rem)',
+                lineHeight: 0.82,
+                letterSpacing: '-0.02em',
+                textTransform: 'uppercase',
+                color: 'var(--color-text)',
+                userSelect: 'none',
+              }}
+            >
+              <span className="block">UPWARD</span>
+              <span
+                className="block"
+                style={{ fontSize: 'clamp(4rem, 10vw, 10.5rem)' }}
+              >
+                VENTURES.
+              </span>
+            </h1>
+          </motion.div>
+        </div>
 
-        {/* Headline — GSAP word-by-word */}
-        <h1
-          ref={headlineRef}
-          className="font-bold leading-[0.93] mb-8 max-w-4xl"
+        {/* Center column — image composite */}
+        <div
           style={{
-            fontFamily: 'var(--font-cormorant)',
-            fontSize: 'clamp(3rem, 8vw, 7rem)',
-            color: '#F5F5F0',
-            letterSpacing: '-0.02em',
+            width: '42%',
+            position: 'relative',
+            height: '72vh',
+            flexShrink: 0,
           }}
-          aria-label={hero.headline}
         >
-          {words.map((word, i) => (
-            <span key={i} className="word inline-block mr-[0.22em] opacity-0">
-              {word}
-            </span>
-          ))}
-        </h1>
+          {/* Image placeholder — split half/half */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              overflow: 'hidden',
+              borderRadius: '2px',
+            }}
+          >
+            {/* Left half — light */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '50%',
+                height: '100%',
+                background: '#B8B5AE',
+              }}
+            />
+            {/* Right half — dark */}
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                width: '50%',
+                height: '100%',
+                background: '#3A3835',
+              }}
+            />
+            {/* Vertical center bar overlay */}
+            <div
+              style={{
+                position: 'absolute',
+                top: '15%',
+                left: '44%',
+                width: '12%',
+                height: '70%',
+                background: 'rgba(197, 201, 0, 0.55)',
+                mixBlendMode: 'multiply',
+              }}
+            />
+          </motion.div>
 
-        {/* Sub */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 0.9 }}
-          className="mb-12 leading-relaxed max-w-lg"
-          style={{
-            color: '#888880',
-            fontFamily: 'var(--font-geist-sans)',
-            fontSize: 'clamp(1rem, 1.4vw, 1.125rem)',
-          }}
-        >
-          {hero.sub}
-        </motion.p>
+          {/* SVG orbit rings */}
+          <svg
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '130%',
+              height: '130%',
+              overflow: 'visible',
+              pointerEvents: 'none',
+            }}
+            viewBox="0 0 400 400"
+            fill="none"
+          >
+            <ellipse
+              cx="200"
+              cy="200"
+              rx="185"
+              ry="80"
+              stroke="rgba(0,0,0,0.08)"
+              strokeWidth="1"
+              strokeDasharray="4 6"
+              style={{
+                transformOrigin: '200px 200px',
+                animation: 'orbitSpin 18s linear infinite',
+              }}
+            />
+            <ellipse
+              cx="200"
+              cy="200"
+              rx="160"
+              ry="55"
+              stroke="rgba(197,201,0,0.2)"
+              strokeWidth="1"
+              strokeDasharray="3 8"
+              style={{
+                transformOrigin: '200px 200px',
+                animation: 'orbitSpin 24s linear infinite reverse',
+              }}
+            />
+          </svg>
 
-        {/* CTA */}
-        <motion.a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ ...spring, delay: 1.1 }}
-          whileHover={{ scale: 1.03, y: -2 }}
-          whileTap={{ scale: 0.97, y: 1 }}
-          className="inline-block text-sm font-semibold px-7 py-4 rounded-md"
-          style={{
-            background: '#C9A96E',
-            color: '#080808',
-            fontFamily: 'var(--font-geist-sans)',
-            transition: 'box-shadow 0.25s ease',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 6px 36px rgba(201,169,110,0.28)'
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.boxShadow = 'none'
-          }}
+          {/* Yellow-green orb */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+            style={{
+              position: 'absolute',
+              top: '-5%',
+              right: '-8%',
+              width: 'clamp(2rem, 4vw, 3.5rem)',
+              height: 'clamp(2rem, 4vw, 3.5rem)',
+              borderRadius: '50%',
+              background: '#C5C900',
+              boxShadow: '0 0 40px rgba(197,201,0,0.4)',
+            }}
+          />
+        </div>
+
+        {/* Right column — definition + nav */}
+        <div
+          className="flex-1 flex flex-col justify-center hidden md:flex"
+          style={{ paddingLeft: '3vw', paddingTop: '5rem' }}
         >
-          {hero.cta}
-        </motion.a>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
+          >
+            {/* Definition text */}
+            <p
+              className="text-xs leading-relaxed mb-6"
+              style={{
+                color: 'var(--color-muted-light)',
+                fontFamily: 'var(--font-body)',
+                maxWidth: '18ch',
+              }}
+            >
+              Upward Ventures (/ˈʌpwərd/; 2024 —) The outcome-based firm for founders who&apos;ve outgrown advice.
+            </p>
+
+            <hr style={{ borderColor: 'rgba(0,0,0,0.12)', marginBottom: '1.5rem' }} />
+
+            {/* Section nav */}
+            <nav className="flex flex-col gap-3">
+              {SECTION_NAV.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => scrollToSection(item.href)}
+                  className="text-left text-xs uppercase tracking-[0.1em] transition-colors duration-200"
+                  style={{
+                    color: 'var(--color-muted-light)',
+                    fontFamily: 'var(--font-body)',
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = 'var(--color-text)'
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.color = 'var(--color-muted-light)'
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </motion.div>
+        </div>
       </div>
 
       {/* Scroll to explore */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.7, ease: 'easeOut' }}
+        transition={{ delay: 1.4, duration: 0.7, ease: 'easeOut' }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
         aria-hidden="true"
       >
-        <p
-          className="text-xs uppercase tracking-[0.14em]"
-          style={{ color: '#333330', fontFamily: 'var(--font-geist-sans)' }}
-        >
-          scroll
-        </p>
-        <motion.div
-          animate={{ scaleY: [1, 0.4, 1], opacity: [0.4, 0.9, 0.4] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+        {/* Circle with hand icon */}
+        <div
           style={{
-            width: 1,
-            height: 36,
-            background: 'linear-gradient(to bottom, #C9A96E88, transparent)',
-            transformOrigin: 'top',
+            width: 44,
+            height: 44,
+            borderRadius: '50%',
+            border: '1px solid rgba(0,0,0,0.2)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M8 2.5V10.5M8 10.5L5 7.5M8 10.5L11 7.5"
+              stroke="rgba(0,0,0,0.4)"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <p
+          className="text-[10px] uppercase tracking-[0.14em]"
+          style={{ color: 'rgba(0,0,0,0.3)', fontFamily: 'var(--font-body)' }}
+        >
+          scroll to explore
+        </p>
       </motion.div>
+
+      <style jsx>{`
+        @keyframes orbitSpin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </section>
   )
 }

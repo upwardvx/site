@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { credibility } from '@/lib/copy'
 import { spring, staggerContainer, staggerChild } from '@/lib/motion'
 
-// Paragraphs with accent phrases highlighted on scroll entry
 const storyParagraphs = [
   {
     text: credibility.story[0],
@@ -38,9 +37,9 @@ function HighlightParagraph({
         transition={{ ...spring, delay }}
         className="leading-[1.8]"
         style={{
-          fontFamily: 'var(--font-geist-sans)',
+          fontFamily: 'var(--font-body)',
           fontSize: '1rem',
-          color: '#888880',
+          color: 'var(--color-muted-dark)',
         }}
       >
         {text}
@@ -59,15 +58,15 @@ function HighlightParagraph({
       transition={{ ...spring, delay }}
       className="leading-[1.8]"
       style={{
-        fontFamily: 'var(--font-geist-sans)',
+        fontFamily: 'var(--font-body)',
         fontSize: '1rem',
-        color: '#888880',
+        color: 'var(--color-muted-dark)',
       }}
     >
       {before}
       <motion.span
-        initial={{ color: '#888880' }}
-        whileInView={{ color: '#C9A96E' }}
+        initial={{ color: 'rgba(255,255,255,0.4)' }}
+        whileInView={{ color: '#C5C900' }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.6, delay: delay + 0.3 }}
       >
@@ -81,9 +80,8 @@ function HighlightParagraph({
 export default function Credibility() {
   return (
     <section
-      className="w-full flex flex-col justify-center"
+      className="section-dark w-full flex flex-col justify-center"
       style={{
-        background: '#080808',
         minHeight: '100dvh',
         padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
         scrollSnapAlign: 'start',
@@ -97,7 +95,7 @@ export default function Credibility() {
           {/* Label */}
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em] mb-8"
-            style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
           >
             Why it works
           </p>
@@ -110,10 +108,10 @@ export default function Credibility() {
             transition={spring}
             className="mb-12"
             style={{
-              fontFamily: 'var(--font-cormorant)',
+              fontFamily: 'var(--font-barlow)',
               fontSize: 'clamp(2rem, 4vw, 3.25rem)',
               fontWeight: 700,
-              color: '#F5F5F0',
+              color: '#FFFFFF',
               letterSpacing: '-0.02em',
               lineHeight: 1.05,
             }}
@@ -147,9 +145,9 @@ export default function Credibility() {
                 variants={staggerChild}
                 className="pl-4 text-sm font-medium leading-relaxed"
                 style={{
-                  fontFamily: 'var(--font-geist-sans)',
-                  color: '#888880',
-                  borderLeft: '2px solid #C9A96E',
+                  fontFamily: 'var(--font-body)',
+                  color: 'var(--color-muted-dark)',
+                  borderLeft: '2px solid #C5C900',
                 }}
               >
                 {point}

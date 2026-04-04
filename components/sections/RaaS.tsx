@@ -28,8 +28,8 @@ function TiltCard({ children, offset }: { children: React.ReactNode; offset: num
           rotateX,
           rotateY,
           transformStyle: 'preserve-3d',
-          background: '#111111',
-          border: '1px solid #1E1E1E',
+          background: '#0A0A0A',
+          border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: '1rem',
           padding: '2rem',
           height: '100%',
@@ -38,8 +38,8 @@ function TiltCard({ children, offset }: { children: React.ReactNode; offset: num
         onMouseLeave={handleMouseLeave}
         whileHover={{
           y: -4,
-          borderColor: 'rgba(201,169,110,0.35)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          borderColor: 'rgba(197,201,0,0.4)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
         }}
         transition={spring}
       >
@@ -52,9 +52,8 @@ function TiltCard({ children, offset }: { children: React.ReactNode; offset: num
 export default function RaaS() {
   return (
     <section
-      className="w-full flex flex-col justify-center"
+      className="section-dark w-full flex flex-col justify-center"
       style={{
-        background: '#080808',
         minHeight: '100dvh',
         padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
         scrollSnapAlign: 'start',
@@ -62,10 +61,10 @@ export default function RaaS() {
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         {/* Section marker */}
-        <div style={{ borderTop: '1px solid #1E1E1E', paddingTop: '2rem', marginBottom: '2rem' }}>
+        <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', marginBottom: '2rem' }}>
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
           >
             How it works
           </p>
@@ -79,10 +78,10 @@ export default function RaaS() {
           transition={spring}
           className="mb-16"
           style={{
-            fontFamily: 'var(--font-cormorant)',
+            fontFamily: 'var(--font-barlow)',
             fontSize: 'clamp(2rem, 4vw, 3.25rem)',
-            fontWeight: 600,
-            color: '#F5F5F0',
+            fontWeight: 700,
+            color: '#FFFFFF',
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
           }}
@@ -90,7 +89,7 @@ export default function RaaS() {
           {raas.heading}
         </motion.h2>
 
-        {/* Cards — staggered, with vertical offset cascade on desktop */}
+        {/* Cards */}
         <motion.div
           variants={staggerContainer}
           initial="initial"
@@ -110,10 +109,10 @@ export default function RaaS() {
                 <h3
                   className="mb-4"
                   style={{
-                    fontFamily: 'var(--font-cormorant)',
-                    fontSize: '1.375rem',
-                    fontWeight: 600,
-                    color: '#F5F5F0',
+                    fontFamily: 'var(--font-barlow)',
+                    fontSize: '1.25rem',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
                     lineHeight: 1.2,
                   }}
                 >
@@ -122,9 +121,9 @@ export default function RaaS() {
                 <p
                   className="leading-relaxed"
                   style={{
-                    fontFamily: 'var(--font-geist-sans)',
+                    fontFamily: 'var(--font-body)',
                     fontSize: '0.9375rem',
-                    color: '#888880',
+                    color: 'var(--color-muted-dark)',
                     lineHeight: 1.7,
                   }}
                 >

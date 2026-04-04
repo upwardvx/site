@@ -5,9 +5,9 @@ import { footer } from '@/lib/copy'
 export default function Footer() {
   return (
     <footer
-      className="w-full"
+      className="section-dark w-full"
       style={{
-        borderTop: '1px solid #1E1E1E',
+        borderTop: '1px solid rgba(255,255,255,0.08)',
         padding: '2rem clamp(1.5rem, 5vw, 5rem)',
       }}
     >
@@ -17,14 +17,14 @@ export default function Footer() {
       >
         <span
           className="text-xs"
-          style={{ color: '#888880', fontFamily: 'var(--font-geist-sans)' }}
+          style={{ color: 'var(--color-muted-dark)', fontFamily: 'var(--font-body)' }}
         >
           {footer.copyright}
         </span>
         <a
           href={`mailto:${footer.email}`}
           className="text-xs footer-link"
-          style={{ fontFamily: 'var(--font-geist-sans)' }}
+          style={{ fontFamily: 'var(--font-body)' }}
         >
           {footer.email}
         </a>
@@ -33,7 +33,7 @@ export default function Footer() {
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs footer-link"
-          style={{ fontFamily: 'var(--font-geist-sans)' }}
+          style={{ fontFamily: 'var(--font-body)' }}
         >
           LinkedIn
         </a>
