@@ -18,7 +18,7 @@ export default function TheShift() {
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', marginBottom: '2rem' }}>
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+            style={{ color: '#C9A96E', fontFamily: 'var(--font-body)' }}
           >
             The shift
           </p>
@@ -89,7 +89,7 @@ export default function TheShift() {
           <div className="md:pl-12">
             <p
               className="text-xs uppercase tracking-[0.1em] mb-6 font-medium"
-              style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+              style={{ color: '#C9A96E', fontFamily: 'var(--font-body)' }}
             >
               {shift.right.label}
             </p>
@@ -108,7 +108,7 @@ export default function TheShift() {
                   style={{
                     color: '#FFFFFF',
                     fontFamily: 'var(--font-body)',
-                    borderLeft: '2px solid rgba(197,201,0,0.6)',
+                    borderLeft: '2px solid rgba(201,169,110,0.6)',
                   }}
                 >
                   {item}

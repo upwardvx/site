@@ -15,9 +15,9 @@ function ServiceGraphic({ index }: { index: number }) {
       <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={shared}>
         <ellipse cx="150" cy="150" rx="120" ry="50" stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="4 6"
           style={{ transformOrigin: '150px 150px', animation: 'orbitSpin 20s linear infinite' }} />
-        <ellipse cx="150" cy="150" rx="80" ry="33" stroke="rgba(197,201,0,0.18)" strokeWidth="1" strokeDasharray="3 8"
+        <ellipse cx="150" cy="150" rx="80" ry="33" stroke="rgba(201,169,110,0.18)" strokeWidth="1" strokeDasharray="3 8"
           style={{ transformOrigin: '150px 150px', animation: 'orbitSpin 15s linear infinite reverse' }} />
-        <circle cx="150" cy="150" r="6" fill="#C5C900" opacity="0.9" />
+        <circle cx="150" cy="150" r="6" fill="#C9A96E" opacity="0.9" />
         <line x1="150" y1="60" x2="150" y2="106" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
         <line x1="150" y1="194" x2="150" y2="240" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
         <line x1="60" y1="150" x2="106" y2="150" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
@@ -33,9 +33,9 @@ function ServiceGraphic({ index }: { index: number }) {
         <ellipse cx="150" cy="150" rx="130" ry="55" stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="5 8" />
         <ellipse cx="120" cy="150" rx="90" ry="38" stroke="rgba(255,255,255,0.09)" strokeWidth="1"
           style={{ transformOrigin: '120px 150px', animation: 'orbitSpin 22s linear infinite' }} />
-        <ellipse cx="180" cy="150" rx="90" ry="38" stroke="rgba(197,201,0,0.16)" strokeWidth="1"
+        <ellipse cx="180" cy="150" rx="90" ry="38" stroke="rgba(201,169,110,0.16)" strokeWidth="1"
           style={{ transformOrigin: '180px 150px', animation: 'orbitSpin 18s linear infinite reverse' }} />
-        <circle cx="150" cy="150" r="5" fill="#C5C900" opacity="0.85" />
+        <circle cx="150" cy="150" r="5" fill="#C9A96E" opacity="0.85" />
       </svg>
     )
   }
@@ -46,11 +46,11 @@ function ServiceGraphic({ index }: { index: number }) {
       <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={shared}>
         <ellipse cx="150" cy="150" rx="130" ry="55" stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="4 8"
           style={{ transformOrigin: '150px 150px', animation: 'orbitSpin 26s linear infinite' }} />
-        <ellipse cx="150" cy="150" rx="90" ry="38" stroke="rgba(197,201,0,0.14)" strokeWidth="1"
+        <ellipse cx="150" cy="150" rx="90" ry="38" stroke="rgba(201,169,110,0.14)" strokeWidth="1"
           style={{ transformOrigin: '150px 150px', animation: 'orbitSpin 18s linear infinite reverse' }} />
-        <ellipse cx="150" cy="150" rx="52" ry="22" stroke="rgba(197,201,0,0.28)" strokeWidth="1"
+        <ellipse cx="150" cy="150" rx="52" ry="22" stroke="rgba(201,169,110,0.28)" strokeWidth="1"
           style={{ transformOrigin: '150px 150px', animation: 'orbitSpin 11s linear infinite' }} />
-        <circle cx="150" cy="150" r="5" fill="#C5C900" opacity="0.95" />
+        <circle cx="150" cy="150" r="5" fill="#C9A96E" opacity="0.95" />
       </svg>
     )
   }
@@ -58,11 +58,11 @@ function ServiceGraphic({ index }: { index: number }) {
   // index === 3 — Product Management: arc with nodes
   return (
     <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" style={shared}>
-      <ellipse cx="150" cy="150" rx="120" ry="50" stroke="rgba(197,201,0,0.1)" strokeWidth="1" strokeDasharray="4 6"
+      <ellipse cx="150" cy="150" rx="120" ry="50" stroke="rgba(201,169,110,0.1)" strokeWidth="1" strokeDasharray="4 6"
         style={{ transformOrigin: '150px 150px', animation: 'orbitSpin 20s linear infinite' }} />
       <path d="M 50 210 Q 150 60 250 210" stroke="rgba(255,255,255,0.12)" strokeWidth="1" fill="none" />
       <circle cx="50" cy="210" r="5" fill="rgba(255,255,255,0.25)" />
-      <circle cx="150" cy="117" r="8" fill="#C5C900" opacity="0.9" />
+      <circle cx="150" cy="117" r="8" fill="#C9A96E" opacity="0.9" />
       <circle cx="250" cy="210" r="5" fill="rgba(255,255,255,0.25)" />
       <line x1="50" y1="210" x2="150" y2="117" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
       <line x1="150" y1="117" x2="250" y2="210" stroke="rgba(255,255,255,0.07)" strokeWidth="1" />
@@ -96,7 +96,7 @@ export default function Services() {
           <div>
             <p
               className="text-xs font-semibold uppercase tracking-[0.14em] mb-8"
-              style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+              style={{ color: '#C9A96E', fontFamily: 'var(--font-body)' }}
             >
               Services
             </p>
@@ -224,7 +224,7 @@ export default function Services() {
                   <div style={{ position: 'relative', zIndex: 1, maxWidth: '30rem' }}>
                     <p
                       className="text-xs font-semibold uppercase tracking-[0.14em] mb-4"
-                      style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+                      style={{ color: '#C9A96E', fontFamily: 'var(--font-body)' }}
                     >
                       {item.label}
                     </p>
