@@ -68,6 +68,12 @@ body::before {
   color: #FFFFFF;
 }
 
+/* Orbit spin — used by Hero SVG ellipse animations */
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   body::before { animation: none; }
