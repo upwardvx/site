@@ -1,0 +1,95 @@
+'use client'
+import { motion } from 'framer-motion'
+import { cta } from '@/lib/copy'
+import { spring } from '@/lib/motion'
+
+const BOOKING_URL = 'https://calendar.google.com/calendar/appointments'
+
+export default function CTA() {
+  return (
+    <section
+      className="relative w-full flex items-center justify-center overflow-hidden"
+      style={{
+        minHeight: '52vh',
+        background: '#080808',
+        padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)',
+      }}
+    >
+      {/* Animated warm glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 60% 70% at 50% 100%, rgba(201,169,110,0.09) 0%, transparent 65%)',
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 text-center" style={{ maxWidth: '42rem' }}>
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={spring}
+          className="mb-6"
+          style={{
+            fontFamily: 'var(--font-cormorant)',
+            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+            fontWeight: 700,
+            color: '#F5F5F0',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.0,
+          }}
+        >
+          {cta.heading}
+        </motion.h2>
+
+        {/* Sub */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ ...spring, delay: 0.1 }}
+          className="mb-10 leading-relaxed"
+          style={{
+            fontFamily: 'var(--font-geist-sans)',
+            fontSize: '1rem',
+            color: '#888880',
+          }}
+        >
+          {cta.sub}
+        </motion.p>
+
+        {/* Button */}
+        <motion.a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ ...spring, delay: 0.2 }}
+          whileHover={{ scale: 1.04, y: -3 }}
+          whileTap={{ scale: 0.96, y: 1 }}
+          className="inline-block font-semibold rounded-md"
+          style={{
+            background: '#C9A96E',
+            color: '#080808',
+            fontFamily: 'var(--font-geist-sans)',
+            fontSize: '1rem',
+            padding: '1rem 2.5rem',
+            transition: 'box-shadow 0.25s ease',
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 40px rgba(201,169,110,0.3)'
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.boxShadow = 'none'
+          }}
+        >
+          {cta.button}
+        </motion.a>
+      </div>
+    </section>
+  )
+}
