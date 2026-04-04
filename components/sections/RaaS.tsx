@@ -59,6 +59,16 @@ export default function RaaS() {
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        {/* Section marker */}
+        <div style={{ borderTop: '1px solid #1E1E1E', paddingTop: '2rem', marginBottom: '2rem' }}>
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.14em]"
+            style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+          >
+            How it works
+          </p>
+        </div>
+
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}

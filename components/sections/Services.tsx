@@ -10,13 +10,23 @@ export default function Services() {
       style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)' }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        {/* Section marker */}
+        <div style={{ borderTop: '1px solid #1E1E1E', paddingTop: '2rem', marginBottom: '2rem' }}>
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.14em]"
+            style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+          >
+            Services
+          </p>
+        </div>
+
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-2"
+          className="mb-14"
           style={{
             fontFamily: 'var(--font-cormorant)',
             fontSize: 'clamp(2rem, 4vw, 3.25rem)',

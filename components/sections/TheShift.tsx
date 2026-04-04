@@ -13,13 +13,34 @@ export default function TheShift() {
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-        {/* Label */}
-        <p
-          className="text-xs font-semibold uppercase tracking-[0.14em] mb-12"
-          style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+        {/* Section marker */}
+        <div style={{ borderTop: '1px solid #1E1E1E', paddingTop: '2rem', marginBottom: '2rem' }}>
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.14em]"
+            style={{ color: '#C9A96E', fontFamily: 'var(--font-geist-sans)' }}
+          >
+            The shift
+          </p>
+        </div>
+
+        {/* Section heading — the big statement */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="mb-16"
+          style={{
+            fontFamily: 'var(--font-cormorant)',
+            fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+            fontWeight: 600,
+            color: '#F5F5F0',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05,
+          }}
         >
           {shift.heading}
-        </p>
+        </motion.h2>
 
         {/* Two columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 relative">
@@ -49,11 +70,11 @@ export default function TheShift() {
                 <motion.li
                   key={i}
                   variants={staggerChild}
-                  className="pl-4 text-sm leading-relaxed"
+                  className="pl-4 text-sm leading-relaxed line-through decoration-[#333]"
                   style={{
-                    color: '#888880',
+                    color: '#555550',
                     fontFamily: 'var(--font-geist-sans)',
-                    borderLeft: '1px solid #1E1E1E',
+                    borderLeft: '1px solid #333',
                   }}
                 >
                   {item}
