@@ -105,7 +105,7 @@ export default function RaaS() {
               viewport={{ once: true }}
               transition={{ ...spring, delay: i * 0.1 }}
             >
-              <TiltCard offset={typeof window !== 'undefined' && window.innerWidth >= 768 ? verticalOffsets[i] : 0}>
+              <TiltCard offset={verticalOffsets[i]}>
                 <h3
                   className="mb-4"
                   style={{

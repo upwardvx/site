@@ -22,7 +22,9 @@ export default function Nav() {
     ? isDark
       ? 'rgba(0,0,0,0.9)'
       : 'rgba(245,244,240,0.92)'
-    : 'transparent'
+    : isDark
+      ? 'rgba(0,0,0,0)'
+      : 'rgba(245,244,240,0)'
   const borderColor = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)'
 
   return (
