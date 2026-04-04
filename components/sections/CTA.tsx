@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { cta } from '@/lib/copy'
 import { spring } from '@/lib/motion'
 
-const BOOKING_URL = 'https://calendar.google.com/calendar/appointments'
+const BOOKING_URL = 'https://calendar.app.google/aUBpNXrjnjj6jeUE9'
 
 export default function CTA() {
   return (

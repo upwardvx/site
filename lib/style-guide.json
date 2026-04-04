@@ -1,0 +1,21 @@
+{
+  "theme": {
+    "colors": {
+      "brand": "#343439",
+      "brandSecondary": "#807d7e",
+      "accent": "#C5C900",
+      "accentDark": "#C9A96E",
+      "background": { "light": "#F5F4F0", "dark": "#080808" },
+      "text": { "light": "#000000", "dark": "#F5F5F0" }
+    },
+    "typography": {
+      "display": ["Barlow", "sans-serif"],
+      "body": ["Geist", "sans-serif"]
+    },
+    "spacing": {
+      "header-h": "64px",
+      "container-max": "1280px",
+      "section-v": "clamp(5rem, 10vw, 9rem)"
+    }
+  }
+}

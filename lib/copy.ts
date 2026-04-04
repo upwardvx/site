@@ -5,6 +5,7 @@
 export const nav = {
   logo: "Upward Ventures",
   cta: "Book a call →",
+  bookingUrl: 'https://calendar.app.google/aUBpNXrjnjj6jeUE9',
 }
 
 export const hero = {
@@ -103,6 +104,6 @@ export const cta = {
 
 export const footer = {
   copyright: `© ${new Date().getFullYear()} Upward Ventures`,
-  email: "siddharth@upwardvx.com",
+  email: "siddharth@upwardventures.co",
   linkedin: "https://linkedin.com/in/siddharthshah",
 }

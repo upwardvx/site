@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
+import { SplineHero } from '@/components/three/SplineHero'
 
 const SECTION_NAV = [
   { label: 'Our Story',    href: '#section-shift'    },
@@ -36,22 +37,39 @@ export default function Hero() {
         }}
       />
 
-      {/* Floating geometric decorations */}
+      {/* Subtle decorative marks */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
         <span style={{ position: 'absolute', top: '18%', left: '12%', fontSize: '1.5rem', color: 'rgba(0,0,0,0.12)', fontWeight: 300, fontFamily: 'var(--font-body)' }}>+</span>
-        <div style={{ position: 'absolute', top: '14%', right: '28%', width: 8, height: 8, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.2)' }} />
+        <div style={{ position: 'absolute', top: '14%', left: '48%', width: 8, height: 8, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.2)' }} />
         <span style={{ position: 'absolute', bottom: '30%', left: '8%', fontSize: '1.1rem', color: 'rgba(0,0,0,0.1)', fontFamily: 'var(--font-body)' }}>Σ</span>
-        <span style={{ position: 'absolute', top: '25%', right: '8%', fontSize: '1rem', color: 'rgba(0,0,0,0.1)', fontFamily: 'var(--font-body)' }}>Ω</span>
         <div style={{ position: 'absolute', bottom: '22%', right: '24%', width: 5, height: 5, borderRadius: '50%', background: 'rgba(0,0,0,0.15)' }} />
         <div style={{ position: 'absolute', top: '55%', left: '6%', width: '4vw', height: '1px', background: 'rgba(0,0,0,0.12)' }} />
       </div>
 
-      {/* UPWARD — massive text, bottom-left, BEHIND image (z-index 1) */}
+      {/* Spline 3D scene — full hero background, lazy loaded */}
+      <SplineHero />
+
+      {/* Top-left label */}
+      <motion.p
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="absolute top-[7%] left-[3vw] text-[10px] uppercase tracking-[0.16em]"
+        style={{
+          color: 'rgba(0,0,0,0.35)',
+          fontFamily: 'var(--font-body)',
+          zIndex: 4,
+        }}
+      >
+        Results as a Service
+      </motion.p>
+
+      {/* UPWARD — massive, bottom-left */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: 'absolute', bottom: '10%', left: '3vw', zIndex: 1 }}
+        style={{ position: 'absolute', bottom: '8%', left: '3vw', zIndex: 4 }}
       >
         <h1
           style={{
@@ -68,84 +86,62 @@ export default function Hero() {
         >
           UPWARD
         </h1>
+
+        {/* Sub-line — tagline anchored under heading */}
+        <motion.p
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-4 hidden md:block"
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.8rem, 1vw, 0.95rem)',
+            color: 'rgba(0,0,0,0.45)',
+            letterSpacing: '0.02em',
+            maxWidth: '44ch',
+          }}
+        >
+          You don&apos;t need more strategy. You need momentum.
+        </motion.p>
       </motion.div>
 
-      {/* Center image — OVER text (z-index 2) */}
+      {/* VENTURES. — bottom-right, offset */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: 'absolute',
-          top: '8%',
-          left: '28%',
-          width: '42%',
-          height: '82%',
-          zIndex: 2,
-          overflow: 'visible',
-          borderRadius: '2px',
+          bottom: '8%',
+          right: '3vw',
+          zIndex: 4,
+          textAlign: 'right',
         }}
       >
-        {/* Image placeholder — split half/half */}
-        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: '2px' }}>
-          <div style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', background: '#B8B5AE' }} />
-          <div style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', background: '#3A3835' }} />
-          <div style={{ position: 'absolute', top: '15%', left: '44%', width: '12%', height: '70%', background: 'rgba(197,201,0,0.55)', mixBlendMode: 'multiply' }} />
-        </div>
-
-        {/* SVG orbit rings */}
-        <svg
-          aria-hidden="true"
+        <span
           style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '130%',
-            height: '130%',
-            overflow: 'visible',
-            pointerEvents: 'none',
+            fontFamily: 'var(--font-barlow)',
+            fontWeight: 200,
+            fontSize: 'clamp(1.8rem, 4vw, 5rem)',
+            lineHeight: 1,
+            letterSpacing: '-0.01em',
+            textTransform: 'uppercase',
+            color: 'rgba(0,0,0,0.18)',
+            userSelect: 'none',
+            whiteSpace: 'nowrap',
           }}
-          viewBox="0 0 400 400"
-          fill="none"
         >
-          <ellipse
-            cx="200" cy="200" rx="185" ry="80"
-            stroke="rgba(0,0,0,0.08)" strokeWidth="1" strokeDasharray="4 6"
-            style={{ transformOrigin: '200px 200px', animation: 'orbitSpin 18s linear infinite' }}
-          />
-          <ellipse
-            cx="200" cy="200" rx="160" ry="55"
-            stroke="rgba(197,201,0,0.2)" strokeWidth="1" strokeDasharray="3 8"
-            style={{ transformOrigin: '200px 200px', animation: 'orbitSpin 24s linear infinite reverse' }}
-          />
-        </svg>
-
-        {/* Yellow-green orb */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
-          style={{
-            position: 'absolute',
-            top: '-5%',
-            right: '-8%',
-            width: 'clamp(2rem, 4vw, 3.5rem)',
-            height: 'clamp(2rem, 4vw, 3.5rem)',
-            borderRadius: '50%',
-            background: '#C5C900',
-            boxShadow: '0 0 40px rgba(197,201,0,0.4)',
-          }}
-        />
+          VENTURES.
+        </span>
       </motion.div>
 
-      {/* Right column — definition + nav (z-index 3, in front of image) */}
+      {/* Right column — definition + nav */}
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.7, delay: 0.4, ease: 'easeOut' }}
         className="hidden md:flex flex-col justify-center"
-        style={{ position: 'absolute', top: '22%', right: '4vw', width: '18%', zIndex: 3 }}
+        style={{ position: 'absolute', top: '22%', right: '4vw', width: '18%', zIndex: 4 }}
       >
         <p
           className="text-xs leading-relaxed mb-6"

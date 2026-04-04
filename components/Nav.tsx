@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 
-const BOOKING_URL = 'https://calendar.google.com/calendar/appointments'
+const BOOKING_URL = 'https://calendar.app.google/aUBpNXrjnjj6jeUE9'
 
 // Sections 0 = hero (light). Everything after the hero height is dark territory.
 export default function Nav() {
@@ -45,18 +45,18 @@ export default function Nav() {
       </motion.span>
 
       {/* Center — wordmark */}
-      <motion.span
+      <motion.div
         initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0, color: fg }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute left-1/2 -translate-x-1/2 text-sm font-bold tracking-widest uppercase"
-        style={{
-          fontFamily: 'var(--font-barlow)',
-          letterSpacing: '0.18em',
-        }}
+        className="absolute left-1/2 -translate-x-1/2"
       >
-        Upward Ventures
-      </motion.span>
+        <img
+          src={isDark ? '/brand/logos/white.svg' : '/brand/logos/black.svg'}
+          alt="Upward Ventures"
+          style={{ height: 32, width: 'auto', display: 'block' }}
+        />
+      </motion.div>
 
       {/* Right — CTA */}
       <motion.a
