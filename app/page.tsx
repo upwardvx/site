@@ -6,17 +6,19 @@ import Services from '@/components/sections/Services'
 import Credibility from '@/components/sections/Credibility'
 import CTA from '@/components/sections/CTA'
 import Footer from '@/components/sections/Footer'
+import SectionProgress from '@/components/SectionProgress'
 
 export default function Home() {
   return (
     <main style={{ background: '#080808' }}>
       <Nav />
-      <Hero />
-      <TheShift />
-      <RaaS />
-      <Services />
-      <Credibility />
-      <CTA />
+      <SectionProgress />
+      <div id="section-hero"><Hero /></div>
+      <div id="section-shift"><TheShift /></div>
+      <div id="section-raas"><RaaS /></div>
+      <div id="section-services"><Services /></div>
+      <div id="section-credibility"><Credibility /></div>
+      <div id="section-cta"><CTA /></div>
       <Footer />
     </main>
   )

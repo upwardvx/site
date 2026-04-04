@@ -52,10 +52,12 @@ function TiltCard({ children, offset }: { children: React.ReactNode; offset: num
 export default function RaaS() {
   return (
     <section
-      className="w-full"
+      className="w-full flex flex-col justify-center"
       style={{
         background: '#080808',
-        padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)',
+        minHeight: '100dvh',
+        padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
+        scrollSnapAlign: 'start',
       }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>

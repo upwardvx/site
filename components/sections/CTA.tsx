@@ -10,9 +10,10 @@ export default function CTA() {
     <section
       className="relative w-full flex items-center justify-center overflow-hidden"
       style={{
-        minHeight: '52vh',
+        minHeight: '100dvh',
         background: '#080808',
-        padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)',
+        padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
+        scrollSnapAlign: 'start',
       }}
     >
       {/* Animated warm glow */}

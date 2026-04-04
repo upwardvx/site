@@ -6,8 +6,12 @@ import { staggerContainer } from '@/lib/motion'
 export default function Services() {
   return (
     <section
-      className="w-full"
-      style={{ padding: 'clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 5rem)' }}
+      className="w-full flex flex-col justify-center"
+      style={{
+        minHeight: '100dvh',
+        padding: 'clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem)',
+        scrollSnapAlign: 'start',
+      }}
     >
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
         {/* Section marker */}

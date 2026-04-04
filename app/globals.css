@@ -17,6 +17,7 @@ html {
   background: var(--color-canvas);
   color: var(--color-text);
   scroll-behavior: auto; /* Lenis handles smooth scroll */
+  scroll-snap-type: y proximity; /* proximity = snaps when close, allows free scroll otherwise */
 }
 
 body {

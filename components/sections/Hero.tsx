@@ -30,7 +30,7 @@ export default function Hero() {
   return (
     <section
       className="relative min-h-[100dvh] flex flex-col justify-center overflow-hidden"
-      style={{ background: '#080808' }}
+      style={{ background: '#080808', scrollSnapAlign: 'start' }}
     >
       {/* Particle field — decorative, right-side atmosphere */}
       <div className="absolute inset-0" aria-hidden="true">
@@ -122,6 +122,32 @@ export default function Hero() {
           {hero.cta}
         </motion.a>
       </div>
+
+      {/* Scroll to explore */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 0.7, ease: 'easeOut' }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        aria-hidden="true"
+      >
+        <p
+          className="text-xs uppercase tracking-[0.14em]"
+          style={{ color: '#333330', fontFamily: 'var(--font-geist-sans)' }}
+        >
+          scroll
+        </p>
+        <motion.div
+          animate={{ scaleY: [1, 0.4, 1], opacity: [0.4, 0.9, 0.4] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            width: 1,
+            height: 36,
+            background: 'linear-gradient(to bottom, #C9A96E88, transparent)',
+            transformOrigin: 'top',
+          }}
+        />
+      </motion.div>
     </section>
   )
 }
