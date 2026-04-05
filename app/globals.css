@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg: #F5F4F0;
-  --color-bg-dark: #000000;
-  --color-text: #000000;
-  --color-text-dark: #FFFFFF;
-  --color-accent: #C5C900;
-  --color-muted-light: rgba(0, 0, 0, 0.4);
-  --color-muted-dark: rgba(255, 255, 255, 0.4);
+  --color-bg: #080808;
+  --color-bg-dark: #F5F4F0;
+  --color-text: #F5F5F0;
+  --color-text-dark: #000000;
+  --color-accent: #C9A96E;
+  --color-muted-light: rgba(255,255,255,0.4);
+  --color-muted-dark: rgba(0,0,0,0.4);
   --font-body: 'Geist', system-ui, sans-serif;
   --font-barlow: 'Barlow', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
 }
 
 html {
@@ -29,13 +30,13 @@ body {
 
 /* Section utility classes */
 .section-light {
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: var(--color-bg-dark);
+  color: var(--color-text-dark);
 }
 
 .section-dark {
-  background: var(--color-bg-dark);
-  color: var(--color-text-dark);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 /* Animated grain overlay */

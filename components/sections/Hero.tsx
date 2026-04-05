@@ -23,7 +23,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative overflow-hidden section-light"
+      className="relative overflow-hidden section-dark"
       style={{ height: '100dvh', scrollSnapAlign: 'start' }}
     >
       {/* Large filled circle arc — top-right, partially off-screen */}
@@ -36,7 +36,7 @@ export default function Hero() {
           width: '56vw',
           height: '56vw',
           borderRadius: '50%',
-          background: 'rgba(0,0,0,0.034)',
+          background: 'rgba(255,255,255,0.034)',
           pointerEvents: 'none',
           zIndex: 0,
         }}
@@ -44,14 +44,14 @@ export default function Hero() {
 
       {/* Subtle decorative marks */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0 }}>
-        <span style={{ position: 'absolute', top: '18%', left: '12%', fontSize: '1.5rem', color: 'rgba(0,0,0,0.12)', fontWeight: 300, fontFamily: 'var(--font-body)' }}>+</span>
-        <div style={{ position: 'absolute', top: '14%', left: '48%', width: 8, height: 8, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.2)' }} />
-        <span style={{ position: 'absolute', bottom: '30%', left: '8%', fontSize: '1.1rem', color: 'rgba(0,0,0,0.1)', fontFamily: 'var(--font-body)' }}>Σ</span>
-        <div style={{ position: 'absolute', bottom: '22%', right: '24%', width: 5, height: 5, borderRadius: '50%', background: 'rgba(0,0,0,0.15)' }} />
-        <div style={{ position: 'absolute', top: '55%', left: '6%', width: '4vw', height: '1px', background: 'rgba(0,0,0,0.12)' }} />
+        <span style={{ position: 'absolute', top: '18%', left: '12%', fontSize: '1.5rem', color: 'rgba(255,255,255,0.12)', fontWeight: 300, fontFamily: 'var(--font-body)' }}>+</span>
+        <div style={{ position: 'absolute', top: '14%', left: '48%', width: 8, height: 8, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.2)' }} />
+        <span style={{ position: 'absolute', bottom: '30%', left: '8%', fontSize: '1.1rem', color: 'rgba(255,255,255,0.1)', fontFamily: 'var(--font-body)' }}>Σ</span>
+        <div style={{ position: 'absolute', bottom: '22%', right: '24%', width: 5, height: 5, borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }} />
+        <div style={{ position: 'absolute', top: '55%', left: '6%', width: '4vw', height: '1px', background: 'rgba(255,255,255,0.12)' }} />
       </div>
 
-      {/* ParticleField — mouse-responsive 3D particles, lazy loaded */}
+      {/* ParticleField — mouse-responsive 3D particles */}
       <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
         <ParticleField />
       </div>
@@ -63,7 +63,7 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="absolute top-[7%] left-[3vw] text-[10px] uppercase tracking-[0.16em]"
         style={{
-          color: 'rgba(0,0,0,0.35)',
+          color: 'rgba(255,255,255,0.35)',
           fontFamily: 'var(--font-body)',
           zIndex: 4,
         }}
@@ -80,8 +80,9 @@ export default function Hero() {
       >
         <h1
           style={{
-            fontFamily: 'var(--font-barlow)',
-            fontWeight: 900,
+            fontFamily: 'var(--font-display)',
+            fontWeight: 700,
+            fontStyle: 'italic',
             fontSize: 'clamp(5.5rem, 14vw, 17rem)',
             lineHeight: 0.82,
             letterSpacing: '-0.02em',
@@ -103,7 +104,7 @@ export default function Hero() {
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: 'clamp(0.8rem, 1vw, 0.95rem)',
-            color: 'rgba(0,0,0,0.45)',
+            color: 'rgba(255,255,255,0.45)',
             letterSpacing: '0.02em',
             maxWidth: '44ch',
           }}
@@ -133,7 +134,7 @@ export default function Hero() {
             lineHeight: 1,
             letterSpacing: '-0.01em',
             textTransform: 'uppercase',
-            color: 'rgba(0,0,0,0.18)',
+            color: 'rgba(255,255,255,0.18)',
             userSelect: 'none',
             whiteSpace: 'nowrap',
           }}
@@ -161,7 +162,7 @@ export default function Hero() {
           Upward Ventures (/ˈʌpwərd/; 2024 —) The outcome-based firm for founders who&apos;ve outgrown advice.
         </p>
 
-        <hr style={{ borderColor: 'rgba(0,0,0,0.12)', marginBottom: '1.5rem' }} />
+        <hr style={{ borderColor: 'rgba(255,255,255,0.12)', marginBottom: '1.5rem' }} />
 
         <nav className="flex flex-col gap-3">
           {SECTION_NAV.map((item) => (
@@ -199,17 +200,17 @@ export default function Hero() {
             width: 44,
             height: 44,
             borderRadius: '50%',
-            border: '1px solid rgba(0,0,0,0.2)',
+            border: '1px solid rgba(255,255,255,0.2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 2.5V10.5M8 10.5L5 7.5M8 10.5L11 7.5" stroke="rgba(0,0,0,0.4)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M8 2.5V10.5M8 10.5L5 7.5M8 10.5L11 7.5" stroke="rgba(255,255,255,0.4)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <p className="text-[10px] uppercase tracking-[0.14em]" style={{ color: 'rgba(0,0,0,0.3)', fontFamily: 'var(--font-body)' }}>
+        <p className="text-[10px] uppercase tracking-[0.14em]" style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)' }}>
           scroll to explore
         </p>
       </motion.div>

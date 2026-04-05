@@ -38,7 +38,7 @@ function TiltCard({ children, offset }: { children: React.ReactNode; offset: num
         onMouseLeave={handleMouseLeave}
         whileHover={{
           y: -4,
-          borderColor: 'rgba(197,201,0,0.4)',
+          borderColor: 'rgba(201,169,110,0.4)',
           boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
         }}
         transition={spring}
@@ -64,7 +64,7 @@ export default function RaaS() {
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem', marginBottom: '2rem' }}>
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+            style={{ color: '#C9A96E', fontFamily: 'var(--font-body)' }}
           >
             How it works
           </p>

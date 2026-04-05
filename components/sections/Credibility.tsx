@@ -39,7 +39,7 @@ function HighlightParagraph({
         style={{
           fontFamily: 'var(--font-body)',
           fontSize: '1rem',
-          color: 'var(--color-muted-dark)',
+          color: 'var(--color-muted-light)',
         }}
       >
         {text}
@@ -60,13 +60,13 @@ function HighlightParagraph({
       style={{
         fontFamily: 'var(--font-body)',
         fontSize: '1rem',
-        color: 'var(--color-muted-dark)',
+        color: 'var(--color-muted-light)',
       }}
     >
       {before}
       <motion.span
         initial={{ color: 'rgba(255,255,255,0.4)' }}
-        whileInView={{ color: '#C5C900' }}
+        whileInView={{ color: '#C9A96E' }}
         viewport={{ once: true, margin: '-40px' }}
         transition={{ duration: 0.6, delay: delay + 0.3 }}
       >
@@ -95,7 +95,7 @@ export default function Credibility() {
           {/* Label */}
           <p
             className="text-xs font-semibold uppercase tracking-[0.14em] mb-8"
-            style={{ color: '#C5C900', fontFamily: 'var(--font-body)' }}
+            style={{ color: '#C9A96E', fontFamily: 'var(--font-body)' }}
           >
             Why it works
           </p>
@@ -146,8 +146,8 @@ export default function Credibility() {
                 className="pl-4 text-sm font-medium leading-relaxed"
                 style={{
                   fontFamily: 'var(--font-body)',
-                  color: 'var(--color-muted-dark)',
-                  borderLeft: '2px solid #C5C900',
+                  color: 'var(--color-muted-light)',
+                  borderLeft: '2px solid #C9A96E',
                 }}
               >
                 {point}
