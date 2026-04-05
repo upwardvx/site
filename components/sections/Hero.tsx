@@ -1,6 +1,11 @@
 'use client'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import { SplineHero } from '@/components/three/SplineHero'
+
+const ParticleField = dynamic(() => import('@/components/three/ParticleField'), {
+  ssr: false,
+  loading: () => null,
+})
 
 const SECTION_NAV = [
   { label: 'Our Story',    href: '#section-shift'    },
@@ -46,8 +51,10 @@ export default function Hero() {
         <div style={{ position: 'absolute', top: '55%', left: '6%', width: '4vw', height: '1px', background: 'rgba(0,0,0,0.12)' }} />
       </div>
 
-      {/* Spline 3D scene — full hero background, lazy loaded */}
-      <SplineHero />
+      {/* ParticleField — mouse-responsive 3D particles, lazy loaded */}
+      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
+        <ParticleField />
+      </div>
 
       {/* Top-left label */}
       <motion.p
