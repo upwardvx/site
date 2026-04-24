@@ -92,6 +92,17 @@ function HomeContent({ onNavigate }: { onNavigate: (id: PageId) => void }) {
           View services
         </button>
       </div>
+
+      {/* Mobile navigation hint */}
+      <p style={{
+        marginTop: '2.5rem',
+        color: 'var(--dim)',
+        fontSize: 11,
+        letterSpacing: '0.05em',
+        display: 'none',
+      }} className="mobile-nav-hint">
+        TAP NAV BELOW TO EXPLORE — OR USE ← →
+      </p>
     </>
   )
 }
@@ -139,7 +150,6 @@ function ServicesContent() {
       <table className="file-table">
         <thead>
           <tr>
-            <th>PERM</th>
             <th>SERVICE</th>
             <th>TYPE</th>
             <th>PROBLEM</th>
@@ -154,7 +164,6 @@ function ServicesContent() {
                 onClick={() => setSelected(selected === slug ? null : slug)}
                 style={{ cursor: 'pointer' }}
               >
-                <td className="file-perm">drwxr-xr-x</td>
                 <td className="file-name">{slug}</td>
                 <td className="file-label">{svc.label}</td>
                 <td className="file-desc">{svc.problem}</td>

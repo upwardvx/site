@@ -1,199 +1,311 @@
-# Design System: upwardvx.com
+# Design System — upwardvx.com
 
-## 1. Visual Theme & Atmosphere
+## Product Context
 
-A dark editorial interface with the confidence of a well-designed book and the restraint of a luxury product. Near-black base, warm gold accent, bold serif headlines that mean something. This isn't a startup that's trying to look established — it's someone who already is, saying so quietly.
-
-Density: 4/10 (airy, generous whitespace — the negative space earns trust)
-Variance: 7/10 (offset layouts, asymmetric hero, cards that don't all look the same)
-Motion: 7/10 (fluid spring physics, scroll-driven reveals, one R3F 3D element — earns every frame)
-
-The site feels like Linear meets Stripe Press: dark, confident, no decoration for its own sake. Every element either delivers copy or gets out of the way.
+- **What this is:** Upward Ventures consulting site — operator-positioned, Results as a Service model
+- **Who it's for:** Series A founders, technical and non-technical, who are stuck and need someone who's been inside the machine
+- **Space/industry:** Consulting / fractional executive / operator-advisory
+- **Project type:** Single-page marketing site with application-style navigation
 
 ---
 
-## 2. Color Palette & Roles
+## Memorable Thing
 
-- **Pitch Canvas** (`#080808`) — Primary background. Near-black with warmth. Never use pure `#000000`.
-- **Lifted Surface** (`#111111`) — Card backgrounds, nav background after scroll blur.
-- **Structural Border** (`#1E1E1E`) — 1px dividers, card outlines, section separators.
-- **Warm Mist** (`#F5F5F0`) — Primary text. Warm white, not pure — easy on the eyes against near-black.
-- **Steel Secondary** (`#888880`) — Captions, labels, secondary body text, metadata.
-- **Brass Accent** (`#C9A96E`) — Single accent. CTAs, active states, highlighted proof phrases in the credibility section, hover glow on buttons. Saturation < 80%. Never use for large fills.
-- **Accent Dimmed** (`rgba(201, 169, 110, 0.12)`) — Subtle hover backgrounds, card active states.
-- **Accent Glow** (`rgba(201, 169, 110, 0.08)`) — Button glow on hover (inward shadow only, no neon outer ring).
+> "This person operates, not advises."
 
-**Banned palette:** Purple gradients. Neon blue or cyan. Pure `#000000` or `#FFFFFF`. Any second accent color. Gradient text on large headers.
+Filter every decision through this. The site should feel like a tool that runs results, not a brochure that pitches services. If an element makes the site feel more like a consultant's portfolio and less like an operator's OS, cut it.
+
+The reference point for taste: **what would Shreyas Doshi choose?** Sharp, direct, unusual without trying to be, craft visible in small decisions.
 
 ---
 
-## 3. Typography Rules
+## Aesthetic Direction
 
-### Fonts
-- **Display/Headlines:** Cormorant Garamond — weight 600 for body headlines, 700 for hero. Letter-spacing: `-0.02em`. This is the editorial voice of the site. It should feel like something worth reading.
-- **Body/UI:** Geist — weight 400 for body, 500 for labels, 600 for nav CTA and button text. Geist is sharp and modern without being clinical.
-- **Mono (optional):** Geist Mono — for any code or technical labels, if needed in tech audit context.
-
-### Scale (mobile → desktop via `clamp()`)
-```
-Hero headline:    clamp(3rem, 8vw, 7rem)    — Cormorant 700, line-height 0.95
-Section heading:  clamp(2rem, 4vw, 3.5rem)  — Cormorant 600, line-height 1.05
-Card title:       clamp(1.25rem, 2vw, 1.5rem) — Cormorant 600
-Body:             clamp(1rem, 1.2vw, 1.125rem) — Geist 400, line-height 1.65
-Label/caption:    0.875rem                    — Geist 500, letter-spacing 0.06em, uppercase
-```
-
-### Anti-patterns
-- No Inter. No Times New Roman, Georgia, Garamond (use Cormorant specifically).
-- No Title Case in section headings — sentence case always.
-- No bold text within body copy for emphasis. Use the accent color or italic if needed.
-- Body text max-width: 65ch. Never let lines run full container width.
+- **Direction:** Retro-Operator Terminal — a CRT-era OS running modern consulting logic
+- **Decoration level:** Intentional — every effect is functional. Scanlines say "terminal." Vignette says "display." Nothing decorative for its own sake.
+- **Mood:** Serious professional tool. Warm precision. Like a Bloomberg terminal that costs less and gives better advice.
+- **Reference:** [zui.ooo](https://zui.ooo) — adapted. Brass accent instead of green, operator copy instead of developer copy.
 
 ---
 
-## 4. Component Stylings
+## Color
 
-### Buttons
-- **Primary CTA:** `background: #C9A96E`, `color: #080808`, `font: Geist 600`, `padding: 0.875rem 1.75rem`, `border-radius: 0.375rem`.
-- **Hover state:** `translateY(-1px)` + subtle `box-shadow: 0 4px 24px rgba(201,169,110,0.2)` (inward warmth, not neon ring).
-- **Active state:** `translateY(1px)` — tactile press feedback.
-- **Ghost/outline:** `border: 1px solid #1E1E1E`, `color: #F5F5F0`. Hover: border brightens to `#888880`.
-- **No neon outer glow.** No custom mouse cursors.
+**Approach:** Restrained brass — single accent, never used for fills.
 
-### Cards (RaaS, Services)
-- `background: #111111`, `border: 1px solid #1E1E1E`, `border-radius: 1rem`.
-- Hover: `border-color` lifts to `rgba(201,169,110,0.3)`, `translateY(-2px)` with Framer Motion spring.
-- 3D tilt on hover (RaaS cards only): Framer Motion `rotateX` / `rotateY` driven by mouse position. Max 8° tilt. CSS `perspective: 1000px` on parent.
-- No heavy box shadows. If shadow needed: `box-shadow: 0 1px 3px rgba(0,0,0,0.5)` — minimal, dark-tuned.
-- No 3-column equal grid. RaaS: 3 staggered cards with slight vertical offset. Services: 2-column grid, full-width on mobile.
-
-### Navigation
-- `position: sticky`, `top: 0`, `z-index: 50`.
-- Initial state: `background: transparent`.
-- After 20px scroll: `background: rgba(8,8,8,0.8)`, `backdrop-filter: blur(12px)`. Framer Motion opacity/blur transition.
-- Logo: Geist 600, `#F5F5F0`. No icon — wordmark only.
-- CTA: Primary button (small variant). Right-aligned.
-
-### The Shift Section (two-column contrast)
-- Left column: `color: #888880`, items with subtle strikethrough animation on scroll entry.
-- Right column: `color: #F5F5F0`, items that brighten from secondary to primary as left column dims.
-- Divider: `1px solid #1E1E1E` vertical line between columns on desktop.
-
-### Credibility Section
-- Full story in one typographic block. Geist body, `#F5F5F0`, max-width 65ch, centered.
-- Key phrases (`"Win rates, retention, and NPS"`, `"two quarters"`, `"ICP confusion"`) highlighted in `#C9A96E` on scroll reveal — GSAP ScrollTrigger controls the color pulse.
-- 3 proof markers below: left-border accent line (`border-left: 2px solid #C9A96E`), Geist 500, `#888880`.
-
-### Grain Texture Overlay
 ```css
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,..."); /* SVG noise */
-  opacity: 0.035;
-  pointer-events: none;
-  z-index: 9999;
-  animation: grain 0.5s steps(2) infinite;
-}
-@keyframes grain {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-1%, 1%); }
-  50% { transform: translate(1%, -1%); }
-  75% { transform: translate(-1%, -1%); }
-  100% { transform: translate(0, 0); }
-}
+--bg:           #0a0a08   /* Warm near-black. Never pure #000000. */
+--bg-elevated:  #111110   /* Card/surface layer */
+--fg:           #d4d0c8   /* Warm off-white. Never pure #FFFFFF. */
+--accent:       #C9A96E   /* Brass gold. Single accent. */
+--accent-dim:   rgba(201, 169, 110, 0.18)  /* Hover/active backgrounds */
+--accent-glow:  rgba(201, 169, 110, 0.08)  /* Subtle row highlight */
+--dim:          #5a5650   /* Muted warm gray — captions, metadata */
+--dim-light:    #7a7570   /* Slightly brighter muted — labels */
+--warn:         #e8a25a   /* Amber warning — used for MODE:RAAS indicator */
+--border:       rgba(201, 169, 110, 0.14)  /* Hairline borders */
+--border-mid:   rgba(201, 169, 110, 0.22)  /* Elevated borders on hover */
+```
+
+**Dark mode:** This IS the dark mode. No light mode variant.
+
+**Banned palette:**
+- Purple gradients
+- Neon blue, cyan, or green
+- Pure `#000000` or `#FFFFFF`
+- Any second accent color
+- Gradient text
+
+---
+
+## Typography
+
+**Approach:** Geist Mono throughout. Monospace is the statement — it signals precision and differentiation without explanation.
+
+```
+Font:       Geist Mono (loaded via next/font/google)
+Variable:   --font-mono
+Fallback:   'Courier New', monospace
+```
+
+**Scale:**
+```
+Base:        14px, line-height 1.65     — readability at warm-on-dark contrast
+Page title:  20px, weight 600           — brass accent, letter-spacing 0.05em
+Sys header:  11px, letter-spacing 0.06em
+Nav items:   11px, letter-spacing 0.08em
+Body copy:   14px, line-height 1.75
+File table:  12px
+Boot lines:  12px, letter-spacing 0.04em
+Cmd bar:     12px
+```
+
+**Rules:**
+- No font switching between sections — monospace everywhere
+- All caps only for: sys-header labels, nav items, table headers, cmd hints
+- Never sentence-case headings in the sys-header
+- Page titles in brass (`--accent`), subtitles in `--dim-light`
+
+---
+
+## Layout
+
+**Structure:** Fixed-viewport OS chrome. Not a scrolling document.
+
+```
+┌─────────────────────────────────┐
+│ sys-header (36px, fixed top)    │
+├─────────────────────────────────┤
+│                                 │
+│  terminal-main (scrollable)     │
+│  top:36px, bottom:76px          │
+│                                 │
+├─────────────────────────────────┤
+│ nav-bar (40px)                  │
+├─────────────────────────────────┤
+│ cmd-bar (36px, fixed bottom)    │
+└─────────────────────────────────┘
+```
+
+**Content well:** Max-width 760px, centered in terminal-main.
+
+**No sections.** No scroll narrative. Visitors navigate between pages (HOME / ABOUT / SERVICES / APPROACH / CONTACT) via nav bar or keyboard.
+
+**Page transitions:** `opacity 0 → 1` with `translateY(4px → 0)`, 200ms. Nothing more.
+
+**Border radius:** 0 everywhere. Terminal aesthetic uses hard corners.
+
+**Grid:** None. Terminal layout is single-column within the content well.
+
+---
+
+## Navigation System
+
+Five pages, keyboard-navigable:
+
+| Page | Cmd | Content |
+|------|-----|---------|
+| HOME | `cd ~` | Hero + CTAs |
+| ABOUT | `cat about.txt` | Credibility story + proof points |
+| SERVICES | `ls -la /services/` | File table, click to expand outcomes |
+| APPROACH | `man results-as-a-service` | RaaS cards |
+| CONTACT | `mail ss@upwardvx.com` | Contact info + booking |
+
+**Keyboard:** `←` / `→` arrow keys cycle pages. The cmd bar accepts typed commands.
+
+**Cmd bar:** Shows the navigation command on each page change (briefly visible, then clears). Functions as both navigation feedback and terminal aesthetic reinforcement.
+
+---
+
+## Overlay Effects
+
+**CRT Scanlines** (`body::before`):
+```css
+background: repeating-linear-gradient(
+  0deg,
+  transparent,
+  transparent 2px,
+  rgba(0, 0, 0, 0.10) 2px,
+  rgba(0, 0, 0, 0.10) 4px
+);
+position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+```
+
+**Vignette** (`body::after`):
+```css
+background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.70) 100%);
+position: fixed; inset: 0; pointer-events: none; z-index: 9997;
+```
+
+**No film grain.** No noise texture. The scanlines are the only texture.
+
+---
+
+## Boot Sequence
+
+One-shot animation on first load. Fades out after ~4 seconds.
+
+**Lines (in order):**
+```
+UVX_OS v2.0.0
+[blank]
+BOOTING RESULTS_ENGINE....................... OK
+LOADING OPERATOR_CONTEXT..................... OK
+CALIBRATING OUTCOME_METRICS................. OK
+VERIFYING CREDENTIALS: SS@UPWARDVX.COM...... [email]
+CREDENTIALS ACCEPTED........................ OK
+DISABLING ADVISORY_MODE.................... DONE
+MOUNTING /services /clients /contact........ OK
+[blank]
+SYSTEM READY. RESULTS AS A SERVICE ONLINE.
+```
+
+**Rules:**
+- "DISABLING ADVISORY_MODE" is the critical line. It does the positioning work in the boot sequence. Never remove it.
+- Brass cursor blinks during boot. Removed when boot completes.
+- Boot overlay fades out over 600ms after the last line.
+
+---
+
+## Motion
+
+**Approach:** Minimal-functional. Nothing that runs on a loop after page load.
+
+| Element | Motion | Duration |
+|---------|--------|----------|
+| Boot sequence | Lines appear staggered | 300ms apart |
+| Boot overlay exit | `opacity: 0` | 600ms |
+| Page change | `opacity + translateY(4px)` | 200ms |
+| Cmd bar text | Shows on nav, clears after | 800ms |
+| Boot cursor | Blink | 0.9s, step-end, infinite |
+
+**Animate only:** `opacity`, `transform`. Never `height`, `width`, `top`, `left`.
+
+**No Framer Motion.** No GSAP. No Lenis. Pure CSS animations and React state.
+
+**Reduced motion:** Cursor blink disabled, boot overlay hidden immediately.
+
+---
+
+## Components
+
+### Sys Header
+```
+SYS.NAME: UVX_OS  |  AUTH: GUEST  |  UPTIME: 00:00:00  |  MODE: RAAS
+```
+- Font: 11px, letter-spacing 0.06em
+- Labels in `--dim`, values in `--accent`
+- MODE:RAAS in `--warn` (amber) — the one status that should draw the eye
+
+### Nav Bar
+- `[HOME] [ABOUT] [SERVICES] [APPROACH] [CONTACT]`
+- Active: `color: --accent`, `background: --accent-dim`
+- Inactive: `color: --dim`, hover `color: --fg`
+- Brackets (`[` `]`) at 50% opacity — decorative terminals
+
+### Cmd Bar
+- `$ ` prompt in brass
+- Text input in `--fg`
+- Caret color: `--accent`
+- Hint text (`← → NAV`) in `--dim`, right-aligned
+
+### File Table (Services)
+- No Unix permissions column — removed. Operator-legible, not developer-speak.
+- Columns: SERVICE (brass, monospace slug) / TYPE (dim label) / PROBLEM (fg)
+- Row hover: `background: --accent-glow`
+- Click to expand outcome detail (`.service-detail` with brass left-border effect)
+
+### Block Cards (Approach/RaaS)
+- `border: 1px solid --border`, `background: --bg-elevated`
+- Section number in `--dim` (small, 11px)
+- Title in `--accent`
+- Body in `--fg` at 0.9 opacity
+- Hover: border lifts to `--border-mid`
+
+### Proof List (About)
+- `//` prefix in `--accent`, body in `--fg`
+- Separated by hairline borders (`rgba(201, 169, 110, 0.05)`)
+
+### CTA Button (Primary)
+```css
+background: var(--accent);
+color: var(--bg);
+font-family: var(--font-mono);
+font-size: 12px;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+padding: 0.6rem 1.5rem;
+border-radius: 0;  /* Hard corners. Terminal aesthetic. */
+```
+
+### CTA Button (Ghost)
+```css
+color: var(--accent);
+background: transparent;
+border: 1px solid var(--accent);
+/* Same type spec as primary */
 ```
 
 ---
 
-## 5. Layout Principles
-
-- **Max content width:** `1280px`, centered, `padding: 0 clamp(1.5rem, 5vw, 5rem)`.
-- **Section vertical spacing:** `clamp(5rem, 10vw, 9rem)` between sections.
-- **CSS Grid over Flexbox math.** No `calc()` percentage hacks.
-- **Full-height sections:** `min-h-[100dvh]` — never `h-screen` (iOS Safari bug).
-- **Hero layout:** Left-aligned headline (not centered). R3F particle field positioned right of center in background. CTA below sub text, left-aligned.
-- **No overlapping elements.** Every element has its own clean spatial zone.
-- **Services grid:** `grid-template-columns: repeat(2, 1fr)` on desktop. Single column on mobile.
-- **Centered hero layout is banned** — force left-aligned with generous left margin.
-
----
-
-## 6. Motion & Interaction
-
-### Lenis (smooth scroll foundation)
-```ts
-const lenis = new Lenis({ lerp: 0.08, smoothWheel: true })
-// Connect to GSAP ticker
-gsap.ticker.add((time) => lenis.raf(time * 1000))
-gsap.ticker.lagSmoothing(0)
+## Scrollbar
+```css
+scrollbar-width: thin;
+scrollbar-color: var(--border-mid) transparent;
+/* 3px width in webkit */
 ```
 
-### Framer Motion defaults
-```ts
-// Shared spring — weighty, premium
-export const spring = { type: 'spring', stiffness: 80, damping: 18 }
-
-// Standard entrance
-export const fadeUp = {
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: spring,
-}
-
-// Stagger container
-export const stagger = {
-  animate: { transition: { staggerChildren: 0.08 } }
-}
-```
-
-### GSAP ScrollTrigger
-- Hero headline: word-by-word reveal using `SplitText`. Each word fades up with 40ms stagger, triggered on mount (not scroll).
-- Credibility section: scrub-linked reveal. As user scrolls through the story, lines reveal line-by-line. Accent phrases pulse to `#C9A96E` when entering viewport.
-- Trigger defaults: `start: 'top 80%'`, `toggleActions: 'play none none reverse'`.
-
-### React Three Fiber (Hero particle field)
-- ~800 particles, slow drift, mouse-responsive (mouse position rotates the field ±5°).
-- Color: `#C9A96E` at 15% opacity — barely visible, atmospheric.
-- Lazy loaded: `next/dynamic` with `ssr: false`.
-- Disabled on mobile and `prefers-reduced-motion`.
-
-### Performance rules
-- Animate only `transform` and `opacity`. Never `top`, `left`, `width`, `height`.
-- Grain overlay on `position: fixed` pseudo-element (GPU composited layer).
-- No `will-change` on more than 3 elements simultaneously.
+The scrollbar is subtle but visible — part of the OS aesthetic.
 
 ---
 
-## 7. Responsive Rules
+## Anti-Patterns (Banned)
 
-- **< 768px (mobile):** All multi-column layouts collapse to single column. Services 2-col → 1-col. RaaS 3-card row → vertical stack.
-- **Hero on mobile:** Headline scales via `clamp()`. R3F particle field disabled (replaced by CSS gradient blob). Sub text and CTA stack cleanly.
-- **Navigation on mobile:** CTA button remains visible. Logo left, CTA right. No hamburger menu needed for single-page site.
-- **Touch targets:** All buttons and interactive elements minimum `44px` tap target.
-- **Typography:** Body text minimum `1rem`. No text below `14px` anywhere.
-- **Spacing:** Section gaps reduce: `clamp(3rem, 8vw, 9rem)`.
-
----
-
-## 8. Anti-Patterns (Banned)
-
-- No emojis anywhere on the site.
-- No Inter font.
-- No generic serifs (Times New Roman, Georgia plain Garamond). Cormorant Garamond specifically.
+- No rounded corners. Hard edges everywhere.
+- No Inter, Roboto, or sans-serif fonts. Geist Mono only.
+- No purple gradients, neon glows, or outer ring shadows.
+- No second accent color.
 - No pure `#000000` or `#FFFFFF`.
-- No neon glow shadows or outer ring effects.
-- No oversaturated accent colors.
-- No gradient text on large headlines.
-- No custom mouse cursor.
-- No overlapping elements — every element has its own clean spatial zone.
-- No 3-column equal card grid. Staggered or offset always.
-- No AI copywriting clichés ("Elevate", "Seamless", "Unleash", "Next-Gen", "Game-changer").
-- No filler scroll indicators ("Scroll to explore", bouncing chevrons, scroll arrows).
-- No fake metrics or statistics. If a number isn't real, don't show a number.
-- No centered hero layout.
-- No stock photos.
-- No Lottie (redundant with Framer Motion).
-- No custom cursor (vanity, zero conversion value).
-- No Remotion in the site itself (Phase 2: content marketing only).
+- No film grain (scanlines already carry the texture).
+- No Lenis, Framer Motion, GSAP, or R3F — removed in this redesign.
+- No Three.js particle field.
+- No scrolling sections. Page-based navigation only.
+- No centered hero layout. Left-aligned within the content well.
+- No stock photos, no images.
+- No Unix permissions in user-facing tables (`drwxr-xr-x` is dev-speak).
+- No emoji.
+- No "Elevate", "Seamless", "Unleash", "Game-changer" copy anywhere.
+- No decorative scroll indicators.
+
+---
+
+## Decisions Log
+
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| 2026-04-24 | Switched from Cormorant Garamond editorial to Geist Mono terminal | ZUI-inspired redesign. Terminal aesthetic self-selects the right clients. |
+| 2026-04-24 | Brass `#C9A96E` instead of ZUI green `#4ade80` | Warmer, more premium. Consistent with UVX brand from prior system. |
+| 2026-04-24 | Dropped `drwxr-xr-x` from services table | Unix permissions are developer-speak. Founders who aren't developers disengage. |
+| 2026-04-24 | Base font 14px (up from 13px) | 13px too tight for warm-on-dark contrast at Retina. Readability > density here. |
+| 2026-04-24 | No scroll narrative — page-based navigation | Intentional engagement signal. Visitors who navigate are interested. Lower passive conversion is acceptable. |
+| 2026-04-24 | "DISABLING ADVISORY_MODE" boot line | Does more positioning work than most hero headlines. Earns the boot sequence. |
+| 2026-04-24 | Removed Lenis, Framer Motion, GSAP, R3F | Performance and simplicity. The terminal aesthetic needs none of them. |
