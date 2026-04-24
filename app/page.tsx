@@ -1,5 +1,5 @@
-import ImmersivePage from '@/components/ImmersivePage'
+import TerminalPage from '@/components/TerminalPage'
 
 export default function Home() {
-  return <ImmersivePage />
+  return <TerminalPage />
 }
