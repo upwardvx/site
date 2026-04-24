@@ -8,18 +8,25 @@ type PageId = 'home' | 'about' | 'services' | 'approach' | 'contact'
 
 interface NavItem {
   id: PageId
+  num: string
   label: string
   cmd: string
 }
 
 // ── Constants ──────────────────────────────────────────────────
 const NAV: NavItem[] = [
-  { id: 'home',     label: 'HOME',     cmd: 'cd ~' },
-  { id: 'about',    label: 'ABOUT',    cmd: 'cat about.txt' },
-  { id: 'services', label: 'SERVICES', cmd: 'ls -la /services/' },
-  { id: 'approach', label: 'APPROACH', cmd: 'man results-as-a-service' },
-  { id: 'contact',  label: 'CONTACT',  cmd: 'mail ss@upwardvx.com' },
+  { id: 'home',     num: '01', label: '_HOME',     cmd: 'cd ~' },
+  { id: 'about',    num: '02', label: '_ABOUT',    cmd: 'cat about.md' },
+  { id: 'services', num: '03', label: '_SERVICES', cmd: 'ls -la /services/' },
+  { id: 'approach', num: '04', label: '_APPROACH', cmd: 'man results-as-a-service' },
+  { id: 'contact',  num: '05', label: '_CONTACT',  cmd: 'mail ss@upwardvx.com' },
 ]
+
+const ASCII_ART = ` _   _  __   __  __  __
+| | | | \\ \\ / /  \\ \\/ /
+| | | |  \\ V /    >  <
+| |_| |   \\_/    / /\\ \\
+ \\___/           /_/  \\_\\`
 
 interface BootLine {
   text: string
@@ -28,17 +35,17 @@ interface BootLine {
 }
 
 const BOOT_LINES: BootLine[] = [
-  { text: 'UVX_OS v2.0.0',                                      type: 'accent',  delay: 0 },
-  { text: '',                                                    type: 'default', delay: 150 },
-  { text: 'BOOTING RESULTS_ENGINE....................... OK',     type: 'default', delay: 400 },
-  { text: 'LOADING OPERATOR_CONTEXT..................... OK',     type: 'default', delay: 700 },
-  { text: 'CALIBRATING OUTCOME_METRICS................. OK',     type: 'default', delay: 1000 },
+  { text: 'UVX_OS v2.0.0',                                       type: 'accent',  delay: 0 },
+  { text: '',                                                     type: 'default', delay: 150 },
+  { text: 'BOOTING RESULTS_ENGINE....................... OK',      type: 'default', delay: 400 },
+  { text: 'LOADING OPERATOR_CONTEXT..................... OK',      type: 'default', delay: 700 },
+  { text: 'CALIBRATING OUTCOME_METRICS................. OK',      type: 'default', delay: 1000 },
   { text: `VERIFYING CREDENTIALS: ${footer.email.toUpperCase()}`, type: 'default', delay: 1300 },
-  { text: 'CREDENTIALS ACCEPTED........................ OK',     type: 'default', delay: 1550 },
-  { text: 'DISABLING ADVISORY_MODE.................... DONE',    type: 'default', delay: 1800 },
-  { text: 'MOUNTING /services /clients /contact........ OK',    type: 'default', delay: 2100 },
-  { text: '',                                                    type: 'default', delay: 2400 },
-  { text: 'SYSTEM READY. RESULTS AS A SERVICE ONLINE.',         type: 'accent',  delay: 2700 },
+  { text: 'CREDENTIALS ACCEPTED........................ OK',      type: 'default', delay: 1550 },
+  { text: 'DISABLING ADVISORY_MODE.................... DONE',     type: 'default', delay: 1800 },
+  { text: 'MOUNTING /services /clients /contact........ OK',     type: 'default', delay: 2100 },
+  { text: '',                                                     type: 'default', delay: 2400 },
+  { text: 'SYSTEM READY. RESULTS AS A SERVICE ONLINE.',          type: 'accent',  delay: 2700 },
 ]
 
 const BOOKING_URL = 'https://calendar.app.google/aUBpNXrjnjj6jeUE9'
@@ -51,49 +58,61 @@ function formatUptime(secs: number) {
   return `${h}:${m}:${s}`
 }
 
-// ── Page Content (no .page wrapper — parent handles it) ────────
+// ── Page Content ───────────────────────────────────────────────
 
 function HomeContent({ onNavigate }: { onNavigate: (id: PageId) => void }) {
   return (
     <>
-      <p className="page-cmd">cd ~</p>
+      {/* ASCII Logo */}
+      <pre className="ascii-art">{ASCII_ART}</pre>
 
-      <p className="page-title">UPWARD VENTURES</p>
-      <p className="page-subtitle">Results as a Service // RaaS Operating Model</p>
-
-      <hr className="page-divider" />
-
-      <div className="page-body" style={{ maxWidth: 580 }}>
-        <p style={{ color: 'var(--fg)', fontSize: 15, lineHeight: 1.6, marginBottom: '1rem' }}>
-          You don&apos;t need more strategy. You need momentum.
-        </p>
-        <p style={{ color: 'var(--dim-light)', fontSize: 12, lineHeight: 1.8 }}>
-          Upward Ventures is built on one idea: you pay for the outcome, not the hours.
-          If we don&apos;t hit it, we talk.
-        </p>
+      {/* whoami */}
+      <div className="term-block">
+        <p className="term-cmd">whoami</p>
+        <div className="term-output">
+          <div className="status-table">
+            <span className="sk">name</span>
+            <span className="sv">siddharth-shah</span>
+            <span className="sk">role</span>
+            <span className="sv">operator // fractional-exec // results-as-a-service</span>
+            <span className="sk">base</span>
+            <span className="sv">upwardvx.com</span>
+          </div>
+        </div>
       </div>
 
       <hr className="page-divider" />
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-        <p className="prompt">We define the result before we start.</p>
-        <p className="prompt">You pay for the outcome, not the hours.</p>
-        <p className="prompt">Operator execution, not advisory distance.</p>
+      {/* cat status.txt */}
+      <div className="term-block">
+        <p className="term-cmd">cat status.txt</p>
+        <div className="term-output">
+          <div className="status-table">
+            <span className="sk">status</span>
+            <span className="sv" style={{ color: 'var(--accent)' }}>ACCEPTING_ENGAGEMENTS</span>
+            <span className="sk">focus</span>
+            <span className="sv">SERIES_A_FOUNDERS</span>
+            <span className="sk">model</span>
+            <span className="sv">RAAS — OUTCOME_BASED, NOT HOURLY</span>
+            <span className="sk">icp</span>
+            <span className="sv">TECHNICAL + NON-TECHNICAL FOUNDERS</span>
+            <span className="sk"></span>
+            <span className="sv" style={{ color: 'var(--dim-light)', fontStyle: 'normal' }}>
+              who are stuck and need someone who&apos;s been inside the machine
+            </span>
+          </div>
+        </div>
       </div>
 
       <div style={{ marginTop: '2rem', display: 'flex', gap: '0', flexWrap: 'wrap' }}>
         <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
           Book a 30-min call
         </a>
-        <button
-          className="cta-btn-ghost"
-          onClick={() => onNavigate('services')}
-        >
+        <button className="cta-btn-ghost" onClick={() => onNavigate('services')}>
           View services
         </button>
       </div>
 
-      {/* Mobile navigation hint */}
       <p style={{
         marginTop: '2.5rem',
         color: 'var(--dim)',
@@ -110,28 +129,41 @@ function HomeContent({ onNavigate }: { onNavigate: (id: PageId) => void }) {
 function AboutContent() {
   return (
     <>
-      <p className="page-cmd">cat about.txt</p>
-      <p className="page-title">ABOUT</p>
-      <p className="page-subtitle">Operator Background // Not an Advisor</p>
+      <p className="page-cmd">cat about.md</p>
 
-      <hr className="page-divider" />
-
-      <div className="page-body" style={{ maxWidth: 620 }}>
-        {credibility.story.map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
+      <div style={{ marginBottom: '0.5rem' }}>
+        <p style={{ color: 'var(--accent)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
+          # OPERATOR BACKGROUND
+        </p>
+        <div className="page-body" style={{ maxWidth: 620 }}>
+          {credibility.story.map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
       </div>
 
       <hr className="page-divider" />
 
-      <p style={{ color: 'var(--dim)', fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
-        Proof Points
-      </p>
+      <p className="page-cmd">cat creds.txt</p>
+
       <ul className="proof-list">
         {credibility.proofPoints.map((pt, i) => (
           <li key={i}>{pt}</li>
         ))}
       </ul>
+
+      <hr className="page-divider" />
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+        <p className="prompt">10+ years inside adtech platforms at Kiip, InMarket, MomentScience.</p>
+        <p className="prompt">I operate, I don&apos;t advise from the outside.</p>
+      </div>
+
+      <div style={{ marginTop: '1.75rem' }}>
+        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
+          {cta.button}
+        </a>
+      </div>
     </>
   )
 }
@@ -142,30 +174,31 @@ function ServicesContent() {
   return (
     <>
       <p className="page-cmd">ls -la /services/</p>
-      <p className="page-title">SERVICES</p>
-      <p className="page-subtitle">Where founders usually get stuck</p>
-
-      <hr className="page-divider" />
 
       <table className="file-table">
         <thead>
           <tr>
             <th>SERVICE</th>
             <th>TYPE</th>
+            <th>SIZE</th>
+            <th>MODIFIED</th>
             <th>PROBLEM</th>
           </tr>
         </thead>
         <tbody>
           {services.items.map((svc, i) => {
             const slug = svc.label.toLowerCase().replace(/\s+/g, '-')
+            const isOpen = selected === slug
             return (
               <tr
                 key={i}
-                onClick={() => setSelected(selected === slug ? null : slug)}
+                onClick={() => setSelected(isOpen ? null : slug)}
                 style={{ cursor: 'pointer' }}
               >
-                <td className="file-name">{slug}</td>
+                <td className="file-name">{slug}/</td>
                 <td className="file-label">{svc.label}</td>
+                <td className="file-size">{svc.size}</td>
+                <td className="file-mod">{svc.modified}</td>
                 <td className="file-desc">{svc.problem}</td>
               </tr>
             )
@@ -181,6 +214,14 @@ function ServicesContent() {
         return (
           <div className="service-detail">
             <p className="service-detail-cmd">{selected}/outcome.txt</p>
+            <div className="service-meta">
+              <span className="service-meta-key">name</span>
+              <span className="service-meta-val">{selected}/</span>
+              <span className="service-meta-key">scope</span>
+              <span className="service-meta-val">{svc.size}</span>
+              <span className="service-meta-key">status</span>
+              <span className="service-meta-val" style={{ color: 'var(--accent)' }}>AVAILABLE</span>
+            </div>
             <p className="service-outcome-label">Outcome</p>
             <p className="service-outcome">{svc.outcome}</p>
           </div>
@@ -193,7 +234,7 @@ function ServicesContent() {
         </a>
       </div>
       <p style={{ marginTop: '0.75rem', color: 'var(--dim)', fontSize: 11 }}>
-        Click a service row to view outcome details.
+        Click a row to view outcome details.
       </p>
     </>
   )
@@ -203,18 +244,56 @@ function ApproachContent() {
   return (
     <>
       <p className="page-cmd">man results-as-a-service</p>
-      <p className="page-title">APPROACH</p>
-      <p className="page-subtitle">Results as a Service // What you actually buy</p>
 
-      <hr className="page-divider" />
-
-      {raas.cards.map((card, i) => (
-        <div key={i} className="block-card">
-          <p className="block-card-num">SECTION {String(i + 1).padStart(2, '0')}</p>
-          <p className="block-card-title">{card.title}</p>
-          <p className="block-card-body">{card.body}</p>
+      <div className="man-page">
+        <div className="man-header">
+          <span>RESULTS-AS-A-SERVICE(1)</span>
+          <span>UVX OPERATOR MANUAL</span>
+          <span>RESULTS-AS-A-SERVICE(1)</span>
         </div>
-      ))}
+
+        <div className="man-section">
+          <p className="man-section-header">NAME</p>
+          <p className="man-body">results-as-a-service — outcome-based consulting model</p>
+        </div>
+
+        <div className="man-section">
+          <p className="man-section-header">SYNOPSIS</p>
+          <p className="man-body">engage [--scope PROBLEM] [--outcome RESULT] [--model RAAS]</p>
+        </div>
+
+        <div className="man-section">
+          <p className="man-section-header">DESCRIPTION</p>
+          <p className="man-body">
+            You don&apos;t pay for hours. You pay for results. Every engagement is scoped to a
+            specific outcome agreed before work begins. That outcome is the contract.
+            No invoice for effort.
+          </p>
+        </div>
+
+        <div className="man-section">
+          <p className="man-section-header">SECTIONS</p>
+          {raas.cards.map((card, i) => (
+            <div key={i}>
+              <p className="man-section-sub">{String(i + 1).padStart(2, '0')}.&nbsp;&nbsp;{card.title.toUpperCase()}</p>
+              <p className="man-body">{card.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="man-section">
+          <p className="man-section-header">EXIT CONDITION</p>
+          <p className="man-body">
+            Engagement closes when the agreed outcome is verifiable. Not when the calendar runs out.
+            Not when the deck is done. When the result is real.
+          </p>
+        </div>
+
+        <div className="man-section">
+          <p className="man-section-header">SEE ALSO</p>
+          <p className="man-body">services(1), contact(1)</p>
+        </div>
+      </div>
 
       <hr className="page-divider" />
 
@@ -230,16 +309,15 @@ function ContactContent() {
   return (
     <>
       <p className="page-cmd">mail ss@upwardvx.com</p>
-      <p className="page-title">CONTACT</p>
-      <p className="page-subtitle">Start here // 30 minutes, no pitch</p>
 
-      <hr className="page-divider" />
-
-      <div className="page-body" style={{ maxWidth: 520, marginBottom: '1.5rem' }}>
-        <p>{cta.sub}</p>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <p style={{ color: 'var(--accent)', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em', marginBottom: '0.75rem' }}>
+          # {cta.heading}
+        </p>
+        <p className="page-body" style={{ fontSize: 13, maxWidth: 520 }}>{cta.sub}</p>
       </div>
 
-      <div>
+      <div style={{ marginBottom: '0.5rem' }}>
         <div className="contact-row">
           <span className="contact-label">Email</span>
           <span className="contact-value">
@@ -301,14 +379,14 @@ export default function TerminalPage() {
     return () => timers.forEach(clearTimeout)
   }, [])
 
-  // Uptime
+  // Uptime counter starts after boot
   useEffect(() => {
     if (bootPhase !== 'done') return
     const id = setInterval(() => setUptime(u => u + 1), 1000)
     return () => clearInterval(id)
   }, [bootPhase])
 
-  // Navigate
+  // Navigate to a page by id
   const navigateTo = useCallback((id: PageId) => {
     const idx = NAV.findIndex(n => n.id === id)
     setCurrentPage(id)
@@ -317,6 +395,7 @@ export default function TerminalPage() {
     setTimeout(() => setCmdText(''), 800)
   }, [])
 
+  // Navigate to a page by index
   const navigateToIdx = useCallback((idx: number) => {
     const item = NAV[idx]
     setCurrentPage(item.id)
@@ -325,7 +404,7 @@ export default function TerminalPage() {
     setTimeout(() => setCmdText(''), 800)
   }, [])
 
-  // Keyboard nav
+  // Keyboard navigation
   useEffect(() => {
     if (bootPhase !== 'done') return
     const onKey = (e: KeyboardEvent) => {
@@ -355,7 +434,6 @@ export default function TerminalPage() {
     document.querySelector('.terminal-main')?.scrollTo({ top: 0 })
   }, [currentPage])
 
-  // Pages manifest
   const PAGES: { id: PageId; content: React.ReactNode }[] = [
     { id: 'home',     content: <HomeContent onNavigate={navigateTo} /> },
     { id: 'about',    content: <AboutContent /> },
@@ -383,29 +461,55 @@ export default function TerminalPage() {
         </div>
       )}
 
-      {/* Sys Header */}
+      {/* Sys Header — 2 rows */}
       <header className="sys-header">
-        <div className="sys-header-left">
-          <span>
-            <span className="sys-label">SYS.NAME</span>{' '}
-            <span className="sys-value">UVX_OS</span>
-          </span>
-          <span className="sys-sep">|</span>
-          <span>
-            <span className="sys-label">AUTH</span>{' '}
-            <span className="sys-value">GUEST</span>
-          </span>
+        <div className="sys-row">
+          <div className="sys-row-left">
+            <span>
+              <span className="sys-label">SYS.NAME</span>{' '}
+              <span className="sys-value">UVX_OS</span>
+            </span>
+            <span className="sys-sep">|</span>
+            <span>
+              <span className="sys-label">AUTH</span>{' '}
+              <span className="sys-value">GUEST</span>
+            </span>
+            <span className="sys-sep">|</span>
+            <span>
+              <span className="sys-label">NODE</span>{' '}
+              <span className="sys-value">UPWARDVX.COM</span>
+            </span>
+          </div>
+          <div className="sys-row-right">
+            <span>
+              <span className="sys-label">UPTIME</span>{' '}
+              <span className="sys-value">{formatUptime(uptime)}</span>
+            </span>
+            <span className="sys-sep">|</span>
+            <span>
+              <span className="sys-label">MODE</span>{' '}
+              <span className="sys-value sys-warn">RAAS</span>
+            </span>
+          </div>
         </div>
-        <div className="sys-header-right">
-          <span>
-            <span className="sys-label">UPTIME</span>{' '}
-            <span className="sys-value">{formatUptime(uptime)}</span>
-          </span>
-          <span className="sys-sep">|</span>
-          <span>
-            <span className="sys-label">MODE</span>{' '}
-            <span className="sys-value" style={{ color: 'var(--warn)' }}>RAAS</span>
-          </span>
+        <div className="sys-row">
+          <div className="sys-row-left">
+            <span>
+              <span className="sys-label">STATUS</span>{' '}
+              <span className="sys-value" style={{ color: 'var(--fg)', opacity: 0.85 }}>ACCEPTING_ENGAGEMENTS</span>
+            </span>
+          </div>
+          <div className="sys-row-right">
+            <span>
+              <span className="sys-label">FOCUS</span>{' '}
+              <span className="sys-value" style={{ color: 'var(--fg)', opacity: 0.85 }}>SERIES_A_FOUNDERS</span>
+            </span>
+            <span className="sys-sep">|</span>
+            <span>
+              <span className="sys-label">TERMINAL</span>{' '}
+              <span className="sys-value" style={{ color: 'var(--dim-light)' }}>v2.0.0</span>
+            </span>
+          </div>
         </div>
       </header>
 
@@ -418,6 +522,13 @@ export default function TerminalPage() {
         ))}
       </main>
 
+      {/* Nav Hint Bar */}
+      <div className="nav-hint-bar">
+        <span className="nav-hint-prompt">root@uvx:~/nav$</span>
+        <span>SELECT MODULE</span>
+        <span className="nav-hint-keys">← → OR CLICK</span>
+      </div>
+
       {/* Nav Bar */}
       <nav className="nav-bar">
         {NAV.map((item, i) => (
@@ -427,23 +538,22 @@ export default function TerminalPage() {
             onClick={() => navigateToIdx(i)}
             aria-label={`Navigate to ${item.label}`}
           >
-            <span className="nav-item-bracket">[</span>
-            {item.label}
-            <span className="nav-item-bracket">]</span>
+            <span className="nav-num">{item.num}.</span>
+            <span className="nav-label">{item.label}</span>
           </button>
         ))}
       </nav>
 
       {/* Cmd Bar */}
       <div className="cmd-bar">
-        <span className="cmd-prompt">$</span>
+        <span className="cmd-prompt">uvx@upwardvx:~$</span>
         <input
           ref={cmdInputRef}
           type="text"
           className="cmd-input"
           value={cmdText}
           onChange={e => setCmdText(e.target.value)}
-          placeholder="type a command or use ← → to navigate"
+          placeholder="type a command..."
           onKeyDown={e => {
             if (e.key === 'Enter') {
               const val = cmdText.trim().toLowerCase()

@@ -60,24 +60,32 @@ export const services = {
       outcome:
         "You leave with a clear ICP, a product narrative your investors can actually repeat, and a decision framework for what to build next.",
       label: "Product Strategy",
+      size: "3–5WK",
+      modified: "APR.2026",
     },
     {
       problem: "You know something's broken technically. You don't know what to fix first.",
       outcome:
         "A ranked diagnosis. Quick wins, structural fixes, and what NOT to touch. Verdict first, reasoning second.",
       label: "Technology Audit",
+      size: "2–4WK",
+      modified: "APR.2026",
     },
     {
       problem: "You have a sales motion. It's just not working.",
       outcome:
         "A repeatable motion grounded in your actual ICP (not the one in your pitch deck). Your team knows what to do on Monday.",
       label: "GTM Plan",
+      size: "4–6WK",
+      modified: "APR.2026",
     },
     {
       problem: "Your roadmap is a list, not a strategy.",
       outcome:
         "A sequenced roadmap with the reasoning to defend it to your board, your team, and yourself.",
       label: "Product Management",
+      size: "ONGOING",
+      modified: "APR.2026",
     },
   ],
 }
@@ -104,6 +112,6 @@ export const cta = {
 
 export const footer = {
   copyright: `© ${new Date().getFullYear()} Upward Ventures`,
-  email: "siddharth@upwardventures.co",
+  email: "ss@upwardvx.com",
   linkedin: "https://linkedin.com/in/siddharthshah",
 }
