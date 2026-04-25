@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* ============================================================
-   UVX_OS — Terminal Design System
-   Brass accent, Geist Mono, hard corners. No exceptions.
+   UVX_OS — Operator's Console
+   Brass accent, Geist Mono, hard corners, split-panel layout.
    ============================================================ */
 
 :root {
@@ -109,83 +109,183 @@ body::after {
   animation: blink 0.9s step-end infinite;
 }
 
-/* ── Sys Header — 2 rows, 52px total ── */
-.sys-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 52px;
+/* ════════════════════════════════════════════════
+   CONSOLE LAYOUT — Split Panel
+   ════════════════════════════════════════════════ */
+
+.console-layout {
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ── Left Panel ── */
+.console-left {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  /* The brass line — structural, not decorative */
+  border-right: 2px solid var(--accent);
+  overflow: hidden;
   background: var(--bg);
+}
+
+.brand-section {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ▓▓▓ tape — block fills above/below the mark */
+.brand-tape {
+  display: block;
+  color: var(--accent);
+  opacity: 0.2;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: -2px;
+  user-select: none;
+}
+
+/* The UVX mark — the single largest element on the page */
+.brand-mark {
+  display: block;
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin: 5px 0;
+}
+
+.brand-sub {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.brand-sub span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+
+/* ── Console Nav ── */
+.console-nav {
+  flex: 1;
+  padding: 20px 0;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  z-index: 100;
-  font-size: 11px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.console-nav::-webkit-scrollbar { display: none; }
+
+.console-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   letter-spacing: 0.06em;
-}
-.sys-row {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1.25rem;
-}
-.sys-row + .sys-row {
-  border-top: 1px solid var(--border);
-}
-.sys-row-left {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.sys-row-right {
-  display: flex;
-  gap: 1.5rem;
-  align-items: center;
-}
-.sys-label {
   color: var(--dim);
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  text-align: left;
+  width: 100%;
+  transition: color 0.15s;
+  user-select: none;
 }
-.sys-value {
+.console-nav-item:hover {
+  color: var(--dim-light);
+}
+.console-nav-item.active {
   color: var(--accent);
 }
-.sys-warn {
-  color: var(--warn);
+
+.console-nav-indicator {
+  font-size: 10px;
+  color: var(--accent);
+  flex-shrink: 0;
+  width: 10px;
+  opacity: 0;
+  transition: opacity 0.15s;
 }
-.sys-sep {
-  color: var(--border-mid);
+.console-nav-item.active .console-nav-indicator {
+  opacity: 1;
 }
 
-/* ── Main Content Area ── */
-/* top: 52px (sys-header) | bottom: 98px (hint 22 + nav 40 + cmd 36) */
-.terminal-main {
-  position: fixed;
-  top: 52px;
-  bottom: 98px;
-  left: 0;
-  right: 0;
+.console-nav-num {
+  font-size: 10px;
+  opacity: 0.4;
+  width: 18px;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+.console-nav-item.active .console-nav-num {
+  opacity: 0.7;
+}
+
+.console-nav-label {
+  letter-spacing: 0.08em;
+}
+
+/* ── Console Status (bottom of left panel) ── */
+.console-status {
+  padding: 16px 20px;
+  flex-shrink: 0;
+}
+.console-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+.console-status-key {
+  color: var(--dim);
+}
+.console-status-val {
+  color: var(--dim-light);
+}
+
+/* ── Right Panel ── */
+.console-right {
+  flex: 1;
   overflow-y: auto;
-  padding: 2rem 1.5rem 1rem;
+  padding: 44px 52px;
   scrollbar-width: thin;
   scrollbar-color: var(--border-mid) transparent;
+  min-width: 0;
 }
-.terminal-main::-webkit-scrollbar { width: 3px; }
-.terminal-main::-webkit-scrollbar-track { background: transparent; }
-.terminal-main::-webkit-scrollbar-thumb { background: var(--border-mid); }
+.console-right::-webkit-scrollbar { width: 3px; }
+.console-right::-webkit-scrollbar-track { background: transparent; }
+.console-right::-webkit-scrollbar-thumb { background: var(--border-mid); }
 
 /* ── Pages ── */
 .page {
   display: none;
-  max-width: 760px;
-  margin: 0 auto;
+  max-width: 720px;
   animation: pagein 0.2s ease;
 }
 .page.active {
   display: block;
 }
 
-/* ── Page Elements ── */
+/* ════════════════════════════════════════════════
+   PAGE COMPONENTS
+   ════════════════════════════════════════════════ */
+
+/* ── Shared Page Utilities ── */
 .page-cmd {
   color: var(--dim);
   font-size: 11px;
@@ -196,21 +296,6 @@ body::after {
   content: '$ ';
   color: var(--accent);
 }
-.page-title {
-  color: var(--accent);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
-.page-subtitle {
-  color: var(--dim-light);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-}
 .page-divider {
   border: none;
   border-top: 1px solid var(--border);
@@ -219,25 +304,74 @@ body::after {
 .page-body {
   color: var(--fg);
   font-size: 13px;
-  line-height: 1.75;
+  line-height: 1.8;
 }
 .page-body p + p {
   margin-top: 1rem;
 }
 
-/* ── ASCII Art ── */
-.ascii-art {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.3;
-  color: var(--accent);
-  letter-spacing: 0.02em;
-  margin-bottom: 2rem;
-  white-space: pre;
-  overflow-x: auto;
+/* ── Home: Operator Profile Box ── */
+.content-box {
+  border: 1px solid var(--border-mid);
+  padding: 36px 40px;
+  max-width: 600px;
+  position: relative;
+}
+.content-box-label {
+  position: absolute;
+  top: -9px;
+  left: 20px;
+  background: var(--bg);
+  padding: 0 8px;
+  color: var(--dim);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-/* ── Terminal Blocks (whoami, cat etc.) ── */
+.home-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--fg);
+  letter-spacing: 0.03em;
+  line-height: 1.2;
+}
+.home-role {
+  font-size: 12px;
+  color: var(--dim-light);
+  letter-spacing: 0.05em;
+  margin-top: 6px;
+  margin-bottom: 28px;
+}
+.home-headline {
+  font-size: 13px;
+  color: var(--fg);
+  opacity: 0.75;
+  line-height: 1.75;
+}
+.home-tagline {
+  font-size: 17px;
+  color: var(--accent);
+  line-height: 1.5;
+  margin-top: 12px;
+  letter-spacing: 0.01em;
+}
+.home-cta-row {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-top: 2.25rem;
+  align-items: center;
+}
+.home-cta-row .cta-btn,
+.home-cta-row .cta-btn-ghost {
+  margin-top: 0;
+}
+.home-cta-row .cta-btn-ghost {
+  margin-left: 0.75rem;
+}
+
+/* ── Terminal Blocks ── */
 .term-block {
   margin-bottom: 1.5rem;
 }
@@ -255,7 +389,7 @@ body::after {
   padding-left: 0.25rem;
 }
 
-/* ── Status Table (key/value grid) ── */
+/* ── Status Table ── */
 .status-table {
   display: grid;
   grid-template-columns: 6.5rem 1fr;
@@ -274,6 +408,73 @@ body::after {
   letter-spacing: 0.02em;
 }
 
+/* ── Log Stream (Services) ── */
+.log-stream {
+  margin: 0.5rem 0 1.5rem;
+  width: 100%;
+}
+
+.log-stream-row {
+  display: grid;
+  grid-template-columns: 9.5rem 7rem 1fr 5rem;
+  gap: 0 0.75rem;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.05);
+  cursor: pointer;
+  transition: background 0.12s;
+  align-items: baseline;
+}
+.log-stream-row:hover {
+  background: var(--accent-glow);
+}
+.log-stream-row.open {
+  background: var(--accent-glow);
+}
+
+.log-ts {
+  color: var(--dim);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.log-tag {
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.log-name {
+  color: var(--fg);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.log-duration {
+  color: var(--dim);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.log-expand {
+  padding: 16px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--accent-glow);
+}
+.log-expand-problem {
+  color: var(--dim-light);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.log-expand-outcome {
+  color: var(--fg);
+  font-size: 13px;
+  line-height: 1.75;
+  max-width: 560px;
+}
+
 /* ── Prompt Lines ── */
 .prompt {
   color: var(--dim);
@@ -286,130 +487,65 @@ body::after {
   color: var(--accent);
 }
 
-/* ── File Table ── */
-.file-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0.5rem 0 1.5rem;
+/* ── Proof Points ── */
+.proof-list {
+  list-style: none;
+  margin-top: 1.25rem;
 }
-.file-table th {
-  text-align: left;
-  color: var(--dim);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  padding: 0.25rem 0.75rem 0.5rem 0;
-  border-bottom: 1px solid var(--border);
-  text-transform: uppercase;
-}
-.file-table td {
-  padding: 0.6rem 0.75rem 0.6rem 0;
+.proof-list li {
+  color: var(--fg);
   font-size: 12px;
-  vertical-align: top;
+  padding: 0.4rem 0;
+  display: flex;
+  gap: 0.75rem;
   border-bottom: 1px solid rgba(201, 169, 110, 0.05);
 }
-.file-table tr:hover td {
-  background: var(--accent-glow);
-}
-.file-name {
+.proof-list li::before {
+  content: '//';
   color: var(--accent);
-  white-space: nowrap;
-  padding-right: 1.5rem;
+  flex-shrink: 0;
 }
-.file-label {
-  color: var(--dim-light);
-  font-size: 11px;
-  white-space: nowrap;
-  padding-right: 1rem;
+
+/* ── CTA Buttons ── */
+.cta-btn {
+  display: inline-block;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 0.6rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: 1.5rem;
 }
-.file-size {
-  color: var(--dim);
-  font-size: 11px;
-  white-space: nowrap;
-  padding-right: 1rem;
-  letter-spacing: 0.03em;
-}
-.file-mod {
-  color: var(--dim);
-  font-size: 11px;
-  white-space: nowrap;
-  padding-right: 1rem;
-  letter-spacing: 0.03em;
-}
-.file-desc {
-  color: var(--fg);
+.cta-btn:hover {
   opacity: 0.85;
 }
-
-/* ── Service Detail Card ── */
-.service-detail {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  border: 1px solid var(--border-mid);
-  background: var(--accent-glow);
-}
-.service-detail-cmd {
-  color: var(--dim);
-  font-size: 11px;
-  margin-bottom: 1rem;
-}
-.service-detail-cmd::before { content: '$ cat '; color: var(--accent); }
-.service-meta {
-  display: grid;
-  grid-template-columns: 5rem 1fr;
-  gap: 0.2rem 1rem;
-  font-size: 11px;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
-}
-.service-meta-key { color: var(--dim); letter-spacing: 0.04em; }
-.service-meta-val { color: var(--fg); }
-.service-outcome-label {
-  color: var(--dim);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.5rem;
-}
-.service-outcome {
-  color: var(--fg);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-/* ── Block Cards (RaaS) ── */
-.block-card {
-  border: 1px solid var(--border);
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  background: var(--bg-elevated);
-  transition: border-color 0.2s;
-}
-.block-card:hover {
-  border-color: var(--border-mid);
-}
-.block-card-num {
-  color: var(--dim);
-  font-size: 11px;
-  margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
-}
-.block-card-title {
+.cta-btn-ghost {
+  display: inline-block;
   color: var(--accent);
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.02em;
-}
-.block-card-body {
-  color: var(--fg);
+  background: transparent;
+  padding: 0.55rem 1.4rem;
+  font-family: var(--font-mono);
   font-size: 12px;
-  line-height: 1.75;
-  opacity: 0.9;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  margin-top: 1.5rem;
+  margin-left: 0.75rem;
+}
+.cta-btn-ghost:hover {
+  background: var(--accent-dim);
 }
 
-/* ── Man Page (Approach) ── */
+/* ── Man Page ── */
 .man-page {
   margin-top: 0.25rem;
 }
@@ -449,65 +585,7 @@ body::after {
   padding-left: 1.5rem;
 }
 
-/* ── Proof Points ── */
-.proof-list {
-  list-style: none;
-  margin-top: 1.25rem;
-}
-.proof-list li {
-  color: var(--fg);
-  font-size: 12px;
-  padding: 0.4rem 0;
-  display: flex;
-  gap: 0.75rem;
-  border-bottom: 1px solid rgba(201, 169, 110, 0.05);
-}
-.proof-list li::before {
-  content: '//';
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-/* ── CTA Button ── */
-.cta-btn {
-  display: inline-block;
-  color: var(--bg);
-  background: var(--accent);
-  padding: 0.6rem 1.5rem;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  transition: opacity 0.15s;
-  margin-top: 1.5rem;
-}
-.cta-btn:hover {
-  opacity: 0.85;
-}
-.cta-btn-ghost {
-  display: inline-block;
-  color: var(--accent);
-  background: transparent;
-  padding: 0.55rem 1.4rem;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-  border: 1px solid var(--accent);
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  margin-top: 1rem;
-  margin-left: 0.75rem;
-}
-.cta-btn-ghost:hover {
-  background: var(--accent-dim);
-}
-
-/* ── Contact Block ── */
+/* ── Contact ── */
 .contact-row {
   display: flex;
   gap: 1rem;
@@ -536,142 +614,13 @@ body::after {
   text-underline-offset: 3px;
 }
 
-/* ── Nav Hint Bar ── */
-/* sits between terminal-main and nav-bar */
-.nav-hint-bar {
-  position: fixed;
-  bottom: 76px;
-  left: 0;
-  right: 0;
-  height: 22px;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 1.25rem;
-  z-index: 100;
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  color: var(--dim);
-  gap: 0.75rem;
-}
-.nav-hint-prompt {
-  color: var(--accent);
-  letter-spacing: 0.04em;
-}
-.nav-hint-keys {
-  margin-left: auto;
-  color: var(--dim);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-}
+/* ════════════════════════════════════════════════
+   ANIMATIONS
+   ════════════════════════════════════════════════ */
 
-/* ── Nav Bar ── */
-.nav-bar {
-  position: fixed;
-  bottom: 36px;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: stretch;
-  z-index: 100;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.nav-bar::-webkit-scrollbar { display: none; }
-
-.nav-item {
-  flex: 1;
-  min-width: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0 1.1rem;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--dim);
-  cursor: pointer;
-  border-right: 1px solid var(--border);
-  transition: color 0.15s, background 0.15s;
-  white-space: nowrap;
-  user-select: none;
-  background: none;
-  border-top: none;
-  border-bottom: none;
-  border-left: none;
-}
-.nav-item:last-child { border-right: none; }
-.nav-item:hover {
-  color: var(--fg);
-  background: var(--accent-glow);
-}
-.nav-item.active {
-  color: var(--accent);
-  background: var(--accent-dim);
-}
-.nav-num {
-  font-size: 10px;
-  opacity: 0.55;
-  letter-spacing: 0.03em;
-}
-.nav-item.active .nav-num {
-  opacity: 0.8;
-}
-.nav-label {
-  letter-spacing: 0.08em;
-}
-
-/* ── Cmd Bar ── */
-.cmd-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
-  background: var(--bg-elevated);
-  border-top: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 1.25rem;
-  gap: 0.5rem;
-  z-index: 100;
-  font-size: 12px;
-}
-.cmd-prompt {
-  color: var(--accent);
-  flex-shrink: 0;
-  letter-spacing: 0.03em;
-}
-.cmd-input {
-  flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--fg);
-  font-family: var(--font-mono);
-  font-size: 12px;
-  caret-color: var(--accent);
-  letter-spacing: 0.02em;
-}
-.cmd-input::placeholder {
-  color: var(--dim);
-}
-.cmd-hint {
-  color: var(--dim);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
-}
-
-/* ── Animations ── */
 @keyframes blink {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  50%       { opacity: 0; }
 }
 
 @keyframes pagein {
@@ -686,19 +635,98 @@ body::after {
   body::before { display: none; }
 }
 
-/* ── Mobile Adjustments ── */
-@media (max-width: 640px) {
-  .sys-header { font-size: 10px; }
-  .sys-row { padding: 0 0.75rem; gap: 0.75rem; }
-  .sys-row-right .sys-status { display: none; }
-  .terminal-main { padding: 1.25rem 1rem 0.75rem; }
-  .ascii-art { font-size: 9px; }
-  .page-title { font-size: 16px; }
-  .nav-item { padding: 0 0.75rem; font-size: 10px; gap: 0.25rem; }
-  .nav-num { display: none; }
-  .nav-hint-bar { font-size: 9px; padding: 0 0.75rem; }
+/* ════════════════════════════════════════════════
+   MOBILE — left panel becomes bottom nav bar
+   ════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* stack panels vertically; left panel goes fixed to bottom */
+  .console-layout {
+    flex-direction: column;
+  }
+
+  .console-left {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 52px;
+    flex-direction: row;
+    border-right: none;
+    border-top: 2px solid var(--accent);
+    z-index: 100;
+  }
+
+  /* hide brand + status on mobile — only nav shows */
+  .brand-section,
+  .console-status {
+    display: none;
+  }
+
+  .console-nav {
+    flex-direction: row;
+    padding: 0;
+    border-bottom: none;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    align-items: stretch;
+  }
+  .console-nav::-webkit-scrollbar { display: none; }
+
+  .console-nav-item {
+    flex: 1;
+    min-width: fit-content;
+    justify-content: center;
+    padding: 0 12px;
+    height: 52px;
+    border-right: 1px solid var(--border);
+    font-size: 10px;
+  }
+  .console-nav-item:last-child { border-right: none; }
+
+  .console-nav-indicator,
+  .console-nav-num {
+    display: none;
+  }
+
+  /* right panel: full viewport, padding at bottom for fixed nav */
+  .console-right {
+    padding: 32px 20px 72px;
+  }
+
+  /* content box gets more compact */
+  .content-box {
+    padding: 24px 20px;
+  }
+  .home-name     { font-size: 20px; }
+  .home-tagline  { font-size: 14px; }
+
+  /* log stream: hide timestamp column on mobile */
+  .log-stream-row {
+    grid-template-columns: 6rem 1fr 4rem;
+    gap: 0 0.75rem;
+  }
+  .log-ts { display: none; }
+
+  /* man page header */
+  .man-header {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  /* boot overlay */
   .boot-overlay { padding: 1.5rem 1.25rem; }
-  .file-size, .file-mod { display: none; }
-  .mobile-nav-hint { display: block !important; }
-  .man-header { flex-direction: column; gap: 0.25rem; }
+
+  /* stacked cta buttons on mobile */
+  .home-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .home-cta-row .cta-btn-ghost {
+    margin-left: 0;
+    margin-top: 0.6rem;
+  }
 }

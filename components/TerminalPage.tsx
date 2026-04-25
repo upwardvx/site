@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, Fragment } from 'react'
 import { services, credibility, raas, cta, footer } from '@/lib/copy'
 
 // ── Types ──────────────────────────────────────────────────────
@@ -10,23 +10,16 @@ interface NavItem {
   id: PageId
   num: string
   label: string
-  cmd: string
 }
 
 // ── Constants ──────────────────────────────────────────────────
 const NAV: NavItem[] = [
-  { id: 'home',     num: '01', label: '_HOME',     cmd: 'cd ~' },
-  { id: 'about',    num: '02', label: '_ABOUT',    cmd: 'cat about.md' },
-  { id: 'services', num: '03', label: '_SERVICES', cmd: 'ls -la /services/' },
-  { id: 'approach', num: '04', label: '_APPROACH', cmd: 'man results-as-a-service' },
-  { id: 'contact',  num: '05', label: '_CONTACT',  cmd: 'mail ss@upwardvx.com' },
+  { id: 'home',     num: '01', label: 'HOME'     },
+  { id: 'about',    num: '02', label: 'ABOUT'    },
+  { id: 'services', num: '03', label: 'SERVICES' },
+  { id: 'approach', num: '04', label: 'APPROACH' },
+  { id: 'contact',  num: '05', label: 'CONTACT'  },
 ]
-
-const ASCII_ART = ` _   _  __   __  __  __
-| | | | \\ \\ / /  \\ \\/ /
-| | | |  \\ V /    >  <
-| |_| |   \\_/    / /\\ \\
- \\___/           /_/  \\_\\`
 
 interface BootLine {
   text: string
@@ -58,71 +51,35 @@ function formatUptime(secs: number) {
   return `${h}:${m}:${s}`
 }
 
+function todayStr() {
+  return new Date().toISOString().split('T')[0]
+}
+
 // ── Page Content ───────────────────────────────────────────────
 
 function HomeContent({ onNavigate }: { onNavigate: (id: PageId) => void }) {
   return (
-    <>
-      {/* ASCII Logo */}
-      <pre className="ascii-art">{ASCII_ART}</pre>
+    <div className="content-box">
+      <span className="content-box-label">OPERATOR PROFILE</span>
 
-      {/* whoami */}
-      <div className="term-block">
-        <p className="term-cmd">whoami</p>
-        <div className="term-output">
-          <div className="status-table">
-            <span className="sk">name</span>
-            <span className="sv">siddharth-shah</span>
-            <span className="sk">role</span>
-            <span className="sv">operator // fractional-exec // results-as-a-service</span>
-            <span className="sk">base</span>
-            <span className="sv">upwardvx.com</span>
-          </div>
-        </div>
-      </div>
+      <p className="home-name">SIDDHARTH SHAH</p>
+      <p className="home-role">Founder, Upward Ventures</p>
 
-      <hr className="page-divider" />
+      <p className="home-headline">
+        10 years inside adtech platforms. Built products at Kiip, InMarket,
+        and MomentScience with real revenue consequences — not advisory distance.
+      </p>
+      <p className="home-tagline">You pay for the outcome, not the hours.</p>
 
-      {/* cat status.txt */}
-      <div className="term-block">
-        <p className="term-cmd">cat status.txt</p>
-        <div className="term-output">
-          <div className="status-table">
-            <span className="sk">status</span>
-            <span className="sv" style={{ color: 'var(--accent)' }}>ACCEPTING_ENGAGEMENTS</span>
-            <span className="sk">focus</span>
-            <span className="sv">SERIES_A_FOUNDERS</span>
-            <span className="sk">model</span>
-            <span className="sv">RAAS — OUTCOME_BASED, NOT HOURLY</span>
-            <span className="sk">icp</span>
-            <span className="sv">TECHNICAL + NON-TECHNICAL FOUNDERS</span>
-            <span className="sk"></span>
-            <span className="sv" style={{ color: 'var(--dim-light)', fontStyle: 'normal' }}>
-              who are stuck and need someone who&apos;s been inside the machine
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div style={{ marginTop: '2rem', display: 'flex', gap: '0', flexWrap: 'wrap' }}>
+      <div className="home-cta-row">
         <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
-          Book a 30-min call
+          Book a 30-min call →
         </a>
         <button className="cta-btn-ghost" onClick={() => onNavigate('services')}>
-          View services
+          View services →
         </button>
       </div>
-
-      <p style={{
-        marginTop: '2.5rem',
-        color: 'var(--dim)',
-        fontSize: 11,
-        letterSpacing: '0.05em',
-        display: 'none',
-      }} className="mobile-nav-hint">
-        TAP NAV BELOW TO EXPLORE — OR USE ← →
-      </p>
-    </>
+    </div>
   )
 }
 
@@ -132,7 +89,13 @@ function AboutContent() {
       <p className="page-cmd">cat about.md</p>
 
       <div style={{ marginBottom: '0.5rem' }}>
-        <p style={{ color: 'var(--accent)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', marginBottom: '1.5rem' }}>
+        <p style={{
+          color: 'var(--accent)',
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: '0.05em',
+          marginBottom: '1.5rem',
+        }}>
           # OPERATOR BACKGROUND
         </p>
         <div className="page-body" style={{ maxWidth: 620 }}>
@@ -156,7 +119,7 @@ function AboutContent() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
         <p className="prompt">10+ years inside adtech platforms at Kiip, InMarket, MomentScience.</p>
-        <p className="prompt">I operate, I don&apos;t advise from the outside.</p>
+        <p className="prompt">I operate. I don&apos;t advise from the outside.</p>
       </div>
 
       <div style={{ marginTop: '1.75rem' }}>
@@ -168,72 +131,51 @@ function AboutContent() {
   )
 }
 
+const LOG_TAGS = ['STRATEGY', 'AUDIT', 'GTM', 'PM'] as const
+
 function ServicesContent() {
   const [selected, setSelected] = useState<string | null>(null)
+  const date = todayStr()
 
   return (
     <>
       <p className="page-cmd">ls -la /services/</p>
 
-      <table className="file-table">
-        <thead>
-          <tr>
-            <th>SERVICE</th>
-            <th>TYPE</th>
-            <th>SIZE</th>
-            <th>MODIFIED</th>
-            <th>PROBLEM</th>
-          </tr>
-        </thead>
-        <tbody>
-          {services.items.map((svc, i) => {
-            const slug = svc.label.toLowerCase().replace(/\s+/g, '-')
-            const isOpen = selected === slug
-            return (
-              <tr
-                key={i}
+      <div className="log-stream">
+        {services.items.map((svc, i) => {
+          const slug = svc.label.toLowerCase().replace(/\s+/g, '-')
+          const isOpen = selected === slug
+          return (
+            <Fragment key={i}>
+              <div
+                className={`log-stream-row${isOpen ? ' open' : ''}`}
                 onClick={() => setSelected(isOpen ? null : slug)}
-                style={{ cursor: 'pointer' }}
               >
-                <td className="file-name">{slug}/</td>
-                <td className="file-label">{svc.label}</td>
-                <td className="file-size">{svc.size}</td>
-                <td className="file-mod">{svc.modified}</td>
-                <td className="file-desc">{svc.problem}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-
-      {selected && (() => {
-        const svc = services.items.find(
-          s => s.label.toLowerCase().replace(/\s+/g, '-') === selected
-        )
-        if (!svc) return null
-        return (
-          <div className="service-detail">
-            <p className="service-detail-cmd">{selected}/outcome.txt</p>
-            <div className="service-meta">
-              <span className="service-meta-key">name</span>
-              <span className="service-meta-val">{selected}/</span>
-              <span className="service-meta-key">scope</span>
-              <span className="service-meta-val">{svc.size}</span>
-              <span className="service-meta-key">status</span>
-              <span className="service-meta-val" style={{ color: 'var(--accent)' }}>AVAILABLE</span>
-            </div>
-            <p className="service-outcome-label">Outcome</p>
-            <p className="service-outcome">{svc.outcome}</p>
-          </div>
-        )
-      })()}
-
-      <div style={{ marginTop: '2rem' }}>
-        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
-          Book a scoping call
-        </a>
+                <span className="log-ts">{date} 09:14</span>
+                <span className="log-tag">[{LOG_TAGS[i]}]</span>
+                <span className="log-name">{svc.label}</span>
+                <span className="log-duration">{svc.size}</span>
+              </div>
+              {isOpen && (
+                <div className="log-expand">
+                  <p className="log-expand-problem">{svc.problem}</p>
+                  <p className="log-expand-outcome">{svc.outcome}</p>
+                  <a
+                    href={BOOKING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cta-btn"
+                  >
+                    Book a scoping call
+                  </a>
+                </div>
+              )}
+            </Fragment>
+          )
+        })}
       </div>
-      <p style={{ marginTop: '0.75rem', color: 'var(--dim)', fontSize: 11 }}>
+
+      <p style={{ color: 'var(--dim)', fontSize: 11 }}>
         Click a row to view outcome details.
       </p>
     </>
@@ -275,7 +217,9 @@ function ApproachContent() {
           <p className="man-section-header">SECTIONS</p>
           {raas.cards.map((card, i) => (
             <div key={i}>
-              <p className="man-section-sub">{String(i + 1).padStart(2, '0')}.&nbsp;&nbsp;{card.title.toUpperCase()}</p>
+              <p className="man-section-sub">
+                {String(i + 1).padStart(2, '0')}.&nbsp;&nbsp;{card.title.toUpperCase()}
+              </p>
               <p className="man-body">{card.body}</p>
             </div>
           ))}
@@ -284,8 +228,8 @@ function ApproachContent() {
         <div className="man-section">
           <p className="man-section-header">EXIT CONDITION</p>
           <p className="man-body">
-            Engagement closes when the agreed outcome is verifiable. Not when the calendar runs out.
-            Not when the deck is done. When the result is real.
+            Engagement closes when the agreed outcome is verifiable. Not when the calendar runs
+            out. Not when the deck is done. When the result is real.
           </p>
         </div>
 
@@ -311,7 +255,13 @@ function ContactContent() {
       <p className="page-cmd">mail ss@upwardvx.com</p>
 
       <div style={{ marginBottom: '1.5rem' }}>
-        <p style={{ color: 'var(--accent)', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em', marginBottom: '0.75rem' }}>
+        <p style={{
+          color: 'var(--accent)',
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: '0.04em',
+          marginBottom: '0.75rem',
+        }}>
           # {cta.heading}
         </p>
         <p className="page-body" style={{ fontSize: 13, maxWidth: 520 }}>{cta.sub}</p>
@@ -360,8 +310,7 @@ export default function TerminalPage() {
   const [navIdx, setNavIdx]           = useState(0)
   const [currentPage, setCurrentPage] = useState<PageId>('home')
   const [uptime, setUptime]           = useState(0)
-  const [cmdText, setCmdText]         = useState('')
-  const cmdInputRef = useRef<HTMLInputElement>(null)
+  const mainRef                       = useRef<HTMLDivElement>(null)
 
   // Boot sequence
   useEffect(() => {
@@ -386,29 +335,24 @@ export default function TerminalPage() {
     return () => clearInterval(id)
   }, [bootPhase])
 
-  // Navigate to a page by id
-  const navigateTo = useCallback((id: PageId) => {
-    const idx = NAV.findIndex(n => n.id === id)
-    setCurrentPage(id)
-    setNavIdx(idx)
-    setCmdText(NAV[idx].cmd)
-    setTimeout(() => setCmdText(''), 800)
-  }, [])
-
   // Navigate to a page by index
   const navigateToIdx = useCallback((idx: number) => {
     const item = NAV[idx]
     setCurrentPage(item.id)
     setNavIdx(idx)
-    setCmdText(item.cmd)
-    setTimeout(() => setCmdText(''), 800)
   }, [])
 
-  // Keyboard navigation
+  // Navigate to a page by id
+  const navigateTo = useCallback((id: PageId) => {
+    const idx = NAV.findIndex(n => n.id === id)
+    setCurrentPage(id)
+    setNavIdx(idx)
+  }, [])
+
+  // Keyboard navigation — arrow keys
   useEffect(() => {
     if (bootPhase !== 'done') return
     const onKey = (e: KeyboardEvent) => {
-      if (document.activeElement === cmdInputRef.current) return
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault()
         setNavIdx(prev => {
@@ -429,9 +373,9 @@ export default function TerminalPage() {
     return () => window.removeEventListener('keydown', onKey)
   }, [bootPhase, navigateToIdx])
 
-  // Scroll to top on page change
+  // Scroll to top of right panel on page change
   useEffect(() => {
-    document.querySelector('.terminal-main')?.scrollTo({ top: 0 })
+    mainRef.current?.scrollTo({ top: 0 })
   }, [currentPage])
 
   const PAGES: { id: PageId; content: React.ReactNode }[] = [
@@ -441,6 +385,9 @@ export default function TerminalPage() {
     { id: 'approach', content: <ApproachContent /> },
     { id: 'contact',  content: <ContactContent /> },
   ]
+
+  // Brand tape string — fills the width, truncated by overflow: hidden
+  const tape = '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓'
 
   return (
     <>
@@ -461,115 +408,68 @@ export default function TerminalPage() {
         </div>
       )}
 
-      {/* Sys Header — 2 rows */}
-      <header className="sys-header">
-        <div className="sys-row">
-          <div className="sys-row-left">
-            <span>
-              <span className="sys-label">SYS.NAME</span>{' '}
-              <span className="sys-value">UVX_OS</span>
-            </span>
-            <span className="sys-sep">|</span>
-            <span>
-              <span className="sys-label">AUTH</span>{' '}
-              <span className="sys-value">GUEST</span>
-            </span>
-            <span className="sys-sep">|</span>
-            <span>
-              <span className="sys-label">NODE</span>{' '}
-              <span className="sys-value">UPWARDVX.COM</span>
-            </span>
-          </div>
-          <div className="sys-row-right">
-            <span>
-              <span className="sys-label">UPTIME</span>{' '}
-              <span className="sys-value">{formatUptime(uptime)}</span>
-            </span>
-            <span className="sys-sep">|</span>
-            <span>
-              <span className="sys-label">MODE</span>{' '}
-              <span className="sys-value sys-warn">RAAS</span>
-            </span>
-          </div>
-        </div>
-        <div className="sys-row">
-          <div className="sys-row-left">
-            <span>
-              <span className="sys-label">STATUS</span>{' '}
-              <span className="sys-value" style={{ color: 'var(--fg)', opacity: 0.85 }}>ACCEPTING_ENGAGEMENTS</span>
-            </span>
-          </div>
-          <div className="sys-row-right">
-            <span>
-              <span className="sys-label">FOCUS</span>{' '}
-              <span className="sys-value" style={{ color: 'var(--fg)', opacity: 0.85 }}>SERIES_A_FOUNDERS</span>
-            </span>
-            <span className="sys-sep">|</span>
-            <span>
-              <span className="sys-label">TERMINAL</span>{' '}
-              <span className="sys-value" style={{ color: 'var(--dim-light)' }}>v2.0.0</span>
-            </span>
-          </div>
-        </div>
-      </header>
+      {/* Console Layout */}
+      <div className="console-layout">
 
-      {/* Main Content */}
-      <main className="terminal-main">
-        {PAGES.map(({ id, content }) => (
-          <div key={id} className={`page${currentPage === id ? ' active' : ''}`}>
-            {content}
+        {/* ── Left Panel ── */}
+        <aside className="console-left">
+
+          {/* Brand mark */}
+          <div className="brand-section">
+            <span className="brand-tape">{tape}</span>
+            <span className="brand-mark">UVX</span>
+            <span className="brand-tape">{tape}</span>
+            <div className="brand-sub">
+              <span>UPWARD VENTURES</span>
+              <span>OPERATOR CONSOLE</span>
+            </div>
           </div>
-        ))}
-      </main>
 
-      {/* Nav Hint Bar */}
-      <div className="nav-hint-bar">
-        <span className="nav-hint-prompt">root@uvx:~/nav$</span>
-        <span>SELECT MODULE</span>
-        <span className="nav-hint-keys">← → OR CLICK</span>
-      </div>
+          {/* Nav */}
+          <nav className="console-nav">
+            {NAV.map((item, i) => (
+              <button
+                key={item.id}
+                className={`console-nav-item${navIdx === i ? ' active' : ''}`}
+                onClick={() => navigateToIdx(i)}
+                aria-label={`Navigate to ${item.label}`}
+              >
+                <span className="console-nav-indicator">▶</span>
+                <span className="console-nav-num">{item.num}</span>
+                <span className="console-nav-label">{item.label}</span>
+              </button>
+            ))}
+          </nav>
 
-      {/* Nav Bar */}
-      <nav className="nav-bar">
-        {NAV.map((item, i) => (
-          <button
-            key={item.id}
-            className={`nav-item${navIdx === i ? ' active' : ''}`}
-            onClick={() => navigateToIdx(i)}
-            aria-label={`Navigate to ${item.label}`}
-          >
-            <span className="nav-num">{item.num}.</span>
-            <span className="nav-label">{item.label}</span>
-          </button>
-        ))}
-      </nav>
+          {/* Status */}
+          <div className="console-status">
+            <div className="console-status-row">
+              <span className="console-status-key">STATUS</span>
+              <span className="console-status-val" style={{ color: 'var(--accent)' }}>
+                ACCEPTING
+              </span>
+            </div>
+            <div className="console-status-row">
+              <span className="console-status-key">UPTIME</span>
+              <span className="console-status-val">{formatUptime(uptime)}</span>
+            </div>
+            <div className="console-status-row">
+              <span className="console-status-key">NODE</span>
+              <span className="console-status-val">UPWARDVX.COM</span>
+            </div>
+          </div>
 
-      {/* Cmd Bar */}
-      <div className="cmd-bar">
-        <span className="cmd-prompt">uvx@upwardvx:~$</span>
-        <input
-          ref={cmdInputRef}
-          type="text"
-          className="cmd-input"
-          value={cmdText}
-          onChange={e => setCmdText(e.target.value)}
-          placeholder="type a command..."
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              const val = cmdText.trim().toLowerCase()
-              const match = NAV.find(n =>
-                val.includes(n.id) || n.cmd.toLowerCase().includes(val)
-              )
-              if (match) navigateTo(match.id)
-              setCmdText('')
-            }
-          }}
-          spellCheck={false}
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-        />
-        <span className="cmd-hint">← → NAV</span>
+        </aside>
+
+        {/* ── Right Panel ── */}
+        <main className="console-right" ref={mainRef}>
+          {PAGES.map(({ id, content }) => (
+            <div key={id} className={`page${currentPage === id ? ' active' : ''}`}>
+              {content}
+            </div>
+          ))}
+        </main>
+
       </div>
     </>
   )
