@@ -1,25 +1,10 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef, Fragment } from 'react'
+import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { services, credibility, raas, cta, footer } from '@/lib/copy'
 
 // ── Types ──────────────────────────────────────────────────────
 type PageId = 'home' | 'about' | 'services' | 'approach' | 'contact'
-
-interface NavItem {
-  id: PageId
-  num: string
-  label: string
-}
-
-// ── Constants ──────────────────────────────────────────────────
-const NAV: NavItem[] = [
-  { id: 'home',     num: '01', label: 'HOME'     },
-  { id: 'about',    num: '02', label: 'ABOUT'    },
-  { id: 'services', num: '03', label: 'SERVICES' },
-  { id: 'approach', num: '04', label: 'APPROACH' },
-  { id: 'contact',  num: '05', label: 'CONTACT'  },
-]
 
 interface BootLine {
   text: string
@@ -27,6 +12,7 @@ interface BootLine {
   delay: number
 }
 
+// ── Constants ──────────────────────────────────────────────────
 const BOOT_LINES: BootLine[] = [
   { text: 'UVX_OS v2.0.0',                                       type: 'accent',  delay: 0 },
   { text: '',                                                     type: 'default', delay: 150 },
@@ -57,7 +43,7 @@ function todayStr() {
 
 // ── Page Content ───────────────────────────────────────────────
 
-function HomeContent({ onNavigate }: { onNavigate: (id: PageId) => void }) {
+function HomeContent() {
   return (
     <div className="content-box">
       <span className="content-box-label">OPERATOR PROFILE</span>
@@ -75,9 +61,6 @@ function HomeContent({ onNavigate }: { onNavigate: (id: PageId) => void }) {
         <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
           Book a 30-min call →
         </a>
-        <button className="cta-btn-ghost" onClick={() => onNavigate('services')}>
-          View services →
-        </button>
       </div>
     </div>
   )
@@ -303,11 +286,21 @@ function ContactContent() {
   )
 }
 
+// ── Pages Array ────────────────────────────────────────────────
+// Defined outside the component body — no page component closes over parent state.
+// HomeContent's onNavigate prop was removed; all other pages were already self-contained.
+const PAGES: { id: PageId; label: string; component: React.ComponentType }[] = [
+  { id: 'home',     label: 'HOME',     component: HomeContent },
+  { id: 'about',    label: 'ABOUT',    component: AboutContent },
+  { id: 'services', label: 'SERVICES', component: ServicesContent },
+  { id: 'approach', label: 'APPROACH', component: ApproachContent },
+  { id: 'contact',  label: 'CONTACT',  component: ContactContent },
+]
+
 // ── Main Component ─────────────────────────────────────────────
 export default function TerminalPage() {
   const [bootPhase, setBootPhase]     = useState<'booting' | 'fading' | 'done'>('booting')
   const [shownLines, setShownLines]   = useState<BootLine[]>([])
-  const [navIdx, setNavIdx]           = useState(0)
   const [currentPage, setCurrentPage] = useState<PageId>('home')
   const [uptime, setUptime]           = useState(0)
   const mainRef                       = useRef<HTMLDivElement>(null)
@@ -335,62 +328,35 @@ export default function TerminalPage() {
     return () => clearInterval(id)
   }, [bootPhase])
 
-  // Navigate to a page by index
-  const navigateToIdx = useCallback((idx: number) => {
-    const item = NAV[idx]
-    setCurrentPage(item.id)
-    setNavIdx(idx)
-  }, [])
-
-  // Navigate to a page by id
-  const navigateTo = useCallback((id: PageId) => {
-    const idx = NAV.findIndex(n => n.id === id)
-    setCurrentPage(id)
-    setNavIdx(idx)
-  }, [])
-
-  // Keyboard navigation — arrow keys
+  // Keyboard navigation — functional setState avoids stale closures, no currentPage dep
   useEffect(() => {
     if (bootPhase !== 'done') return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault()
-        setNavIdx(prev => {
-          const next = (prev - 1 + NAV.length) % NAV.length
-          navigateToIdx(next)
-          return next
+        setCurrentPage(prev => {
+          const idx = PAGES.findIndex(p => p.id === prev)
+          return PAGES[(idx - 1 + PAGES.length) % PAGES.length].id
         })
       } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         e.preventDefault()
-        setNavIdx(prev => {
-          const next = (prev + 1) % NAV.length
-          navigateToIdx(next)
-          return next
+        setCurrentPage(prev => {
+          const idx = PAGES.findIndex(p => p.id === prev)
+          return PAGES[(idx + 1) % PAGES.length].id
         })
       }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [bootPhase, navigateToIdx])
+  }, [bootPhase])
 
-  // Scroll to top of right panel on page change
+  // Scroll to top of main output on page change
   useEffect(() => {
     mainRef.current?.scrollTo({ top: 0 })
   }, [currentPage])
 
-  const PAGES: { id: PageId; content: React.ReactNode }[] = [
-    { id: 'home',     content: <HomeContent onNavigate={navigateTo} /> },
-    { id: 'about',    content: <AboutContent /> },
-    { id: 'services', content: <ServicesContent /> },
-    { id: 'approach', content: <ApproachContent /> },
-    { id: 'contact',  content: <ContactContent /> },
-  ]
-
-  // Brand tape string — fills the width, truncated by overflow: hidden
-  const tape = '▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓'
-
   return (
-    <>
+    <div id="app">
       {/* Boot overlay */}
       {bootPhase !== 'done' && (
         <div className={`boot-overlay${bootPhase === 'fading' ? ' fading' : ''}`}>
@@ -408,69 +374,54 @@ export default function TerminalPage() {
         </div>
       )}
 
-      {/* Console Layout */}
-      <div className="console-layout">
+      {/* Sys header */}
+      <header className="sys-header">
+        <div className="sys-left">
+          <div className="sys-field"><span className="brand-mark">UVX</span></div>
+          <div className="sys-field">SYS.AUTH &nbsp;: <span className="sys-green">ACCEPTING_ENGAGEMENTS</span></div>
+          <div className="sys-field">SYS.NODE &nbsp;: <span>UPWARDVX.COM</span></div>
+        </div>
+        <div className="sys-right">
+          <div className="sys-field">UPTIME &nbsp;&nbsp;&nbsp;: <span className="sys-green">{formatUptime(uptime)}</span></div>
+          <div className="sys-field">TERMINAL &nbsp;: <span>TTY0</span></div>
+          <div className="sys-field">STATUS &nbsp;&nbsp;&nbsp;: <span className="sys-warn">200</span></div>
+        </div>
+      </header>
 
-        {/* ── Left Panel ── */}
-        <aside className="console-left">
-
-          {/* Brand mark */}
-          <div className="brand-section">
-            <span className="brand-tape">{tape}</span>
-            <span className="brand-mark">UVX</span>
-            <span className="brand-tape">{tape}</span>
-            <div className="brand-sub">
-              <span>UPWARD VENTURES</span>
-              <span>OPERATOR CONSOLE</span>
-            </div>
-          </div>
-
-          {/* Nav */}
-          <nav className="console-nav">
-            {NAV.map((item, i) => (
-              <button
-                key={item.id}
-                className={`console-nav-item${navIdx === i ? ' active' : ''}`}
-                onClick={() => navigateToIdx(i)}
-                aria-label={`Navigate to ${item.label}`}
+      {/* Main content */}
+      <div id="main-output" ref={mainRef}>
+        <div className="content-well">
+          {PAGES.map(p => {
+            const PageComponent = p.component
+            return (
+              <div
+                key={p.id}
+                className={`page${currentPage === p.id ? ' active' : ''}`}
+                aria-hidden={currentPage !== p.id}
               >
-                <span className="console-nav-indicator">▶</span>
-                <span className="console-nav-num">{item.num}</span>
-                <span className="console-nav-label">{item.label}</span>
-              </button>
-            ))}
-          </nav>
-
-          {/* Status */}
-          <div className="console-status">
-            <div className="console-status-row">
-              <span className="console-status-key">STATUS</span>
-              <span className="console-status-val" style={{ color: 'var(--accent)' }}>
-                ACCEPTING
-              </span>
-            </div>
-            <div className="console-status-row">
-              <span className="console-status-key">UPTIME</span>
-              <span className="console-status-val">{formatUptime(uptime)}</span>
-            </div>
-            <div className="console-status-row">
-              <span className="console-status-key">NODE</span>
-              <span className="console-status-val">UPWARDVX.COM</span>
-            </div>
-          </div>
-
-        </aside>
-
-        {/* ── Right Panel ── */}
-        <main className="console-right" ref={mainRef}>
-          {PAGES.map(({ id, content }) => (
-            <div key={id} className={`page${currentPage === id ? ' active' : ''}`}>
-              {content}
-            </div>
-          ))}
-        </main>
-
+                <PageComponent />
+              </div>
+            )
+          })}
+        </div>
       </div>
-    </>
+
+      {/* Bottom nav */}
+      <nav className="nav-bar" aria-label="Page navigation">
+        <div className="nav-prompt"><span className="sys-green">$</span> cd ~/</div>
+        <div className="nav-list">
+          {PAGES.map((p, i) => (
+            <button
+              key={p.id}
+              className={`nav-item${currentPage === p.id ? ' active' : ''}`}
+              onClick={() => setCurrentPage(p.id)}
+              aria-current={currentPage === p.id ? 'page' : undefined}
+            >
+              {String(i + 1).padStart(2, '0')}. {p.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+    </div>
   )
 }
