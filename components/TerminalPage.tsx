@@ -86,6 +86,10 @@ function HomeContent() {
           </div>
         </div>
       </div>
+
+      <p style={{ marginTop: '1.25rem', fontSize: 11, color: 'var(--dim)', letterSpacing: '0.03em' }}>
+        type <span style={{ color: 'var(--accent)' }}>help</span> to explore via command line ↓
+      </p>
     </>
   )
 }
@@ -328,13 +332,28 @@ const PAGES: { id: PageId; label: string; component: React.ComponentType }[] = [
   { id: 'contact',  label: 'CONTACT',  component: ContactContent },
 ]
 
+const HELP_TEXT = `  whoami                  operator profile
+  cat about.md            background & credentials
+  ls -la /services/       what I build
+  man results-as-a-service  the model
+  mail ss@upwardvx.com    get in touch
+  book                    open calendar
+  status                  system status
+  clear                   clear output
+  help                    this message`
+
 // ── Main Component ─────────────────────────────────────────────
 export default function TerminalPage() {
   const [bootPhase, setBootPhase]     = useState<'booting' | 'fading' | 'done'>('booting')
   const [shownLines, setShownLines]   = useState<BootLine[]>([])
   const [currentPage, setCurrentPage] = useState<PageId>('home')
   const [uptime, setUptime]           = useState(0)
+  const [cmdInput, setCmdInput]       = useState('')
+  const [cmdResult, setCmdResult]     = useState<string | null>(null)
+  const [cmdHistory, setCmdHistory]   = useState<string[]>([])
+  const [historyIdx, setHistoryIdx]   = useState(-1)
   const mainRef                       = useRef<HTMLDivElement>(null)
+  const inputRef                      = useRef<HTMLInputElement>(null)
 
   // Boot sequence
   useEffect(() => {
@@ -359,10 +378,45 @@ export default function TerminalPage() {
     return () => clearInterval(id)
   }, [bootPhase])
 
-  // Keyboard navigation — functional setState avoids stale closures, no currentPage dep
+  // Command execution
+  function execCmd(raw: string) {
+    const cmd = raw.trim().toLowerCase()
+    if (!cmd) return
+
+    const navMap: Record<string, PageId> = {
+      'whoami':                   'home',
+      'cd ~/':                    'home',
+      'cd ~':                     'home',
+      'home':                     'home',
+      'cat about.md':             'about',
+      'about':                    'about',
+      'ls -la /services/':        'services',
+      'ls':                       'services',
+      'services':                 'services',
+      'man results-as-a-service': 'approach',
+      'approach':                 'approach',
+      'mail ss@upwardvx.com':     'contact',
+      'contact':                  'contact',
+    }
+
+    if (navMap[cmd]) { setCurrentPage(navMap[cmd]); setCmdResult(null); return }
+    if (cmd === 'status') { setCurrentPage('home'); setCmdResult(null); return }
+    if (cmd === 'clear') { setCmdResult(null); return }
+    if (cmd === 'book') {
+      window.open(BOOKING_URL, '_blank', 'noopener,noreferrer')
+      setCmdResult('Opening calendar in new tab...')
+      return
+    }
+    if (cmd === 'help' || cmd === '?') { setCmdResult(HELP_TEXT); return }
+
+    setCmdResult(`-bash: ${raw}: command not found  (type 'help' for available commands)`)
+  }
+
+  // Keyboard navigation — skip when input is focused
   useEffect(() => {
     if (bootPhase !== 'done') return
     const onKey = (e: KeyboardEvent) => {
+      if (document.activeElement === inputRef.current) return
       if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
         e.preventDefault()
         setCurrentPage(prev => {
@@ -375,6 +429,19 @@ export default function TerminalPage() {
           const idx = PAGES.findIndex(p => p.id === prev)
           return PAGES[(idx + 1) % PAGES.length].id
         })
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [bootPhase])
+
+  // Auto-focus input when user starts typing anywhere on the page
+  useEffect(() => {
+    if (bootPhase !== 'done') return
+    const onKey = (e: KeyboardEvent) => {
+      if (document.activeElement === inputRef.current) return
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        inputRef.current?.focus()
       }
     }
     window.addEventListener('keydown', onKey)
@@ -439,7 +506,50 @@ export default function TerminalPage() {
 
       {/* Bottom nav */}
       <nav className="nav-bar" aria-label="Page navigation">
-        <div className="nav-prompt"><span className="sys-green">$</span> {PAGE_CMDS[currentPage]}</div>
+        {cmdResult && (
+          <div className="cmd-result">
+            <pre>{cmdResult}</pre>
+          </div>
+        )}
+        <div className="nav-prompt" onClick={() => inputRef.current?.focus()}>
+          <span className="sys-green">$</span>
+          <input
+            ref={inputRef}
+            className="nav-input"
+            value={cmdInput}
+            onChange={e => setCmdInput(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                const cmd = cmdInput
+                if (cmd.trim()) {
+                  setCmdHistory(prev => [cmd, ...prev].slice(0, 50))
+                  setHistoryIdx(-1)
+                }
+                execCmd(cmd)
+                setCmdInput('')
+              } else if (e.key === 'ArrowUp') {
+                e.preventDefault()
+                const ni = Math.min(historyIdx + 1, cmdHistory.length - 1)
+                if (ni >= 0 && cmdHistory[ni]) { setHistoryIdx(ni); setCmdInput(cmdHistory[ni]) }
+              } else if (e.key === 'ArrowDown') {
+                e.preventDefault()
+                const ni = Math.max(historyIdx - 1, -1)
+                setHistoryIdx(ni)
+                setCmdInput(ni === -1 ? '' : (cmdHistory[ni] ?? ''))
+              } else if (e.key === 'Escape') {
+                setCmdInput('')
+                setCmdResult(null)
+                inputRef.current?.blur()
+              }
+            }}
+            placeholder={PAGE_CMDS[currentPage]}
+            spellCheck={false}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            aria-label="Terminal command input"
+          />
+        </div>
         <div className="nav-list">
           {PAGES.map((p, i) => (
             <button
