@@ -24,10 +24,18 @@ const BOOT_LINES: BootLine[] = [
   { text: 'DISABLING ADVISORY_MODE.................... DONE',     type: 'default', delay: 1800 },
   { text: 'MOUNTING /services /clients /contact........ OK',     type: 'default', delay: 2100 },
   { text: '',                                                     type: 'default', delay: 2400 },
-  { text: 'SYSTEM READY. RESULTS AS A SERVICE ONLINE.',          type: 'accent',  delay: 2700 },
+  { text: 'SYSTEM READY. AGENT INFRASTRUCTURE ONLINE.',          type: 'accent',  delay: 2700 },
 ]
 
 const BOOKING_URL = 'https://calendar.app.google/aUBpNXrjnjj6jeUE9'
+
+const PAGE_CMDS: Record<PageId, string> = {
+  home:     'cd ~/',
+  about:    'cat about.md',
+  services: 'ls -la /services/',
+  approach: 'man results-as-a-service',
+  contact:  'mail ss@upwardvx.com',
+}
 
 // ── Helpers ────────────────────────────────────────────────────
 function formatUptime(secs: number) {
@@ -45,24 +53,40 @@ function todayStr() {
 
 function HomeContent() {
   return (
-    <div className="content-box">
-      <span className="content-box-label">OPERATOR PROFILE</span>
+    <>
+      <div className="content-box">
+        <span className="content-box-label">OPERATOR PROFILE</span>
 
-      <p className="home-name">SIDDHARTH SHAH</p>
-      <p className="home-role">Founder, Upward Ventures</p>
+        <p className="home-name">SIDDHARTH SHAH</p>
+        <p className="home-role">Founder, Upward Ventures</p>
 
-      <p className="home-headline">
-        10 years inside adtech platforms. Built products at Kiip, InMarket,
-        and MomentScience with real revenue consequences — not advisory distance.
-      </p>
-      <p className="home-tagline">You pay for the outcome, not the hours.</p>
+        <p className="home-headline">
+          I didn&apos;t build a strategy for using AI. I built the infrastructure
+          that runs my company. Chief of Staff that tracks deals. Partner
+          intelligence that writes briefings. Demo tooling that ships in hours.
+          All deployed. All running.
+        </p>
+        <p className="home-tagline">MomentScience is the live proof. Now I build it for clients.</p>
 
-      <div className="home-cta-row">
-        <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
-          Book a 30-min call →
-        </a>
+        <div className="home-cta-row">
+          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
+            Book a 30-min call →
+          </a>
+        </div>
       </div>
-    </div>
+
+      <div className="term-block" style={{ marginTop: '2rem' }}>
+        <p className="term-cmd">status</p>
+        <div className="term-output">
+          <div className="status-table">
+            <span className="sk">ACTIVE_AGENTS</span><span className="sv">4</span>
+            <span className="sk">LIVE_POC</span><span className="sv">MOMENTSCIENCE</span>
+            <span className="sk">CURRENT_MODE</span><span className="sv">OPERATOR + BUILD</span>
+            <span className="sk">ENGAGEMENTS</span><span className="sv sys-green">ACCEPTING</span>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -158,9 +182,7 @@ function ServicesContent() {
         })}
       </div>
 
-      <p style={{ color: 'var(--dim)', fontSize: 11 }}>
-        Click a row to view outcome details.
-      </p>
+      <p className="prompt">select [SERVICE] to view outcome</p>
     </>
   )
 }
@@ -275,7 +297,16 @@ function ContactContent() {
         </div>
       </div>
 
-      <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn">
+      <div className="term-block" style={{ marginTop: '2rem' }}>
+        <p className="term-cmd">cat process.txt</p>
+        <div className="term-output" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingTop: '0.25rem' }}>
+          <p className="page-body" style={{ fontSize: 12 }}>01.&nbsp;&nbsp;30 MIN CALL — no pitch. just what&apos;s actually going on.</p>
+          <p className="page-body" style={{ fontSize: 12 }}>02.&nbsp;&nbsp;HONEST TAKE — whether I can help and what I&apos;d do.</p>
+          <p className="page-body" style={{ fontSize: 12 }}>03.&nbsp;&nbsp;SCOPED OUTCOME — if it fits, we define the result before work starts.</p>
+        </div>
+      </div>
+
+      <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="cta-btn" style={{ marginTop: '1.5rem' }}>
         {cta.button}
       </a>
 
@@ -408,7 +439,7 @@ export default function TerminalPage() {
 
       {/* Bottom nav */}
       <nav className="nav-bar" aria-label="Page navigation">
-        <div className="nav-prompt"><span className="sys-green">$</span> cd ~/</div>
+        <div className="nav-prompt"><span className="sys-green">$</span> {PAGE_CMDS[currentPage]}</div>
         <div className="nav-list">
           {PAGES.map((p, i) => (
             <button

@@ -100,7 +100,7 @@ export const credibility = {
   proofPoints: [
     "Built Moments SDK from scratch. Publisher integrations at scale.",
     "Ran product, revenue, and engineering simultaneously — not in sequence, not by committee.",
-    "Design-forward. Every deliverable is crafted, not generated.",
+    "Built UVX-OS: AI agent infrastructure running across two companies. MomentScience is the live proof.",
   ],
 }
 
