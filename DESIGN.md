@@ -30,27 +30,28 @@ The reference point for taste: **what would Shreyas Doshi choose?** Sharp, direc
 
 ## Color
 
-**Approach:** Restrained brass — single accent, never used for fills.
+**Approach:** Matrix green — single accent, CRT terminal aesthetic.
 
 ```css
---bg:           #0a0a08   /* Warm near-black. Never pure #000000. */
---bg-elevated:  #111110   /* Card/surface layer */
---fg:           #d4d0c8   /* Warm off-white. Never pure #FFFFFF. */
---accent:       #C9A96E   /* Brass gold. Single accent. */
---accent-dim:   rgba(201, 169, 110, 0.18)  /* Hover/active backgrounds */
---accent-glow:  rgba(201, 169, 110, 0.08)  /* Subtle row highlight */
---dim:          #5a5650   /* Muted warm gray — captions, metadata */
---dim-light:    #7a7570   /* Slightly brighter muted — labels */
---warn:         #e8a25a   /* Amber warning — used for MODE:RAAS indicator */
---border:       rgba(201, 169, 110, 0.14)  /* Hairline borders */
---border-mid:   rgba(201, 169, 110, 0.22)  /* Elevated borders on hover */
+--bg:           #000d00   /* Near-black with green tint. Never pure #000000. */
+--bg-elevated:  #001400   /* Card/surface layer */
+--fg:           #c8d8c8   /* Cool off-white. Never pure #FFFFFF. */
+--accent:       #00FF41   /* Matrix green. Single accent. */
+--accent-dim:   rgba(0, 255, 65, 0.12)   /* Hover/active backgrounds */
+--accent-glow:  rgba(0, 255, 65, 0.06)   /* Subtle row highlight */
+--dim:          #2d5c2d   /* Muted green-gray — captions, metadata */
+--dim-light:    #4a8a4a   /* Slightly brighter muted — labels */
+--warn:         #39ff14   /* Bright green warning */
+--border:       rgba(0, 255, 65, 0.12)   /* Hairline borders */
+--border-mid:   rgba(0, 255, 65, 0.22)   /* Elevated borders on hover */
 ```
 
 **Dark mode:** This IS the dark mode. No light mode variant.
 
 **Banned palette:**
 - Purple gradients
-- Neon blue, cyan, or green
+- Neon blue or cyan
+- Warm brass or gold tones
 - Pure `#000000` or `#FFFFFF`
 - Any second accent color
 - Gradient text
@@ -93,16 +94,16 @@ Cmd bar:     12px
 
 ```
 ┌─────────────────────────────────┐
-│ sys-header (36px, fixed top)    │
+│ sys-header (fixed top)          │
 ├─────────────────────────────────┤
 │                                 │
 │  terminal-main (scrollable)     │
-│  top:36px, bottom:76px          │
 │                                 │
 ├─────────────────────────────────┤
-│ nav-bar (40px)                  │
-├─────────────────────────────────┤
-│ cmd-bar (36px, fixed bottom)    │
+│ nav-bar                         │
+│  ├─ cmd-result (when active)    │
+│  ├─ $ [input]  ← nav-prompt     │
+│  └─ [HOME] [ABOUT] … nav-list   │
 └─────────────────────────────────┘
 ```
 
@@ -130,9 +131,9 @@ Five pages, keyboard-navigable:
 | APPROACH | `man results-as-a-service` | RaaS cards |
 | CONTACT | `mail ss@upwardvx.com` | Contact info + booking |
 
-**Keyboard:** `←` / `→` arrow keys cycle pages. The cmd bar accepts typed commands.
+**Keyboard:** `←` / `→` arrow keys cycle pages when input is not focused. Any printable key (except Space) auto-focuses the command input.
 
-**Cmd bar:** Shows the navigation command on each page change (briefly visible, then clears). Functions as both navigation feedback and terminal aesthetic reinforcement.
+**Cmd input:** Lives inside the nav-bar as `nav-prompt`. Placeholder shows the current page's canonical command (e.g., `cd ~/`, `cat about.md`). Commands navigate pages, show output in `cmd-result` strip, or perform actions (`book`, `clear`, `help`). History via ↑/↓. Escape clears and blurs.
 
 ---
 
@@ -176,7 +177,7 @@ CREDENTIALS ACCEPTED........................ OK
 DISABLING ADVISORY_MODE.................... DONE
 MOUNTING /services /clients /contact........ OK
 [blank]
-SYSTEM READY. RESULTS AS A SERVICE ONLINE.
+SYSTEM READY. AGENT INFRASTRUCTURE ONLINE.
 ```
 
 **Rules:**
@@ -222,11 +223,12 @@ SYS.NAME: UVX_OS  |  AUTH: GUEST  |  UPTIME: 00:00:00  |  MODE: RAAS
 - Inactive: `color: --dim`, hover `color: --fg`
 - Brackets (`[` `]`) at 50% opacity — decorative terminals
 
-### Cmd Bar
-- `$ ` prompt in brass
-- Text input in `--fg`
+### Cmd Input (inside nav-bar)
+- `$ ` prompt in `--accent` (Matrix green)
+- Text input in `--fg`, font-size 12px
 - Caret color: `--accent`
-- Hint text (`← → NAV`) in `--dim`, right-aligned
+- Placeholder: current page's canonical command, in `--dim` at 50% opacity
+- `cmd-result` strip renders above the prompt when a command produces output
 
 ### File Table (Services)
 - No Unix permissions column — removed. Operator-legible, not developer-speak.
@@ -309,3 +311,6 @@ The scrollbar is subtle but visible — part of the OS aesthetic.
 | 2026-04-24 | No scroll narrative — page-based navigation | Intentional engagement signal. Visitors who navigate are interested. Lower passive conversion is acceptable. |
 | 2026-04-24 | "DISABLING ADVISORY_MODE" boot line | Does more positioning work than most hero headlines. Earns the boot sequence. |
 | 2026-04-24 | Removed Lenis, Framer Motion, GSAP, R3F | Performance and simplicity. The terminal aesthetic needs none of them. |
+| 2026-06-17 | Switched accent from brass `#C9A96E` to Matrix green `#00FF41` | CRT terminal aesthetic reads stronger and more differentiated in green. Brass felt warm/premium but wrong for an OS-style interface. |
+| 2026-06-17 | Merged cmd-bar into nav-bar as `nav-prompt` | Simpler 3-layer structure. Input above nav buttons, cmd-result strip appears when needed. Separate 36px bottom strip was unnecessary real estate. |
+| 2026-06-17 | Changed boot last line to "AGENT INFRASTRUCTURE ONLINE" | Positions UVX-OS as the product, not just RaaS as a model. More accurate to what Siddharth actually built. |

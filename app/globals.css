@@ -190,6 +190,41 @@ body::after {
   color: var(--dim);
   font-size: 11px;
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: text;
+}
+
+.nav-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  caret-color: var(--accent);
+  flex: 1;
+  min-width: 0;
+  letter-spacing: 0.03em;
+}
+.nav-input::placeholder {
+  color: var(--dim);
+  opacity: 0.5;
+}
+
+.cmd-result {
+  border-top: 1px solid var(--border);
+  padding: 6px 0 4px;
+  margin-bottom: 4px;
+}
+.cmd-result pre {
+  margin: 0;
+  font-size: 12px;
+  color: var(--dim);
+  white-space: pre-wrap;
+  font-family: var(--font-mono);
+  line-height: 1.6;
 }
 
 .nav-list {
