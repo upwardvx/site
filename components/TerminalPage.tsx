@@ -88,7 +88,7 @@ function HomeContent() {
       </div>
 
       <p style={{ marginTop: '1.25rem', fontSize: 11, color: 'var(--dim)', letterSpacing: '0.03em' }}>
-        type <span style={{ color: 'var(--accent)' }}>help</span> to explore via command line ↓
+        type <span style={{ color: 'var(--accent)' }}>help</span> to explore via command line
       </p>
     </>
   )
@@ -401,7 +401,7 @@ export default function TerminalPage() {
 
     if (navMap[cmd]) { setCurrentPage(navMap[cmd]); setCmdResult(null); return }
     if (cmd === 'status') { setCurrentPage('home'); setCmdResult(null); return }
-    if (cmd === 'clear') { setCmdResult(null); return }
+    if (cmd === 'clear') { setCmdResult(null); setCmdHistory([]); setHistoryIdx(-1); return }
     if (cmd === 'book') {
       window.open(BOOKING_URL, '_blank', 'noopener,noreferrer')
       setCmdResult('Opening calendar in new tab...')
@@ -440,7 +440,7 @@ export default function TerminalPage() {
     if (bootPhase !== 'done') return
     const onKey = (e: KeyboardEvent) => {
       if (document.activeElement === inputRef.current) return
-      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      if (e.key.length === 1 && e.key !== ' ' && !e.ctrlKey && !e.metaKey && !e.altKey) {
         inputRef.current?.focus()
       }
     }
