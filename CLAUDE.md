@@ -5,6 +5,7 @@ Always read DESIGN.md before making any visual or UI decisions.
 All font choices, colors, spacing, and aesthetic direction are defined there.
 Do not deviate without explicit user approval.
 In QA mode, flag any code that doesn't match DESIGN.md.
+Also run `~/.claude/design.md`'s Accessibility lens — the Decisions Log's own 13→14px "contrast at Retina" fix is that lens's contrast check already happening ad hoc; cite it explicitly instead of re-deriving it each session.
 
 ## Key rules for this project
 - Geist Mono only. No other fonts.
