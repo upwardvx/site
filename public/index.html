@@ -108,7 +108,8 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 .how .note2{margin:12px 0 0;font-size:19px;line-height:1.55;max-width:62ch}
 
 /* direct */
-.direct{display:grid;grid-template-columns:1fr;gap:48px;align-items:start;padding-bottom:104px}
+.direct{display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start;padding-bottom:104px}
+.photo{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border:1px solid var(--rule);outline:1px solid var(--rule);outline-offset:4px}
 .direct-copy{display:flex;flex-direction:column;gap:18px;max-width:64ch}
 .direct-copy p{margin:0;font-size:19px;line-height:1.65}
 
@@ -168,6 +169,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
   .how li,.how li:nth-child(n){padding:20px 0;border-right:0;border-bottom:1px solid var(--rule)}
   .how li:last-child{border-bottom:0}
   .direct{grid-template-columns:1fr;gap:28px}
+  .photo{max-width:200px}
   .terms{grid-template-columns:1fr;gap:6px}
   .terms .desc,.terms .desc.wide{grid-column:1}
   .pain,.brief,.how,.direct,.price{padding-bottom:72px}
@@ -255,6 +257,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <section class="wrap">
 <span class="kicker" aria-hidden="true"></span>
 <div class="direct">
+<picture><source srcset="/brand/siddharth.webp" type="image/webp"><img class="photo" src="/brand/siddharth.jpg" width="512" height="512" alt="Siddharth Shah" loading="lazy" decoding="async"></picture>
 <div class="direct-copy">
 <h2>You work with me&nbsp;directly.</h2>
 <p>I’m Siddharth Shah. I spent ten years building software products and running partnerships at Kiip, NinthDecimal and InMarket. UC Berkeley. Based in Los Angeles.</p>
