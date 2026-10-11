@@ -1,25 +1,19 @@
 # upwardvx.com
 
-Source for [upwardvx.com](https://upwardvx.com) — the public face of Upward Ventures, a consulting practice for early-stage operators.
+One static page for Upward Ventures. No build step and no dependencies: `public/index.html` is the whole site, with the brand files under `public/brand/`.
 
-Built as a ZUI-style terminal interface: matrix green, monospace type, Unix command aesthetic. No CMS, no Squarespace, no templates — replaced a $10/month subscription with this.
-
-## Stack
-
-- Next.js 14 (App Router)
-- Three.js particle field background
-- Geist Mono — terminal-native type
-- Deployed on Vercel
-
-## Design direction
-
-Operator-grade minimalism. References ZUI.ooo terminal aesthetic, classic Unix man pages, green-on-black CRT monitors. No animations for animation's sake — the particle field is the only decoration.
-
-## Running locally
+## Run locally
 
 ```bash
-npm install
-npm run dev
+python3 -m http.server 8000 --directory public
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Then open http://localhost:8000.
+
+## Deploy
+
+Render reads `render.yaml` and serves `public/` as a static site. In the Render dashboard, create a Blueprint from this repo, then point the upwardvx.com domain at the new service.
+
+## Editing
+
+Read `DESIGN.md` before changing anything visual. Copy changes go straight into `public/index.html`.
