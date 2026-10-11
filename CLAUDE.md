@@ -1,6 +1,6 @@
 # upwardvx.com — CLAUDE.md
 
-Static one-page site. `public/index.html` is the entire site; `public/brand/` holds the logos. Deployed to Render as a static site via `render.yaml`. No framework, no build, no JavaScript.
+Static one-page site. `public/index.html` is the entire site; `public/brand/` holds the logos. Deployed to Render as a static site via `render.yaml`. No framework, no build. JavaScript only as small, progressive vanilla scripts (the stamps and the away slip); the page must read fully without it.
 
 ## Rules
 - Read DESIGN.md before any visual change. Don't add colors, fonts or sections without approval.

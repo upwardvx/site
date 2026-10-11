@@ -20,7 +20,11 @@ The page reads like a ledger statement: ruled lines, square corners, figures in 
 
 ## Shape and motion
 - Square corners everywhere. Hairline, thick and double rules carry the structure.
-- One motion only: the three hero ledger rows lift off up and to the right one at a time on a 12s loop, then return. Runs only in the two-column layout (above 900px) and never under `prefers-reduced-motion`.
+- Two inks: red means it needs you, forest means it's off your desk. On load the forest OFF YOUR DESK stamp presses onto each hero row (once, no loop) and the old status stays visible, struck through. On phones it fires when the ledger scrolls into view.
+- The sample brief feeds out as you scroll (scroll-driven CSS where supported, fully shown elsewhere) and its last line gets the same stamp.
+- "While you were away": after a visitor leaves the tab for 60s+ and returns, one dismissible slip says nothing here needed them. Once per session.
+- The circled ↗ is the link cursor on desktop. Nothing else follows the mouse.
+- Under `prefers-reduced-motion` everything renders already stamped and printed.
 - Logos: `brand/logos/wordmark-black.svg` on sand, `wordmark-white.svg` on the closing band (tightly cropped copies of the originals).
 - Share image: `brand/og.png` (1200×630). PNG favicon and apple-touch-icon sit beside the SVG icon for Safari.
 - Headshot: `brand/siddharth.webp` with a `.jpg` fallback, square, ledger-style double outline. 240px column on desktop, 200px on phones.
