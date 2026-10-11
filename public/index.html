@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Siddharth Shah · Upward Ventures</title>
+<meta name="description" content="Stop being the person your business waits on. I take one recurring job only you seem able to do and set it up to run in the tools you already use.">
+<meta property="og:title" content="Stop being the person your business waits on.">
+<meta property="og:description" content="One recurring job, set up to run in the tools you already use. Siddharth Shah, Upward Ventures, Los Angeles.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://upwardvx.com/">
+<meta name="theme-color" content="#EADFCC">
+<link rel="icon" href="/brand/icons/black.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
+<style>
+:root{
+  --display:"Bricolage Grotesque",Georgia,serif;
+  --body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --paper:#EADFCC;--ink:#1E3A2F;--muted:#4A4636;--rule:#1E3A2F;--hair:#C4B293;
+  --red:#A8431F;--photo:#DFD1B7;
+  --night:#1E3A2F;--night-fg:#F7F0E3;--night-muted:#CBD6CC;--night-rule:#3E5A4D;
+}
+*{box-sizing:border-box}
+h1,h2,h3,.balance{text-wrap:balance} p,li,dd{text-wrap:pretty}
+html,body{margin:0;background:var(--paper)}
+body{font-family:var(--body);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.page{width:100%;min-height:100%;overflow-x:hidden;overflow-x:clip;background:var(--paper)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:32px;padding-right:32px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.dbl{border:0;border-top:3px double var(--rule);margin:0}
+.thick{border:0;border-top:4px solid var(--rule);margin:0}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:24px;padding-bottom:18px}
+.mast img{height:40px;width:auto;display:block}
+.mast a{font-family:var(--mono);font-size:16px;font-weight:500;padding:12px 0;text-decoration:none;border-bottom:2px solid var(--red)}
+
+/* hero */
+.hero h1{margin:0;padding:40px 0 36px;font-family:var(--display);font-weight:800;font-size:clamp(44px,8.2vw,108px);line-height:.98;letter-spacing:-0.035em;max-width:13ch}
+.hero h1 .u{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:.09em;text-underline-offset:.1em;text-decoration-skip-ink:none}
+.hero-grid{display:grid;grid-template-columns:5fr 7fr;border-top:1px solid var(--rule);border-bottom:3px double var(--rule)}
+.hero-copy{padding:32px 40px 40px 0;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:28px}
+.hero-copy p{margin:0;font-size:19px;line-height:1.6}
+.cta-row{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.cta-row span{font-size:16px;color:var(--muted);font-style:italic}
+.btn{display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:0 26px;background:var(--red);color:#FFFFFF;font-family:var(--body);font-weight:600;font-size:18px;text-decoration:none;border:2px solid var(--red);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translate(2px,-2px);box-shadow:-4px 4px 0 var(--ink)}
+.btn:focus-visible,.mast a:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.ledger{padding:32px 0 40px 40px;display:flex;flex-direction:column;justify-content:center}
+.ledger-box{border-top:3px double var(--rule);border-bottom:3px double var(--rule)}
+@keyframes k0{0%{opacity:1;transform:none}7.5%{opacity:0;transform:translate(120px,-120px) rotate(-4deg)}87.5%{opacity:0;transform:translate(0,16px)}95%,100%{opacity:1;transform:none}}
+@keyframes k1{0%,25%{opacity:1;transform:none}32.5%{opacity:0;transform:translate(120px,-120px) rotate(-4deg)}88.75%{opacity:0;transform:translate(0,16px)}96.25%,100%{opacity:1;transform:none}}
+@keyframes k2{0%,50%{opacity:1;transform:none}57.5%{opacity:0;transform:translate(120px,-120px) rotate(-4deg)}90%{opacity:0;transform:translate(0,16px)}97.5%,100%{opacity:1;transform:none}}
+.chore{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;padding:22px 4px;border-bottom:1px solid var(--hair);background:var(--paper);font-size:19px;animation-duration:12s;animation-timing-function:cubic-bezier(.5,0,.2,1);animation-iteration-count:infinite}
+.chore:last-child{border-bottom:0}
+.chore strong{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-0.01em}
+.chore span{font-family:var(--mono);font-size:15px;font-weight:500;text-align:right;white-space:nowrap;color:var(--ink)}
+.chore .stamp{color:var(--red);border:2px solid var(--red);padding:4px 10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;font-size:13px;transform:rotate(-3deg);display:inline-block}
+
+/* pain */
+.pain{padding-top:96px;padding-bottom:96px}
+.pain-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:4px solid var(--rule)}
+.pain-list p{margin:0;padding:24px 28px 28px;font-family:var(--display);font-weight:500;font-size:clamp(22px,2.2vw,27px);line-height:1.3;border-right:1px solid var(--rule)}
+.pain-list p:first-child{padding-left:0}
+.pain-list p:nth-child(3){border-right:0;padding-right:0}
+.pain-list p.close{grid-column:1/-1;max-width:30ch;text-wrap:balance;border-right:0;border-top:3px double var(--rule);padding:28px 0 0;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.12;letter-spacing:-0.02em}
+
+/* section heads */
+.kicker{display:block;border-top:4px solid var(--rule);margin-bottom:24px}
+h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:clamp(34px,3.6vw,46px);line-height:1.02;letter-spacing:-0.025em}
+
+/* brief */
+.brief{display:grid;grid-template-columns:5fr 7fr;gap:0;padding-bottom:104px}
+.brief-copy{padding-right:40px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:20px}
+.brief-copy p{margin:0;font-size:19px;line-height:1.65;max-width:42ch}
+.statement{margin-left:40px;border:1px solid var(--rule);outline:1px solid var(--rule);outline-offset:4px;background:#FBF6EC;padding:28px 32px 32px;display:flex;flex-direction:column;gap:16px}
+.statement .lab{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.statement .hdr{font-family:var(--mono);font-size:15px;line-height:1.7;padding:12px 0;border-top:3px double var(--rule);border-bottom:1px solid var(--rule)}
+.statement .hdr strong{font-weight:600;display:inline-block;min-width:80px}
+.statement ul{margin:0;padding:0;list-style:none}
+.statement li{font-size:17px;line-height:1.55;padding:12px 0;border-bottom:1px dashed var(--hair)}
+.statement li:last-child{border-bottom:3px double var(--rule)}
+.statement .fig{font-family:var(--mono);font-weight:600;font-size:16px}
+.statement .od{color:var(--red)}
+
+/* how */
+.how{padding-bottom:104px}
+.how ol{margin:32px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);counter-reset:step;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.how li{counter-increment:step;display:flex;flex-direction:column;gap:10px;padding:24px 24px 28px;border-right:1px solid var(--rule);font-size:17px;line-height:1.55}
+.how li:first-child{padding-left:0}
+.how li:last-child{border-right:0;padding-right:0}
+.how li::before{content:counter(step,decimal-leading-zero);font-family:var(--mono);font-size:14px;font-weight:600;color:var(--red)}
+.how li strong{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.15;letter-spacing:-0.01em}
+.how .note{margin:28px 0 0;font-size:19px;line-height:1.5;font-weight:600}
+.how .note2{margin:12px 0 0;font-size:19px;line-height:1.55;max-width:62ch}
+
+/* direct */
+.direct{display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start;padding-bottom:104px}
+.photo{aspect-ratio:1;border:1px solid var(--rule);background:repeating-linear-gradient(45deg,var(--photo) 0 10px,#D2C2A4 10px 11px);display:grid;place-items:center;font-family:var(--mono);font-size:14px;color:var(--muted)}
+.photo span{background:var(--paper);padding:4px 10px;border:1px solid var(--rule)}
+.direct-copy{display:flex;flex-direction:column;gap:18px;max-width:64ch}
+.direct-copy p{margin:0;font-size:19px;line-height:1.65}
+
+/* price */
+.price{padding-bottom:112px}
+.ptable{margin-top:28px;border-top:4px solid var(--rule);border-bottom:3px double var(--rule)}
+.terms{display:grid;grid-template-columns:200px 180px 1fr;gap:8px 32px;padding:24px 0;border-top:1px solid var(--rule);align-items:baseline}
+.terms:first-child{border-top:0}
+.terms > strong{font-family:var(--display);font-weight:700;font-size:20px}
+.terms .amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:30px;text-align:right;letter-spacing:-0.02em}
+.terms .amt small{display:block;font-size:14px;font-weight:500;color:var(--muted);letter-spacing:0}
+.terms .desc{font-size:18px;line-height:1.55;color:var(--muted)}
+.terms .desc.wide{grid-column:2/-1}
+.terms .red{color:var(--red);font-family:var(--mono);font-weight:600}
+
+/* band */
+.band{background:var(--night);color:var(--night-fg)}
+.band-inner{padding-top:clamp(64px,8vw,112px);padding-bottom:clamp(56px,6vw,80px);display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.band h2{font-size:clamp(40px,6.4vw,84px);line-height:.98;letter-spacing:-0.03em;max-width:14ch;color:var(--night-fg)}
+.band p{margin:0;font-size:19px;line-height:1.6;max-width:46ch;color:var(--night-muted)}
+.band .row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.band .mail{font-family:var(--mono);font-size:16px;padding:12px 0;color:var(--night-fg)}
+.band .btn:hover{box-shadow:-4px 4px 0 #F7F0E3}
+.band a:focus-visible{outline-color:#F7F0E3}
+.band footer{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:20px;padding-bottom:40px;border-top:3px double var(--night-rule);font-family:var(--mono);font-size:14px;color:var(--night-muted)}
+.band footer img{height:28px;width:auto;display:block}
+.band footer .meta{display:flex;gap:24px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero-grid,.brief{grid-template-columns:1fr}
+  .hero-copy{padding:28px 0 32px;border-right:0;border-bottom:1px solid var(--rule)}
+  .ledger{padding:28px 0 36px}
+  .brief-copy{padding:0 0 32px;border-right:0}
+  .statement{margin-left:0}
+  .pain-list{grid-template-columns:1fr}
+  .pain-list p{padding:20px 0;border-right:0;border-bottom:1px solid var(--rule)}
+  .pain-list p:nth-child(3){border-bottom:0}
+  .how ol{grid-template-columns:1fr 1fr}
+  .how li{border-bottom:1px solid var(--rule)}
+  .how li:nth-child(2n){border-right:0;padding-right:0}
+  .how li:nth-child(2n+1){padding-left:0}
+  .how li:nth-child(n+3){border-bottom:0}
+  .terms{grid-template-columns:160px 1fr}
+  .terms .amt{text-align:left}
+  .terms .desc{grid-column:2}
+  .terms .desc.wide{grid-column:2}
+}
+@media (max-width:640px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .hero h1{padding:28px 0}
+  .chore{grid-template-columns:1fr;gap:6px}
+  .chore span{text-align:left}
+  .chore .stamp{justify-self:start}
+  .statement{padding:22px 18px 24px}
+  .how ol{grid-template-columns:1fr}
+  .how li,.how li:nth-child(n){padding:20px 0;border-right:0;border-bottom:1px solid var(--rule)}
+  .how li:last-child{border-bottom:0}
+  .direct{grid-template-columns:1fr;gap:28px}
+  .photo{max-width:200px}
+  .terms{grid-template-columns:1fr;gap:6px}
+  .terms .desc,.terms .desc.wide{grid-column:1}
+  .pain,.brief,.how,.direct,.price{padding-bottom:72px}
+  .pain{padding-top:64px}
+}
+@media (prefers-reduced-motion:reduce){
+  .chore{animation:none !important;opacity:1;transform:none}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<section class="hero">
+<div class="wrap">
+<header class="mast">
+<img src="/brand/logos/wordmark-black.svg" alt="Upward Ventures">
+<a href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">Book a&nbsp;call&nbsp;↗</a>
+</header>
+<hr class="dbl">
+<h1>Stop being the person your business <span class="u">waits&nbsp;on.</span></h1>
+<div class="hero-grid">
+<div class="hero-copy">
+<p>I’m Siddharth Shah. I take one recurring job that only you seem able to do, like the Monday numbers, the overdue invoices or the quotes that sit, and set it up to run in the tools you already use. Nothing reaches a customer until your team approves it.</p>
+<div class="cta-row">
+<a class="btn" href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">Book a 30-minute&nbsp;call&nbsp;<span aria-hidden="true">↗</span></a>
+<span class="balance">Bring the job that costs you the&nbsp;most.</span>
+</div>
+</div>
+<div class="ledger" aria-hidden="true">
+<div class="ledger-box">
+<div class="chore" style="animation-name:k0"><strong>Quote for Delgado Supply</strong><span>waiting 2 days</span></div>
+<div class="chore" style="animation-name:k1"><strong>Invoice #1042</strong><span class="stamp">34 days overdue</span></div>
+<div class="chore" style="animation-name:k2"><strong>Monday numbers</strong><span>4 reports to pull</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<main>
+<section class="wrap pain">
+<div class="pain-list">
+<p>Quotes wait two days because you’re the only one who can price&nbsp;them.</p>
+<p>Friday afternoon goes to chasing who still owes you&nbsp;money.</p>
+<p>Monday’s numbers cost you an evening of pulling reports out of four&nbsp;tools.</p>
+<p class="close">Most of that work doesn’t need you. It just ends up with&nbsp;you.</p>
+</div>
+</section>
+
+<section class="wrap">
+<span class="kicker" aria-hidden="true"></span>
+<div class="brief">
+<div class="brief-copy">
+<h2>Start with the Monday&nbsp;brief.</h2>
+<p>One short email each Monday: what sold, what’s stuck, what’s overdue, and the few things that actually need you. If collections or quotes cost you more, we start there.</p>
+</div>
+<div class="statement">
+<span class="lab">Sample, built from a made-up company’s&nbsp;numbers</span>
+<div class="hdr"><strong>From:</strong> Monday brief<br><strong>Subject:</strong> Your week, Oct&nbsp;6–10</div>
+<ul>
+<li>Sales were <span class="fig">$184,200</span>, up <span class="fig">6%</span> on the week before.</li>
+<li><span class="fig">3</span> quotes have waited more than two days: Delgado Supply, Brightline Dental and Ortiz &amp; Sons.</li>
+<li><span class="fig od">7</span> invoices are past <span class="fig">30</span> days, <span class="fig od">$41,300</span> in total. <span class="fig">2</span> need a call from you.</li>
+<li>Nothing else needs you this&nbsp;week.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="wrap how">
+<span class="kicker" aria-hidden="true"></span>
+<h2>How I&nbsp;work</h2>
+<ol>
+<li><strong>Watch it&nbsp;once</strong>You show me the job on a screen share, the way it’s done today.</li>
+<li><strong>Build it in your&nbsp;tools</strong>A scheduled report, a rule between two apps, or an AI step where the job needs judgment.</li>
+<li><strong>You&nbsp;approve</strong>Nothing reaches a customer until someone on your team says yes.</li>
+<li><strong>I keep it&nbsp;running</strong>When something breaks, you hear from me the same day and it’s fixed within one business day.</li>
+</ol>
+<p class="note">If I don’t think it’ll work, I’ll tell you on the&nbsp;call.</p>
+<p class="note2">Once one job runs on its own, we look at the next. That’s how the rest of the business gets lighter, one job at a time.</p>
+</section>
+
+<section class="wrap">
+<span class="kicker" aria-hidden="true"></span>
+<div class="direct">
+<div class="photo"><span>Photo</span></div>
+<div class="direct-copy">
+<h2>You work with me&nbsp;directly.</h2>
+<p>I’m Siddharth Shah. I spent ten years building software products and running partnerships at Kiip, NinthDecimal and InMarket. UC Berkeley. Based in Los Angeles.</p>
+<p>I run this practice alongside a full-time job. That only works because routine work doesn’t need me: I built myself a system that sent a short note each morning with what I’d promised and what needed me, and nothing on a quiet day. I take on a few businesses at a time, and there’s no account manager in between.</p>
+</div>
+</div>
+</section>
+
+<section class="wrap price">
+<h2>Price and&nbsp;terms</h2>
+<div class="ptable">
+<div class="terms"><strong>Setup</strong><div class="amt">$5,000</div><div class="desc">Founding clients pay <strong class="red">$2,500</strong>. That’s open to the first three businesses, in exchange for a written case study.</div></div>
+<div class="terms"><strong>Payment</strong><div class="desc wide">Half to start. The other half once it has run twice without you touching it.</div></div>
+<div class="terms"><strong>Keeping it&nbsp;running</strong><div class="amt">$750<small>a month</small></div><div class="desc">Weekly checks, changes as your business changes, and fixes when something breaks.</div></div>
+<div class="terms"><strong>Software</strong><div class="desc wide">Runs in your own accounts and is billed to you. You’ll know the exact cost before we start.</div></div>
+</div>
+</section>
+</main>
+
+<section class="band">
+<div class="wrap band-inner">
+<h2>Show me the job you’d hand off&nbsp;first.</h2>
+<p>30 minutes. You’ll leave knowing what this job costs you now and what it would cost to hand off, whether or not we work together.</p>
+<div class="row">
+<a class="btn" href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">Pick a&nbsp;time&nbsp;<span aria-hidden="true">↗</span></a>
+<a class="mail" href="mailto:siddharth@upwardvx.com">siddharth@upwardvx.com</a>
+</div>
+</div>
+<div class="wrap">
+<footer><img src="/brand/logos/wordmark-white.svg" alt="Upward Ventures"><div class="meta"><span>© 2026 Upward Ventures</span><span>Los&nbsp;Angeles</span></div></footer>
+</div>
+</section>
+</div>
+</body>
+</html>

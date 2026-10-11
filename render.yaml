@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: upwardvx-site
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: ./public
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /brand/*
+        name: Cache-Control
+        value: public, max-age=604800

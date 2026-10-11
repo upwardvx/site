@@ -1,15 +1,10 @@
-@AGENTS.md
+# upwardvx.com — CLAUDE.md
 
-## Design System
-Always read DESIGN.md before making any visual or UI decisions.
-All font choices, colors, spacing, and aesthetic direction are defined there.
-Do not deviate without explicit user approval.
-In QA mode, flag any code that doesn't match DESIGN.md.
+Static one-page site. `public/index.html` is the entire site; `public/brand/` holds the logos. Deployed to Render as a static site via `render.yaml`. No framework, no build, no JavaScript.
 
-## Key rules for this project
-- Geist Mono only. No other fonts.
-- Matrix green `#00FF41` is the single accent. Never introduce a second accent.
-- Hard corners everywhere — border-radius: 0. No exceptions.
-- No Framer Motion, Lenis, GSAP, or R3F. The terminal works without them.
-- No scroll narrative. Navigation is page-based via nav bar or keyboard.
-- The boot sequence "DISABLING ADVISORY_MODE" line is sacred. Do not remove it.
+## Rules
+- Read DESIGN.md before any visual change. Don't add colors, fonts or sections without approval.
+- Copy is reader-based and owner-facing. Proof is past tense or a labelled sample — no client claims until real clients exist.
+- Never name the current employer on the page.
+- Keep the no-orphan line-break rules (`text-wrap`, `&nbsp;` before the last word of headlines, buttons and short lines).
+- Verify with a real browser at 1280px and 375px before calling a change done: no horizontal scroll, no console errors.
