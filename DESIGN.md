@@ -20,5 +20,7 @@ The page reads like a ledger statement: ruled lines, square corners, figures in 
 
 ## Shape and motion
 - Square corners everywhere. Hairline, thick and double rules carry the structure.
-- One motion only: the three hero ledger rows lift off up and to the right one at a time on a 12s loop, then return. Disabled under `prefers-reduced-motion`.
+- One motion only: the three hero ledger rows lift off up and to the right one at a time on a 12s loop, then return. Runs only in the two-column layout (above 900px) and never under `prefers-reduced-motion`.
 - Logos: `brand/logos/wordmark-black.svg` on sand, `wordmark-white.svg` on the closing band (tightly cropped copies of the originals).
+- Share image: `brand/og.png` (1200×630). PNG favicon and apple-touch-icon sit beside the SVG icon for Safari.
+- No photo yet: add a real headshot before reintroducing an image column in "You work with me directly."
