@@ -90,7 +90,8 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 .brief-copy{padding-right:40px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:20px}
 .brief-copy p{margin:0;font-size:19px;line-height:1.65;max-width:42ch}
 .statement{margin-left:40px;border:1px solid var(--rule);outline:1px solid var(--rule);outline-offset:4px;background:#FBF6EC;padding:28px 32px 32px;display:flex;flex-direction:column;gap:16px}
-.statement .lab{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ledger .lab{display:block;margin-top:14px}
+.statement .lab,.ledger .lab{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .statement .hdr{font-family:var(--mono);font-size:15px;line-height:1.7;padding:12px 0;border-top:3px double var(--rule);border-bottom:1px solid var(--rule)}
 .statement .hdr strong{font-weight:600;display:inline-block;min-width:80px}
 .statement ul{margin:0;padding:0;list-style:none}
@@ -268,7 +269,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <div class="hero-grid">
 <div class="hero-copy">
 <div class="lede"><p>Hand off one recurring job that only you seem able to do: the Monday numbers, the overdue invoices, the quotes that&nbsp;sit.</p>
-<p>I set it up to run in the tools you already&nbsp;use. Nothing reaches a customer until your team approves&nbsp;it.</p></div>
+<p>I set it up in the tools your team already uses, so it gets done without waiting on&nbsp;you. Nothing reaches a customer until someone on your team approves&nbsp;it.</p></div>
 <div class="cta-row">
 <a class="btn" href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">Book a 30-minute&nbsp;call&nbsp;<span aria-hidden="true">↗</span></a>
 </div>
@@ -279,6 +280,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <div class="chore"><strong>Invoice #1042</strong><span class="st"><span class="was stamp">34 days overdue</span><span class="ok" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.4 10.6 10.4 5.6M6.9 5.6h3.5v3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>Off your desk</span></span></div>
 <div class="chore"><strong>Monday numbers</strong><span class="st"><span class="was">4 reports to pull</span><span class="ok" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.4 10.6 10.4 5.6M6.9 5.6h3.5v3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>Off your desk</span></span></div>
 </div>
+<span class="lab">Illustration. Names are made&nbsp;up.</span>
 </div>
 </div>
 </div>
@@ -307,6 +309,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <li>Sales were <span class="fig">$184,200</span>, up <span class="fig">6%</span> on the week before.</li>
 <li><span class="fig">3</span> quotes have waited more than two days: Delgado Supply, Brightline Dental and Ortiz&nbsp;&amp;&nbsp;Sons.</li>
 <li><span class="fig od">7</span> invoices are past <span class="fig">30</span> days, <span class="fig od">$41,300</span> in total. <span class="fig">2</span> need a call from you.</li>
+<li>2 reminder emails are drafted. They go out when your office manager approves&nbsp;them.</li>
 <li class="last">Nothing else needs you this&nbsp;week. <span class="ok sm" aria-hidden="true"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.4 10.6 10.4 5.6M6.9 5.6h3.5v3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/></svg>Off your desk</span></li>
 </ul>
 </div>
@@ -320,9 +323,9 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <li><strong>Watch it&nbsp;once</strong>You show me the job on a screen share, the way it’s done today.</li>
 <li><strong>Build it in your&nbsp;tools</strong>I set it up where your team already works: a scheduled report, a rule between two apps, or an AI step where the job needs&nbsp;judgment.</li>
 <li><strong>You&nbsp;approve</strong>You see it work before it goes live. Nothing reaches a customer until someone on your team says&nbsp;yes.</li>
-<li><strong>I look after&nbsp;it</strong>I check it every week and change it as your business&nbsp;changes.</li>
+<li><strong>I look after&nbsp;it</strong>I check it every week and change it as your business changes. If something breaks, I reply within one business day. Until then it holds rather than&nbsp;sends.</li>
 </ol>
-<p class="note">If I don’t think it’ll work, I’ll tell you on the&nbsp;call.</p>
+<p class="note">If I don’t think it’ll work, or the job takes you under two hours a week, I’ll say so on the&nbsp;call.</p>
 <p class="note2">Once the first job runs without you, we can pick the next. Each one gets its own setup quote, and the monthly fee stays the&nbsp;same.</p>
 </section>
 
@@ -341,9 +344,8 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <section class="wrap price">
 <h2>Price and&nbsp;terms</h2>
 <div class="ptable">
-<div class="terms"><strong>Setup, one&nbsp;job</strong><div class="amt">$5,000</div><div class="desc">The first three businesses pay <strong class="red">$2,500</strong> in exchange for a written case study. You’ll have a go-live date before you pay&nbsp;anything.</div></div>
-<div class="terms"><strong>Payment</strong><div class="amt">50%<small>to start</small></div><div class="desc">The other half only once it has run twice without you touching&nbsp;it.</div></div>
-<div class="terms"><strong>Looking after&nbsp;it</strong><div class="amt">$750<small>a month</small></div><div class="desc">Starts when it goes live. Weekly checks, changes as your business changes, and whatever it needs to keep working. One fee for everything I look after, month to&nbsp;month.</div></div>
+<div class="terms"><strong>Setup, one&nbsp;job</strong><div class="amt">$1,500</div><div class="desc">Paid when it goes live, not before. If it hasn’t run twice without you in the first 30 days, you don’t pay&nbsp;it.</div></div>
+<div class="terms"><strong>Looking after&nbsp;it</strong><div class="amt">$750<small>a month</small></div><div class="desc">Starts when it goes live, month to month. Weekly checks, changes as your business changes, and whatever it needs to keep working. Stop any month; what I built stays&nbsp;yours.</div></div>
 <div class="terms"><strong>Software</strong><div class="amt">$0<small>markup</small></div><div class="desc">Runs in your own accounts and is billed to you at cost. You’ll know the exact price before we start, and it’s yours if we stop working&nbsp;together.</div></div>
 </div>
 </section>
@@ -351,7 +353,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <section class="band">
 <div class="wrap band-inner">
 <h2>Show me the job you’d hand off&nbsp;first.</h2>
-<p>30 minutes. You’ll leave knowing what this job costs you now and what it would cost to hand off, whether or not we work together.</p>
+<p>Keep your people. Take yourself out of the queue. 30&nbsp;minutes. You’ll leave knowing what this job costs you now and what it would cost to hand off, whether or not we work together.</p>
 <div class="row">
 <a class="btn" href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">Pick a&nbsp;time&nbsp;<span aria-hidden="true">↗</span></a>
 <a class="mail" href="mailto:siddharth@upwardvx.com">siddharth@upwardvx.com</a>
