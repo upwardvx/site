@@ -92,6 +92,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 .brief-copy p{margin:0;font-size:19px;line-height:1.65;max-width:42ch}
 .statement{margin-left:40px;border:1px solid var(--rule);outline:1px solid var(--rule);outline-offset:4px;background:#FBF6EC;padding:28px 32px 32px;display:flex;flex-direction:column;gap:16px}
 .ledger .lab{display:block;margin-top:14px}
+.proof{grid-column:2;margin:20px 0 0 40px;font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .statement .lab,.ledger .lab{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .statement .hdr{font-family:var(--mono);font-size:15px;line-height:1.7;padding:12px 0;border-top:3px double var(--rule);border-bottom:1px solid var(--rule)}
 .statement .hdr strong{font-weight:600;display:inline-block;min-width:80px}
@@ -148,6 +149,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 
 @media (max-width:900px){
   .hero-grid,.brief{grid-template-columns:1fr}
+  .proof{grid-column:1;margin-left:0}
   .hero-copy{padding:28px 0 32px;border-right:0;border-bottom:1px solid var(--rule)}
   .ledger{padding:28px 0 36px}
   .brief-copy{padding:0 0 32px;border-right:0}
@@ -323,10 +325,10 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <li class="last">A week where revenue dropped because of refunds says so, instead of reading as a slow&nbsp;week.</li>
 </ul>
 </div>
+<p class="proof">Live test: 87 of 87 cases passed, 3 runs in a row (Oct&nbsp;14)</p>
 </div>
 </section>
 <!-- TODO(demo-recording): 30-second approval recording from the Larkspur demo goes here once P0 delivers it. -->
-<!-- TODO(pass-rate): live eval pass rate goes here, quoted exactly from the demo README. -->
 
 <section class="wrap price">
 <h2>Price and&nbsp;terms</h2>
