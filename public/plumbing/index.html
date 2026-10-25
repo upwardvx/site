@@ -102,6 +102,24 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 .statement .fig{font-family:var(--mono);font-weight:600;font-size:16px}
 .statement .od{color:var(--red)}
 
+/* drafts */
+.drafts{padding-bottom:104px}
+.drafts-intro{margin:20px 0 0;font-size:19px;line-height:1.6;max-width:62ch}
+.draft-list{margin-top:40px;border-top:1px solid var(--rule)}
+.draft{display:grid;grid-template-columns:5fr 7fr;padding:40px 0 48px;border-bottom:1px solid var(--rule)}
+.draft:last-child{border-bottom:3px double var(--rule)}
+.draft-point{padding-right:40px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:14px;align-self:start}
+.draft-point .lab{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.draft-point p{margin:0;font-family:var(--display);font-weight:700;font-size:clamp(22px,2.2vw,27px);line-height:1.25;letter-spacing:-0.01em;max-width:22ch}
+.draft .statement{margin-left:40px}
+.draft .hdr div + div{margin-top:2px}
+.draft .msg p{margin:0 0 14px;font-size:17px;line-height:1.6}
+.draft .msg p:last-child{margin-bottom:0}
+.draft .why{margin:0;padding-top:12px;border-top:1px dashed var(--hair);font-size:16px;line-height:1.55;color:var(--muted)}
+.draft .why .lab{display:block;margin-bottom:4px}
+.draft .said{font-size:17px;line-height:1.55;padding:12px 0;border-bottom:3px double var(--rule)}
+.draft .skip{align-self:flex-start;margin:0;padding:6px 12px;border:2px solid var(--ink);font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+
 /* how */
 .how{padding-bottom:104px}
 .how ol{margin:32px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);counter-reset:step;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
@@ -153,6 +171,9 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
   .hero-copy{padding:28px 0 32px;border-right:0;border-bottom:1px solid var(--rule)}
   .ledger{padding:28px 0 36px}
   .brief-copy{padding:0 0 32px;border-right:0}
+  .draft{grid-template-columns:1fr}
+  .draft-point{padding:0 0 24px;border-right:0}
+  .draft .statement{margin-left:0}
   .statement{margin-left:0}
   .pain-list{grid-template-columns:1fr}
   .pain-list p{padding:20px 0;border-right:0;border-bottom:1px solid var(--rule)}
@@ -181,7 +202,8 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
   .photo{max-width:200px}
   .terms{grid-template-columns:1fr;gap:6px}
   .terms .desc,.terms .desc.wide{grid-column:1}
-  .pain,.brief,.how,.direct,.price{padding-bottom:72px}
+  .pain,.brief,.how,.direct,.price,.drafts{padding-bottom:72px}
+  .draft{padding:28px 0 36px}
   .pain{padding-top:64px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -328,6 +350,45 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <p class="proof">Live test: 92 of 92 cases passed (Oct&nbsp;20), run on records as of Oct&nbsp;12</p>
 </div>
 </section>
+<section class="wrap drafts" id="drafts">
+<span class="kicker" aria-hidden="true"></span>
+<h2>What it actually&nbsp;wrote.</h2>
+<p class="drafts-intro">Copied as written from the Larkspur test run on Oct&nbsp;20. The shop and its customers are made up. In real use, each one waits for someone at the shop to approve&nbsp;it.</p>
+<div class="draft-list">
+
+<article class="draft" data-export="b-paid-part-of-it.json">
+<div class="draft-point"><span class="lab">Paid part of it</span><p>A customer who paid part of an invoice is thanked, and asked only for the&nbsp;balance.</p></div>
+<div class="statement">
+<span class="lab">Draft <span data-f="channel">email</span>, waiting for approval</span>
+<div class="hdr"><div><strong>Invoice</strong> <span data-f="invoice_id">INV-7001</span> · <span data-f="customer">Dana Reyes</span> · <span data-f="balance">$1,250</span> owed · <span data-f="days_overdue">38</span>&nbsp;days&nbsp;overdue</div><div><strong>Subject</strong> <span data-f="subject">Invoice INV-7001: $1,250 still open</span></div></div>
+<div class="msg" data-f="body"><p>Hi Dana,</p><p>Thanks for the $600 payment on invoice INV-7001. We still show $1,250 owed on it, and it’s now about five weeks past due.</p><p>Could you get the $1,250 balance paid this week? If something is holding it up, reply and let me know so we can sort it out.</p><p>Thanks,<br>Dee at Larkspur</p></div>
+<p class="why"><span class="lab">Why it wrote it this way</span><span data-f="reason">Second reminder, 38 days overdue. Direct tone since it’s well past due; customer already paid $600, so the note thanks them for it.</span></p>
+</div>
+</article>
+
+<article class="draft" data-export="d-eleven-year-customer.json">
+<div class="draft-point"><span class="lab">11-year customer</span><p>A customer of 11 years gets a softer note than a first-time&nbsp;customer.</p></div>
+<div class="statement">
+<span class="lab">Draft <span data-f="channel">email</span>, waiting for approval</span>
+<div class="hdr"><div><strong>Invoice</strong> <span data-f="invoice_id">INV-7041</span> · <span data-f="customer">Morgan Hale</span> · <span data-f="balance">$1,260</span> owed · <span data-f="days_overdue">70</span>&nbsp;days&nbsp;overdue</div><div><strong>Subject</strong> <span data-f="subject">INV-7041: can we set up a quick call?</span></div></div>
+<div class="msg" data-f="body"><p>Hi Morgan,</p><p>I’m writing about invoice INV-7041. There’s still $1,260 outstanding, and it’s now about 70 days past due. We’ve appreciated working with you for so many years, and I’d rather sort this out with you directly than let it drag on.</p><p>Could you give me a call this week, or let me know a date when you expect to be able to pay? If something is getting in the way, tell me and we’ll figure out the best way forward together.</p><p>Thanks, Morgan.</p><p>Dee at Larkspur</p></div>
+<p class="why"><span class="lab">Why it wrote it this way</span><span data-f="reason">Third reminder, 70 days overdue. Asks for a call or a payment date; tone kept gentle because they’re a long-time customer.</span></p>
+</div>
+</article>
+
+<article class="draft" data-export="c-disputed.json" data-invoice="INV-7002">
+<div class="draft-point"><span class="lab">Disputed</span><p>A disputed invoice gets no reminder at&nbsp;all.</p></div>
+<div class="statement">
+<span class="lab">No draft written</span>
+<div class="hdr"><div><strong>Invoice</strong> <span data-f="invoice_id">INV-7002</span> · <span data-f="customer">Robin Okafor</span> · <span data-f="amount">$2,240</span> open · due <span data-f="due_on">Aug 28</span></div></div>
+<p class="said"><span class="lab">What Robin last said</span><br>“<span data-f="note">The new heater still leaks. Not paying until it is fixed.</span>”</p>
+<p class="skip">Skipped: the customer disputes the&nbsp;invoice</p>
+</div>
+</article>
+
+</div>
+</section>
+
 <!-- TODO(demo-recording): 30-second approval recording from the Larkspur demo goes here once P0 delivers it. -->
 
 <section class="wrap price">
