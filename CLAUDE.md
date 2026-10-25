@@ -8,3 +8,4 @@ Static one-page site. `public/index.html` is the entire site; `public/brand/` ho
 - Never name the current employer on the page.
 - Keep the no-orphan line-break rules (`text-wrap`, `&nbsp;` before the last word of headlines, buttons and short lines).
 - Verify with a real browser at 1280px and 375px before calling a change done: no horizontal scroll, no console errors.
+- The Larkspur drafts and proof line on `/plumbing` are copied from `agent-fleet/site-exports/`. Run `python3 scripts/check-plumbing-drafts.py` after any change to them or when a new export lands.
