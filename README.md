@@ -20,10 +20,10 @@ Read `DESIGN.md` before changing anything visual. Copy changes go straight into 
 
 ## Checks
 
-The Larkspur drafts and the test result on `/plumbing` are copied by hand from `agent-fleet/site-exports/<run date>/larkspur/`. After touching them, or when a new export lands, run:
+The Larkspur scenarios and the test result on `/plumbing` are copied from `agent-fleet/site-exports/<run date>/larkspur/`. After touching them, or when a new export lands, run:
 
 ```bash
-python3 scripts/check-plumbing-drafts.py
+node scripts/check-plumbing-drift.js ../agent-fleet/site-exports/<run date>/larkspur
 ```
 
-It finds the newest export next to this repo (or takes `--export DIR`) and exits 1 if any draft, record figure or the proof line differs. There is no CI: the exports live in another repo, so a Render build can't run it.
+It reads the export and the static HTML (what a visitor sees with JS off) and exits 1 if any scenario is missing, any draft, subject or reason differs from the export, or any figure, ID, date or day count on the page isn't in the export. No dependencies. There is no CI: the exports live in another repo, so a Render build can't run it.
