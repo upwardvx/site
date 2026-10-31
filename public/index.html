@@ -72,14 +72,28 @@ a{color:inherit}
 .chore span{font-family:var(--mono);font-size:15px;font-weight:500;text-align:right;white-space:nowrap;color:var(--ink)}
 .chore .stamp{color:var(--red);border:2px solid var(--red);padding:4px 10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;font-size:13px;transform:rotate(-3deg);display:inline-block}
 
-/* pain */
-.pain{padding-top:96px;padding-bottom:96px}
-.pain-list{display:grid;grid-template-columns:repeat(3,1fr);border-top:4px solid var(--rule)}
-.pain-list p{margin:0;padding:24px 28px 28px;font-family:var(--display);font-weight:500;font-size:clamp(22px,2.2vw,27px);line-height:1.3;border-right:1px solid var(--rule)}
-.pain-list p:first-child{padding-left:0}
-.pain-list p:nth-child(3){border-right:0;padding-right:0}
-.pain-list p.close span{display:block;max-width:30ch}
-.pain-list p.close{grid-column:1/-1;max-width:none;text-wrap:balance;border-right:0;border-top:3px double var(--rule);padding:28px 0 0;font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.12;letter-spacing:-0.02em}
+/* your trade: two perforated slips, then the thesis line */
+.trade{padding-top:96px;padding-bottom:96px}
+.trades{list-style:none;margin:28px 0 0;padding:22px 0 26px;display:flex;flex-direction:column;gap:22px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.tslip{position:relative;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr) auto;gap:8px 32px;align-items:center;padding:20px 22px 18px;background:#FBF6EC;border:1px solid var(--ink);text-decoration:none;color:var(--ink);transition:transform .18s,box-shadow .18s}
+.tslip::before{content:"";position:absolute;left:-1px;right:-1px;top:-5px;height:10px;background:radial-gradient(circle at 6px 5px,var(--paper) 3px,transparent 3.5px) 0 0/12px 10px repeat-x;pointer-events:none}
+.tslip .tk{display:block;margin-bottom:6px;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.tslip .tt{display:block;font-family:var(--display);font-weight:700;font-size:clamp(22px,2.2vw,27px);line-height:1.15;letter-spacing:-.01em}
+.tslip .td{font-size:18px;line-height:1.5;color:var(--muted)}
+.tslip .go{font-family:var(--mono);font-size:15px;font-weight:600;white-space:nowrap;border-bottom:2px solid var(--red);padding-bottom:2px}
+.tslip.soon .go{color:var(--muted);border-bottom-color:var(--hair)}
+a.tslip:hover,a.tslip:focus-visible{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+a.tslip:active{transform:none;box-shadow:2px 2px 0 var(--ink)}
+a.tslip:focus-visible{outline:3px solid var(--ink);outline-offset:5px}
+.trade .close{margin:28px 0 0;max-width:30ch;text-wrap:balance;font-family:var(--display);font-weight:800;font-size:clamp(28px,3.4vw,44px);line-height:1.12;letter-spacing:-0.02em}
+
+/* where it runs / where you approve / what it can see */
+.facts{margin:28px 0 0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--rule);border-bottom:3px double var(--rule)}
+.facts>div{padding:18px 24px 20px;border-right:1px solid var(--rule)}
+.facts>div:first-child{padding-left:0}
+.facts>div:last-child{border-right:0;padding-right:0}
+.facts dt{margin:0 0 8px;font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.facts dd{margin:0;font-size:17px;line-height:1.5}
 
 /* section heads */
 .kicker{display:block;border-top:4px solid var(--rule);margin-bottom:24px}
@@ -152,9 +166,12 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
   .ledger{padding:28px 0 36px}
   .brief-copy{padding:0 0 32px;border-right:0}
   .statement{margin-left:0}
-  .pain-list{grid-template-columns:1fr}
-  .pain-list p{padding:20px 0;border-right:0;border-bottom:1px solid var(--rule)}
-  .pain-list p:nth-child(3){border-bottom:0}
+  .tslip{grid-template-columns:minmax(0,1fr) auto;align-items:end}
+  .tslip .td{grid-column:1;grid-row:2}
+  .tslip .go{grid-column:2;grid-row:1/3;align-self:center}
+  .facts{grid-template-columns:1fr}
+  .facts>div,.facts>div:first-child,.facts>div:last-child{padding:16px 0;border-right:0;border-bottom:1px solid var(--hair)}
+  .facts>div:last-child{border-bottom:0}
   .how ol{grid-template-columns:1fr 1fr}
   .how li{border-bottom:1px solid var(--rule)}
   .how li:nth-child(2n){border-right:0;padding-right:0}
@@ -179,11 +196,15 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
   .photo{max-width:200px}
   .terms{grid-template-columns:1fr;gap:6px}
   .terms .desc,.terms .desc.wide{grid-column:1}
-  .pain,.brief,.how,.direct,.price{padding-bottom:72px}
-  .pain{padding-top:64px}
+  .trade,.brief,.how,.direct,.price{padding-bottom:72px}
+  .trade{padding-top:64px}
+  .tslip{grid-template-columns:1fr;padding:18px 16px 16px;gap:6px}
+  .tslip .td,.tslip .go{grid-column:1;grid-row:auto}
+  .tslip .td{font-size:17px}
+  .tslip .go{justify-self:start;margin-top:6px}
 }
 @media (prefers-reduced-motion:reduce){
-  .btn{transition:none}
+  .btn,.tslip{transition:none}
 }
 
 /* stamps: forest "off your desk" over the red "needs you" */
@@ -196,11 +217,28 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 .statement{position:relative}
 .statement::before{content:"";position:absolute;left:-6px;right:-6px;top:-11px;height:12px;background:radial-gradient(circle at 8px 6px,var(--paper) 3.6px,transparent 4.1px) 0 0/16px 12px repeat-x}
 @media (max-width:900px){.st{justify-content:flex-start}}
+/* in-tray files itself: with JS + motion the rows start as loose slips in shallow perspective and lie flat into
+   the ledger as each is stamped. Transform, background, shadow only; the end state is the flat ledger above. */
+.ledger-box{perspective:1100px;perspective-origin:50% 0%}
+.chore{transform-origin:50% 100%}
+.chore:nth-child(1){--pile:rotateX(10deg) rotate(-1.4deg) translate3d(-6px,14px,22px)}
+.chore:nth-child(2){--pile:rotateX(10deg) rotate(1.1deg) translate3d(5px,4px,14px)}
+.chore:nth-child(3){--pile:rotateX(10deg) rotate(-.7deg) translate3d(-2px,-2px,6px)}
 @media (prefers-reduced-motion:no-preference){
+  html.js .ledger-box:not(.inked) .chore{transform:var(--pile);background:#FBF6EC;box-shadow:0 1px 0 var(--hair),4px 10px 22px -6px rgba(30,58,47,.28);border-bottom-color:transparent;z-index:1;position:relative}
+  html.js .ledger-box:not(.inked) .chore:nth-child(1){z-index:3}html.js .ledger-box:not(.inked) .chore:nth-child(2){z-index:2}
+  html.js .inked .chore{position:relative;animation:file .48s var(--settle) backwards}
+  html.js .inked .chore:nth-child(1){animation-delay:.92s;z-index:3}
+  html.js .inked .chore:nth-child(2){animation-delay:1.22s;z-index:2}
+  html.js .inked .chore:nth-child(3){animation-delay:1.52s;z-index:1}
+  @keyframes file{
+    from{transform:var(--pile);background:#FBF6EC;box-shadow:0 1px 0 var(--hair),4px 10px 22px -6px rgba(30,58,47,.28);border-bottom-color:transparent}
+    60%{box-shadow:0 0 0 var(--hair),1px 2px 6px -2px rgba(30,58,47,.18)}
+    to{transform:none;background:var(--paper);box-shadow:none;border-bottom-color:var(--hair)}}
   html.js .ledger-box:not(.inked) .ok,html.js .statement:not(.inked) .ok{opacity:0}
   html.js .ledger-box:not(.inked) .was{text-decoration-color:transparent}
-  html.js .inked .ok{animation:press .18s cubic-bezier(.2,.9,.2,1) both}
-  html.js .inked .was{animation:strikeon .2s ease-out both}
+  html.js .inked .ok{animation:press .18s cubic-bezier(.2,.9,.2,1) backwards}
+  html.js .inked .was{animation:strikeon .2s ease-out backwards}
   html.js .inked .chore:nth-child(1) .ok,html.js .inked .chore:nth-child(1) .was{animation-delay:.8s}
   html.js .inked .chore:nth-child(2) .ok,html.js .inked .chore:nth-child(2) .was{animation-delay:1.1s}
   html.js .inked .chore:nth-child(3) .ok,html.js .inked .chore:nth-child(3) .was{animation-delay:1.4s}
@@ -208,8 +246,12 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
   @keyframes press{from{opacity:0;transform:rotate(-4deg) scale(1.4)}to{opacity:1;transform:rotate(-4deg) scale(1)}}
   @keyframes strikeon{from{text-decoration-color:transparent}to{text-decoration-color:var(--muted)}}
   @supports (animation-timeline: view()){
-    .statement{animation:feed linear both;animation-timeline:view();animation-range:entry 0% entry 75%}
-    @keyframes feed{from{clip-path:inset(-10px -10px 100% -10px)}to{clip-path:inset(-10px)}}
+    .brief{perspective:1200px;perspective-origin:50% 0}
+    .statement{transform-origin:50% 0;animation:feed linear both;animation-timeline:view();animation-range:entry 0% entry 75%}
+    @keyframes feed{
+      from{clip-path:inset(-10px -10px 100% -10px);transform:rotateX(-22deg) translateY(-6px)}
+      55%{transform:rotateX(-6deg)}
+      to{clip-path:inset(-10px);transform:none}}
   }
 }
 /* away slip */
@@ -287,13 +329,14 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 </div>
 </section>
 
-<section class="wrap pain">
-<div class="pain-list">
-<p>Quotes wait two days because you’re the only one who can price&nbsp;them.</p>
-<p>Friday afternoon goes to chasing who still owes you&nbsp;money.</p>
-<p>Monday’s numbers cost you Sunday night, pulling reports out of four&nbsp;tools.</p>
-<p class="close"><span>Most of that work doesn’t need you. It just ends up with&nbsp;you.</span></p>
-</div>
+<section class="wrap trade" aria-labelledby="trade-h">
+<span class="kicker" aria-hidden="true"></span>
+<h2 id="trade-h">Pick your&nbsp;trade</h2>
+<ul class="trades">
+<li><a class="tslip" href="/plumbing"><span><span class="tk">Example</span><span class="tt">Plumbing, heating &amp;&nbsp;HVAC</span></span><span class="td">Quote follow-ups, overdue invoices, the Monday&nbsp;numbers.</span><span class="go">See it&nbsp;run&nbsp;<span aria-hidden="true">↗</span></span></a></li>
+<li><div class="tslip soon"><span><span class="tk">Example</span><span class="tt">Small CPA and tax&nbsp;firms</span></span><span class="td">Missing documents, last year’s unpaid fees, Monday&nbsp;status.</span><span class="go">Coming&nbsp;soon</span></div></li>
+</ul>
+<p class="close">Most of that work doesn’t need you. It just ends up with&nbsp;you.</p>
 </section>
 
 <section class="wrap">
@@ -329,6 +372,11 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 </ol>
 <p class="note">If I don’t think it’ll work, or the job takes you under two hours a week, I’ll say so on the&nbsp;call.</p>
 <p class="note2">Once the first job runs without you, we can pick the next. Each one gets its own setup quote, and the monthly fee stays the&nbsp;same.</p>
+<dl class="facts">
+<div><dt>Where it runs</dt><dd>Inside the tools you already use: your job or invoicing software, your email and&nbsp;texts.</dd></div>
+<div><dt>Where you approve</dt><dd>Each draft comes to you with the record behind it and three choices: approve, edit or&nbsp;discard.</dd></div>
+<div><dt>What it can see</dt><dd>Only the records the job needs. You can switch off its access any&nbsp;day.</dd></div>
+</dl>
 </section>
 
 <section class="wrap">
@@ -338,7 +386,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <div class="direct-copy">
 <h2>You work with me&nbsp;directly.</h2>
 <p>I’ve spent 18 years across customer success, partnerships and product, most recently in digital advertising, making software do what the customer paid&nbsp;for. Based in Los&nbsp;Angeles.</p>
-<p>I run this practice alongside a full-time job. That only works because routine work doesn’t need me: I built myself a system that still sends me a short note each morning with what I’ve promised and what needs me, and nothing on a quiet day. You deal with me, not an account&nbsp;manager.</p>
+<p>If something breaks, I reply within one business day, and until then it holds rather than sends. I run this practice alongside a full-time job, which works because the routine work genuinely doesn’t need me. You deal with me, not an account&nbsp;manager.</p>
 </div>
 </div>
 </section>
