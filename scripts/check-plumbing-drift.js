@@ -164,12 +164,12 @@ eq('no TODO / CONFIRM / placeholder markers', ph || [], []);
 console.log('proof line');
 const proof = all(doc, n => 'data-proof' in n.attrs);
 eq('one proof line', proof.length, 1);
-// "all N checks passed" is only true when the eval passed every case.
+// "all N test cases passed" is only true when the eval passed every case.
 eq('eval passed every case (' + ev.cases_passed + ' of ' + ev.cases_total + ')', ev.cases_passed, ev.cases_total);
 eq('eval date is the run date', ev.date, index.run_date);
 if (proof[0]) eq('proof text', flat(proof[0]).replace(/\u00a0/g, ' '),
   'Sample: Larkspur Plumbing & Heating and its customers are made up. The drafts are unedited AI output from a test run on ' +
-  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where all ' + ev.cases_total + ' checks passed.');
+  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where all ' + ev.cases_total + ' test cases passed.');
 ok('proof line is labelled as a sample', proof[0] && cls(proof[0]).includes('sample'));
 
 /* ---- scenarios present, in order ---- */
