@@ -25,6 +25,10 @@
    and no draft may exist for it. An export with no "held" key falls back to
    the old rule (disputed invoices in a collections run).
 
+   Held-only scenarios: when every item is held and there is no draft, no
+   draft checks ran. The scenario must have no checks panel (no checks
+   summary, no check rows); a plain line saying so is fine.
+
    SKIP: scenarios that are in the export but deliberately not on the page.
    Each is named here with a reason, is reported on every run, and fails if
    it shows up on the page (so a skip can't go stale). Adding a scenario to
@@ -264,6 +268,12 @@ for (const s of shown) {
     if (r.last_customer_message) said.push(r.last_customer_message);
   }
   for (const q of f(art, 'note')) ok('customer note "' + text(q) + '" is in the record', said.includes(text(q)));
+  const heldOnly = !isBrief && d.drafts.length === 0 && heldIds.length > 0;
+  if (heldOnly) {
+    eq('held-only: no checks panel', [all(art, n => 'data-checks-run' in n.attrs).length, all(art, n => n.tag === 'details' || n.tag === 'summary').length, f(art, 'check').length], [0, 0, 0]);
+    console.log('  ' + sweep(s.scenario, words(art), [JSON.stringify(d)], numbersIn(d)) + ' figures and IDs swept (held-only)');
+    continue;
+  }
   // The phone summary counts every check the export ran for this case, all passed.
   const shownChecks = f(art, 'check');
   const run = all(art, n => 'data-checks-run' in n.attrs);
