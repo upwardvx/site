@@ -5,18 +5,30 @@
    progressive JS), so this reads the HTML as served, before any script runs.
 
      node scripts/check-plumbing-drift.js <export dir> [page]
-     node scripts/check-plumbing-drift.js ../agent-fleet/site-exports/2026-10-20/larkspur
+     node scripts/check-plumbing-drift.js ../agent-fleet/site-exports/2026-11-03/larkspur
 
    <export dir> holds index.json and one JSON per scenario. [page] defaults to
    public/plumbing/index.html. No dependencies. Exits 1 on any mismatch.
 
    Draft text, subjects and reasons must match the export exactly: no
    paraphrase, no curly quotes, no non-breaking spaces. Every scenario in
-   index.json must be on the page, in order. Every dollar figure, invoice,
+   index.json must be on the page, in order, except the ones named in SKIP
+   below. Every dollar figure, invoice,
    quote and job ID, date and day count inside a scenario must appear in that
    scenario's export; outside the scenarios (hero, pain lines) they must
    appear in some export file. The price section is not export data and is
-   skipped. */
+   skipped.
+
+   Held items: if the export lists "held" items (a quote or invoice the owner
+   must handle, so no draft is written), each must be on the page as a
+   data-held block with the export's reason verbatim in data-f="held-reason",
+   and no draft may exist for it. An export with no "held" key falls back to
+   the old rule (disputed invoices in a collections run).
+
+   SKIP: scenarios that are in the export but deliberately not on the page.
+   Each is named here with a reason, is reported on every run, and fails if
+   it shows up on the page (so a skip can't go stale). Adding a scenario to
+   the page means deleting its entry. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -26,6 +38,9 @@ if (!expArg) {
   console.error('usage: node scripts/check-plumbing-drift.js <export dir> [page]');
   process.exit(2);
 }
+const SKIP = {
+  h: 'review reply: needs its own design call (no tab on /plumbing yet)',
+};
 const EXP = path.resolve(expArg);
 const PAGE = path.resolve(pageArg || path.join(__dirname, '..', 'public', 'plumbing', 'index.html'));
 
@@ -175,12 +190,18 @@ ok('proof line is labelled as a sample', proof[0] && cls(proof[0]).includes('sam
 /* ---- scenarios present, in order ---- */
 console.log('scenarios');
 const arts = all(doc, n => n.tag === 'article' && 'data-scenario' in n.attrs);
+const shown = index.scenarios.filter(s => !(s.scenario in SKIP));
+for (const s of index.scenarios) if (s.scenario in SKIP) {
+  console.log('  SKIP  ' + s.scenario + ' ' + s.slug + ': ' + SKIP[s.scenario]);
+  ok('skipped scenario ' + s.scenario + ' is not on the page (remove it from SKIP if it is)', !arts.some(a => a.attrs['data-scenario'] === s.scenario));
+}
+for (const k of Object.keys(SKIP)) ok('SKIP entry ' + k + ' names a scenario in the export', index.scenarios.some(s => s.scenario === k));
 eq('scenarios on the page', arts.map(a => a.attrs['data-scenario'] + ':' + a.attrs['data-export']),
-  index.scenarios.map(s => s.scenario + ':' + s.file));
+  shown.map(s => s.scenario + ':' + s.file));
 const tabs = all(doc, n => n.attrs.role === 'tab');
-eq('tab titles', tabs.map(t => loose(flat(all(t, n => cls(n).includes('tt'))[0] || t))), index.scenarios.map(s => loose(s.title)));
+eq('tab titles', tabs.map(t => loose(flat(all(t, n => cls(n).includes('tt'))[0] || t))), shown.map(s => loose(s.title)));
 
-for (const s of index.scenarios) {
+for (const s of shown) {
   const d = exportsByLetter[s.scenario];
   const art = arts.find(a => a.attrs['data-scenario'] === s.scenario);
   console.log(s.scenario + ' ' + s.slug);
@@ -214,10 +235,18 @@ for (const s of index.scenarios) {
     eq('reasons, verbatim', reasons.slice().sort(), d.drafts.map(x => x.reason).sort());
   }
 
-  // Collections: disputed invoices are held back, never drafted. (The brief's records are the whole ledger.)
-  const disputed = d.routine !== 'weekly-collections-draft' ? [] : ((d.records && d.records.invoices) || []).filter(i => i.disputed).map(i => i.id);
-  eq('held invoices shown with no draft', all(art, n => 'data-held' in n.attrs).map(n => n.attrs['data-held']).sort(), disputed.sort());
-  if (!isBrief) ok('no draft for a disputed invoice', !d.drafts.some(x => disputed.includes(x.invoice_id)));
+  // Held items (disputed invoices, price questions) are shown with the export's reason and never drafted.
+  // Older exports have no "held" key: there, disputed invoices in a collections run (not the brief's whole ledger).
+  const heldList = Array.isArray(d.held) ? d.held
+    : (d.routine !== 'weekly-collections-draft' ? [] : ((d.records && d.records.invoices) || []).filter(i => i.disputed).map(i => ({ id: i.id })));
+  const heldIds = heldList.map(h => h.id);
+  const heldOnPage = all(art, n => 'data-held' in n.attrs);
+  eq('held items shown with no draft', heldOnPage.map(n => n.attrs['data-held']).sort(), heldIds.slice().sort());
+  if (Array.isArray(d.held)) for (const h of d.held) {
+    const el = heldOnPage.find(n => n.attrs['data-held'] === h.id);
+    if (el) eq(h.id + ' held reason, verbatim', f(el, 'held-reason').map(text), [h.reason]);
+  }
+  if (!isBrief) ok('no draft for a held item', !d.drafts.some(x => heldIds.includes(x.invoice_id || x.quote_id)) && !pageDrafts.some(n => heldIds.includes(n.attrs['data-draft'])));
 
   // The illustrative blocked example, if shown, is one the export marks as illustrative.
   for (const ex of all(art, n => 'data-example' in n.attrs)) {

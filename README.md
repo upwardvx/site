@@ -26,4 +26,4 @@ The Larkspur scenarios and the test result on `/plumbing` are copied from `agent
 node scripts/check-plumbing-drift.js ../agent-fleet/site-exports/<run date>/larkspur
 ```
 
-It reads the export and the static HTML (what a visitor sees with JS off) and exits 1 if any scenario is missing, any draft, subject or reason differs from the export, or any figure, ID, date or day count on the page isn't in the export. No dependencies. There is no CI: the exports live in another repo, so a Render build can't run it.
+It reads the export and the static HTML (what a visitor sees with JS off) and exits 1 if any scenario is missing, any draft, subject or reason differs from the export, or any figure, ID, date or day count on the page isn't in the export. No dependencies. Scenarios listed in `SKIP` at the top of the script (currently h, the review reply, which has no tab yet) are reported on every run and fail the check if they appear on the page without being removed from `SKIP`. There is no CI: the exports live in another repo, so a Render build can't run it.
