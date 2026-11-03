@@ -5,3 +5,8 @@
 .env*
 !.env.example
 .vercel
+
+# Next.js leftovers from the old app; this site has no build step
+next-env.d.ts
+tsconfig.tsbuildinfo
+.gstack/
