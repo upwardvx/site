@@ -225,7 +225,7 @@ for (const s of index.scenarios) {
   }
   // Flags on the page match flagged_for_owner.
   const tags = all(art, n => cls(n).includes('tag')).map(flat);
-  eq('flagged on the page iff flagged in the export', tags.includes('Flagged'), d.flagged_for_owner.length > 0);
+  eq('flagged on the page iff flagged in the export', tags.includes('For the team'), d.flagged_for_owner.length > 0);
   // Customer notes quoted verbatim from the record.
   const said = [];
   for (const k of ['invoices', 'quotes']) for (const r of (d.records && d.records[k]) || []) {
