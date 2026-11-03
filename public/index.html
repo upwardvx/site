@@ -27,8 +27,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=IBM+Plex+Sans:wght@400;600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
 <style>
+/* Arial sized to Bricolage's width, so headlines wrap the same before and after the web font swaps in */
+@font-face{font-family:"Bricolage Fallback";src:local("Arial Bold"),local("Arial-BoldMT"),local("Liberation Sans Bold"),local("LiberationSans-Bold");font-weight:700 800;size-adjust:91%}
+@font-face{font-family:"Bricolage Fallback";src:local("Arial"),local("ArialMT"),local("Liberation Sans"),local("LiberationSans");font-weight:400 600;size-adjust:91%}
 :root{
-  --display:"Bricolage Grotesque",Arial,sans-serif;
+  --display:"Bricolage Grotesque","Bricolage Fallback",Arial,sans-serif;
   --body:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --paper:#EADFCC;--ink:#1E3A2F;--muted:#4A4636;--rule:#1E3A2F;--hair:#C4B293;
@@ -53,7 +56,10 @@ a{color:inherit}
 .mast a{font-family:var(--mono);font-size:16px;font-weight:500;padding:12px 0;text-decoration:none;border-bottom:2px solid var(--red)}
 
 /* hero */
-.hero h1{margin:0;padding:40px 0 36px;font-family:var(--display);font-weight:800;font-size:clamp(44px,8.2vw,108px);line-height:.98;letter-spacing:-0.035em;max-width:13ch}
+.hero h1{margin:0;padding:40px 0 36px;font-family:var(--display);font-weight:800;font-size:clamp(44px,8.2vw,92px);line-height:.98;letter-spacing:-0.035em;max-width:7.7em}
+/* fixed breaks: Bricolage narrows at display sizes, so the fallback would wrap differently and shift the page on swap */
+.hero h1 br.d{display:none}
+@media (min-width:1140px){.hero h1 br.m{display:none}.hero h1 br.d{display:inline}}
 .hero h1 .u{text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:.09em;text-underline-offset:.1em;text-decoration-skip-ink:none}
 .hero-grid{display:grid;grid-template-columns:5fr 7fr;border-top:1px solid var(--rule);border-bottom:3px double var(--rule)}
 .hero-copy{padding:32px 40px 40px 0;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:28px}
@@ -116,7 +122,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 .how li:last-child{border-right:0;padding-right:0}
 .how li::before{content:counter(step,decimal-leading-zero);font-family:var(--mono);font-size:14px;font-weight:600;color:var(--red)}
 .how li strong{font-family:var(--display);font-weight:700;font-size:22px;line-height:1.15;letter-spacing:-0.01em}
-.how .note{margin:28px 0 0;font-size:19px;line-height:1.5;font-weight:600}
+.how .note{margin:28px 0 0;font-size:19px;line-height:1.5;font-weight:600;max-width:62ch}
 .how .note2{margin:12px 0 0;font-size:19px;line-height:1.55;max-width:62ch}
 
 /* direct */
@@ -308,7 +314,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 <main>
 <section class="hero">
 <div class="wrap">
-<h1>Stop being the person your business <span class="u">waits&nbsp;on.</span></h1>
+<h1>Stop being<br class="m"> the<br class="d"> person<br class="m"> your<br class="d"> business<br class="m"> <span class="u">waits&nbsp;on.</span></h1>
 <div class="hero-grid">
 <div class="hero-copy">
 <div class="lede"><p>Quote follow-ups, overdue invoices, the Monday numbers. I set one up to run in the tools you already use. Nothing reaches a customer until your team approves&nbsp;it.</p></div>
