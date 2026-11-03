@@ -160,15 +160,17 @@ console.log('placeholders');
 const ph = html.match(/TODO|CONFIRM|PLACEHOLDER|FIXME|lorem ipsum|\{\{\w+\}\}/gi);
 eq('no TODO / CONFIRM / placeholder markers', ph || [], []);
 
-/* ---- proof line ---- */
+/* ---- proof line: the sample label and the eval result in one line ---- */
 console.log('proof line');
 const proof = all(doc, n => 'data-proof' in n.attrs);
 eq('one proof line', proof.length, 1);
+// "all N checks passed" is only true when the eval passed every case.
+eq('eval passed every case (' + ev.cases_passed + ' of ' + ev.cases_total + ')', ev.cases_passed, ev.cases_total);
+eq('eval date is the run date', ev.date, index.run_date);
 if (proof[0]) eq('proof text', flat(proof[0]).replace(/\u00a0/g, ' '),
-  'Test run ' + md(ev.date) + ', ' + ev.date.slice(0, 4) + ', on data as of ' + md(index.as_of) + ': ' +
-  ev.cases_passed + ' of ' + ev.cases_total + ' eval cases passed on ' + ev.model + '.');
-const sample = all(doc, n => n.tag === 'p' && cls(n).includes('sample'));
-ok('sample note names the run date', sample[0] && flat(sample[0]).replace(/\u00a0/g, ' ').includes('test run on ' + md(index.run_date) + ', ' + index.run_date.slice(0, 4)));
+  'Sample: Larkspur Plumbing & Heating and its customers are made up. The drafts are unedited AI output from a test run on ' +
+  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where all ' + ev.cases_total + ' checks passed.');
+ok('proof line is labelled as a sample', proof[0] && cls(proof[0]).includes('sample'));
 
 /* ---- scenarios present, in order ---- */
 console.log('scenarios');
@@ -233,6 +235,12 @@ for (const s of index.scenarios) {
     if (r.last_customer_message) said.push(r.last_customer_message);
   }
   for (const q of f(art, 'note')) ok('customer note "' + text(q) + '" is in the record', said.includes(text(q)));
+  // The phone summary counts every check the export ran for this case, all passed.
+  const shownChecks = f(art, 'check');
+  const run = all(art, n => 'data-checks-run' in n.attrs);
+  eq('checks summary', run.map(n => [n.attrs['data-checks-run'], flat(n)]), [[String(d.checks.length), d.checks.length + ' checks passed']]);
+  const sum = all(art, n => n.tag === 'summary')[0];
+  ok('checks summary says how many are shown', sum && flat(sum).includes(', ' + shownChecks.length + ' shown'), sum && flat(sum));
   // Check names shown are export checks, and passed.
   for (const c of f(art, 'check')) {
     const hit = d.checks.find(x => loose(x.name) === loose(text(c)));
