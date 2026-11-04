@@ -22,6 +22,9 @@
    must appear in some export file. The price section is not export data and
    is skipped.
 
+   Proof line: names the eval date and says "all N test cases passed" only
+   when every case passed; otherwise "P of N test cases passed".
+
    Held items: if the export lists "held" items (a client or invoice the firm
    must handle, so no draft is written), each must be on the page as a
    data-held block with the export's reason verbatim in data-f="held-reason",
@@ -46,9 +49,7 @@ if (!expArg) {
   console.error('usage: node scripts/check-accounting-drift.js <export dir> [page]');
   process.exit(2);
 }
-const SKIP = {
-  e: 'Monday brief: in the 2026-10-20 export it fails "Does not read the spike as the firm falling behind" on its own negated line (fixed in hollis-wren-tax-demo #8); add it from the next export',
-};
+const SKIP = {};
 const ROUTINE_ORDER = ['weekly-missing-docs-chase', 'monday-firm-brief', 'weekly-prior-year-fee-reminder'];
 const FIRM = 'Hollis & Wren Tax';
 const EXP = path.resolve(expArg);
@@ -193,12 +194,13 @@ eq('no TODO / CONFIRM / placeholder markers', ph || [], []);
 console.log('proof line');
 const proof = all(doc, n => 'data-proof' in n.attrs);
 eq('one proof line', proof.length, 1);
-// "all N test cases passed" is only true when the eval passed every case.
-eq('eval passed every case (' + evPassed + ' of ' + evTotal + ')', evPassed, evTotal);
+// Say "all N test cases passed" only when the eval passed every case; otherwise "P of N".
+const result = evPassed === evTotal ? 'all ' + evTotal + ' test cases' : evPassed + ' of ' + evTotal + ' test cases';
+ok('eval result is a count (' + evPassed + ' of ' + evTotal + ')', Number.isInteger(evPassed) && Number.isInteger(evTotal) && evPassed <= evTotal && evTotal > 0);
 eq('eval date is the run date', ev.date, index.run_date);
 if (proof[0]) eq('proof text', flat(proof[0]).replace(/\u00a0/g, ' '),
   'Sample: ' + FIRM + ' and its clients are made up, and no real taxpayer data is used. The drafts are unedited AI output from a test run on ' +
-  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where all ' + evTotal + ' test cases passed.');
+  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where ' + result + ' passed.');
 ok('proof line is labelled as a sample', proof[0] && cls(proof[0]).includes('sample'));
 
 /* ---- scenarios present, in order ---- */
@@ -251,7 +253,7 @@ for (const s of shown) {
     eq('reasons, verbatim', reasons.slice().sort(), d.drafts.map(x => x.reason).sort());
   }
 
-  // Held items (disputed invoices, price questions) are shown with the export's reason and never drafted.
+  // Held items (disputed invoices, preparer questions) are shown with the export's reason and never drafted.
   // Older exports have no "held" key: there, disputed invoices in a collections run (not the brief's whole ledger).
   const heldList = Array.isArray(d.held) ? d.held
     : (d.routine !== 'weekly-prior-year-fee-reminder' ? [] : ((d.records && d.records.invoices) || []).filter(i => i.disputed).map(i => ({ id: i.id })));
