@@ -38,3 +38,11 @@ node scripts/check-accounting-drift.js ../agent-fleet/site-exports/<run date>/ho
 `gen-accounting.py` rewrites only the scenario tabs and the "Sample" proof line, and copies every draft, subject, reason, client note, brief line and held reason verbatim. Headlines, slip labels and the checks shown are the page's own, keyed by scenario slug at the top of the script. A new slug with no headline stops the run. Standard library only.
 
 The drift check applies the plumbing rules to the tax export, with these differences. Scenarios appear in page order: document chases first, then the Monday brief, then prior-year fee reminders (`ROUTINE_ORDER`), in export order within each. A scenario with no draft (everything held, or a return on extension) must show no checks panel. Held items show the export's reason after "Why it's held:". The proof line says "all N test cases passed" only when every case passed, and "P of N" otherwise. Client, return, document and invoice IDs, dates, day counts and tax forms (W-2, 1099-B and so on) must come from the export. `SKIP` is empty; keep it in step between the two scripts.
+
+Prices are typed by hand on every page. After any price or terms change, run:
+
+```bash
+node scripts/check-prices.js
+```
+
+It holds the one list of prices (`PRICES` at the top) and exits 1 if any page's price rows, a "$N to set up" or "$N a month" line, or a schema.org offer disagrees with it. No dependencies.
