@@ -21,7 +21,7 @@ The page reads like a ledger statement: ruled lines, square corners, figures in 
 
 ## Shape and motion
 - Square corners everywhere. Hairline, thick and double rules carry the structure.
-- Two inks: red means it needs you, forest means it's off your desk. On load the hero chores start as loose slips, the forest OFF YOUR DESK stamp presses onto each one (once, no loop) and each files flat into the ledger and the old status stays visible, struck through. On phones it fires when the ledger scrolls into view.
+- Two inks: red means it needs you, forest means it's off your desk. On load the hero chores start as loose slips, the forest OFF YOUR DESK stamp presses onto each one (once, no loop) and each files flat into the ledger and the old status stays visible, plain. (It was struck through, but a strike reads as done and the overdue or missing item isn't.) On phones it fires when the ledger scrolls into view.
 - The sample brief swings down from its top edge as it feeds out on scroll (scroll-driven CSS where supported, fully shown elsewhere) and its last line gets the same stamp.
 - "While you were away": after a visitor leaves the tab for 60s+ and returns, one dismissible slip says nothing here needed them. Once per session.
 - The circled ↗ is the link cursor on desktop; while pressed it becomes the forest stamp. Nothing else follows the mouse.
