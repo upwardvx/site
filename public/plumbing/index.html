@@ -587,7 +587,8 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root=$('#scen'),tabsEl=$('#sc-tabs');
 if(!root||!tabsEl)return;
 const tabs=$$('.tab',tabsEl),panels=$$('.case',root);
-panels.forEach((p,i)=>{p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby','sc-t'+(i+1));p.removeAttribute('aria-label');p.tabIndex=0});
+/* article can't take role=tabpanel, so each case gets a wrapping panel that owns the id */
+panels.forEach((p,i)=>{const w=document.createElement('div');w.setAttribute('role','tabpanel');w.id=p.id;p.removeAttribute('id');w.setAttribute('aria-labelledby','sc-t'+(i+1));p.removeAttribute('aria-label');w.tabIndex=0;p.before(w);w.appendChild(p)});
 const motion=!RM&&'IntersectionObserver' in window;
 let io=null,cur=0;
 const timers=new WeakMap();
@@ -611,7 +612,7 @@ function resetTeam(i){
 function show(i,focus){
   cur=i;
   tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1});
-  panels.forEach((p,k)=>{p.classList.toggle('on',k===i);if(k!==i)p.classList.remove('armed')});
+  panels.forEach((p,k)=>{p.classList.toggle('on',k===i);p.parentNode.hidden=k!==i;if(k!==i)p.classList.remove('armed')});
   if(focus)tabs[i].focus();
   const p=panels[i];
   resetTeam(i);
