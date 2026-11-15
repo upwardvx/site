@@ -19,8 +19,8 @@
    Every dollar figure, invoice, client, return and document ID, date, day
    count and tax form (W-2, 1099-B and so on) inside a scenario must appear
    in that scenario's export; outside the scenarios (hero, pain lines) they
-   must appear in some export file. The price section is not export data and
-   is skipped.
+   must appear in some export file. The price section and any data-price
+   line are not export data and are skipped.
 
    Proof line: names the eval date and says "all N test cases passed" only
    when every case passed; otherwise "P of N test cases passed".
@@ -323,9 +323,9 @@ for (const row of all(doc, n => cls(n).includes('chore'))) {
   }
 }
 const main = all(doc, n => n.tag === 'main')[0];
-function outside(n) { // page text minus scenarios and the price section
+function outside(n) { // page text minus scenarios, the price section and data-price lines
   if (typeof n === 'string') return n;
-  if (RAW.has(n.tag) || n.attrs.id === 'scen' || cls(n).includes('price')) return ' ';
+  if (RAW.has(n.tag) || n.attrs.id === 'scen' || cls(n).includes('price') || 'data-price' in n.attrs) return ' ';
   return ' ' + n.kids.map(outside).join(' ') + ' ';
 }
 const allNums = new Set();
