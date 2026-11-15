@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://upwardvx.com/brand/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Upward Ventures: Stop being the person your business waits on.">
+<meta property="og:image:alt" content="Upward Ventures for plumbing, heating and HVAC shops: the chasing, off your desk.">
 <meta property="og:site_name" content="Upward Ventures">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
@@ -153,6 +153,7 @@ h2{margin:0;max-width:20ch;font-family:var(--display);font-weight:800;font-size:
 /* band */
 .band{background:var(--night);color:var(--night-fg)}
 .band-inner{padding-top:clamp(64px,8vw,112px);padding-bottom:clamp(56px,6vw,80px);display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.price .next{margin:24px 0 0;font-size:19px;line-height:1.55;max-width:62ch}
 .band h2{font-size:clamp(36px,5.2vw,68px);line-height:1;letter-spacing:-0.03em;max-width:18ch;color:var(--night-fg)}
 .band p{margin:0;font-size:19px;line-height:1.6;max-width:46ch;color:var(--night-muted)}
 .band .row{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
@@ -435,7 +436,7 @@ to{text-decoration-color:var(--red)}}
 
 <header class="wrap"><div class="mast">
 <a class="home" href="/"><img src="/brand/logos/wordmark-black.svg" alt="Upward Ventures home" width="131" height="40"></a>
-<a href="mailto:siddharth@upwardvx.com?subject=My%20quote%20list">Email&nbsp;me</a>
+<a href="mailto:siddharth@upwardvx.com?subject=My%20shop">Email&nbsp;me</a>
 </div>
 <hr class="dbl"></header>
 <main>
@@ -445,9 +446,9 @@ to{text-decoration-color:var(--red)}}
 <h1>The chasing, off your <span class="u">desk.</span></h1>
 <div class="hero-grid">
 <div class="hero-copy">
-<div class="lede"><p>Quote follow-ups, overdue-invoice reminders and the Monday numbers, pulled from the software you already use. Nothing reaches a customer until someone at the shop approves&nbsp;it.</p></div>
+<div class="lede"><p>Quote follow-ups, overdue-invoice reminders and the Monday numbers, pulled from the software you already use. Nothing reaches a customer until someone at the shop approves&nbsp;it.</p><p data-price><strong>$1,500 to set up, then $500 a month. Live in about two&nbsp;weeks.</strong></p></div>
 <div class="cta-row">
-<a class="btn" href="mailto:siddharth@upwardvx.com?subject=My%20quote%20list">Email&nbsp;me</a>
+<a class="btn" href="mailto:siddharth@upwardvx.com?subject=My%20shop">Email&nbsp;me</a>
 <a class="alt" href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">or book a 30-minute&nbsp;call</a>
 </div>
 </div>
@@ -523,14 +524,15 @@ Dee at Larkspur</span></div></div></section><section class="step" data-k="2" dat
 <div><dt>Software</dt><dd>Your own accounts are billed to you at cost, and you’ll know the price before we start. Anything I host is included in the monthly&nbsp;fee.</dd></div>
 </dl>
 </details>
+<p class="next">Each line under “What it does each week” is one job. Most shops start with the Monday numbers or overdue&nbsp;invoices.</p>
 </section>
 
 <section class="band">
 <div class="wrap band-inner">
-<h2>Send your quote list or your overdue&nbsp;report.</h2>
+<h2>Tell me which chase eats your&nbsp;week.</h2>
+<p>One line is enough: the job, and the software your shop runs on. I’ll reply with whether it’s worth handing off and how long setup would&nbsp;take.</p>
 <div class="row">
-<a class="btn" href="mailto:siddharth@upwardvx.com?subject=My%20quote%20list">Email&nbsp;me</a>
-<a class="alt" href="https://calendar.app.google/aUBpNXrjnjj6jeUE9">or book a 30-minute&nbsp;call</a>
+<a class="btn" href="mailto:siddharth@upwardvx.com?subject=My%20shop">Email&nbsp;me</a>
 </div>
 </div>
 </section>
@@ -585,7 +587,8 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const root=$('#scen'),tabsEl=$('#sc-tabs');
 if(!root||!tabsEl)return;
 const tabs=$$('.tab',tabsEl),panels=$$('.case',root);
-panels.forEach((p,i)=>{p.setAttribute('role','tabpanel');p.setAttribute('aria-labelledby','sc-t'+(i+1));p.removeAttribute('aria-label');p.tabIndex=0});
+/* article can't take role=tabpanel, so each case gets a wrapping panel that owns the id */
+panels.forEach((p,i)=>{const w=document.createElement('div');w.setAttribute('role','tabpanel');w.id=p.id;p.removeAttribute('id');w.setAttribute('aria-labelledby','sc-t'+(i+1));p.removeAttribute('aria-label');w.tabIndex=0;p.before(w);w.appendChild(p)});
 const motion=!RM&&'IntersectionObserver' in window;
 let io=null,cur=0;
 const timers=new WeakMap();
@@ -609,7 +612,7 @@ function resetTeam(i){
 function show(i,focus){
   cur=i;
   tabs.forEach((t,k)=>{t.setAttribute('aria-selected',k===i);t.tabIndex=k===i?0:-1});
-  panels.forEach((p,k)=>{p.classList.toggle('on',k===i);if(k!==i)p.classList.remove('armed')});
+  panels.forEach((p,k)=>{p.classList.toggle('on',k===i);p.parentNode.hidden=k!==i;if(k!==i)p.classList.remove('armed')});
   if(focus)tabs[i].focus();
   const p=panels[i];
   resetTeam(i);

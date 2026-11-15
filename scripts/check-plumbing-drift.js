@@ -16,8 +16,8 @@
    below. Every dollar figure, invoice,
    quote and job ID, date and day count inside a scenario must appear in that
    scenario's export; outside the scenarios (hero, pain lines) they must
-   appear in some export file. The price section is not export data and is
-   skipped.
+   appear in some export file. The price section and any data-price line
+   are not export data and are skipped.
 
    Held items: if the export lists "held" items (a quote or invoice the owner
    must handle, so no draft is written), each must be on the page as a
@@ -304,9 +304,9 @@ for (const row of all(doc, n => cls(n).includes('chore'))) {
   else eq('hero ' + id + ' sent days ago', (t.match(/sent (\d+) days ago/) || [])[1], String(rec.sent_days_ago));
 }
 const main = all(doc, n => n.tag === 'main')[0];
-function outside(n) { // page text minus scenarios and the price section
+function outside(n) { // page text minus scenarios, the price section and data-price lines
   if (typeof n === 'string') return n;
-  if (RAW.has(n.tag) || n.attrs.id === 'scen' || cls(n).includes('price')) return ' ';
+  if (RAW.has(n.tag) || n.attrs.id === 'scen' || cls(n).includes('price') || 'data-price' in n.attrs) return ' ';
   return ' ' + n.kids.map(outside).join(' ') + ' ';
 }
 const allNums = new Set();
