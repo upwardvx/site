@@ -288,9 +288,14 @@ def main():
     ev = idx['eval']
     y, mo, dd = (int(x) for x in ev['date'].split('-'))
     result = ('all %d test cases' % ev['total']) if ev['passed'] == ev['total'] else ('%d of %d test cases' % (ev['passed'], ev['total']))
+    # The drafts talk about the filing deadline, so the proof line says what day the scenarios are set on.
+    ay, am, ad = (int(x) for x in idx['as_of'].split('-'))
+    fy, fm, fd = (int(x) for x in idx['filing_deadline'].split('-'))
+    need(idx['as_of'] < idx['filing_deadline'], 'as_of is not before filing_deadline: reword the proof line')
     proof = ('<p class="sample" role="note" data-proof><b>Sample<span class="sr-only">: </span></b><span>Hollis &amp; Wren Tax and its clients are made up, '
-             'and no real taxpayer data is used. The drafts are unedited AI output from a test run on %s %d, %d, where %s&nbsp;passed.</span></p>') % (
-        M[mo - 1], dd, y, result)
+             'and no real taxpayer data is used. The drafts are unedited AI output from a test run on %s %d, %d, where %s passed. '
+             'The scenarios are set on %s %d, %d, before the %s %d filing&nbsp;deadline.</span></p>') % (
+        M[mo - 1], dd, y, result, M[am - 1], ad, ay, M[fm - 1], fd)
     page, n = re.subn(r'<p class="sample" role="note" data-proof>.*?</p>', lambda m: proof, page, flags=re.S)
     need(n == 1, 'could not find the proof line in ' + PAGE)
     open(PAGE, 'w', encoding='utf-8').write(page)
