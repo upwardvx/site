@@ -23,7 +23,8 @@
    line are not export data and are skipped.
 
    Proof line: names the eval date and says "all N test cases passed" only
-   when every case passed; otherwise "P of N test cases passed".
+   when every case passed; otherwise "P of N test cases passed". Then it names
+   the day the scenarios are set on (as_of) and the filing deadline.
 
    Held items: if the export lists "held" items (a client or invoice the firm
    must handle, so no draft is written), each must be on the page as a
@@ -200,7 +201,9 @@ ok('eval result is a count (' + evPassed + ' of ' + evTotal + ')', Number.isInte
 eq('eval date is the run date', ev.date, index.run_date);
 if (proof[0]) eq('proof text', flat(proof[0]).replace(/\u00a0/g, ' '),
   'Sample: ' + FIRM + ' and its clients are made up, and no real taxpayer data is used. The drafts are unedited AI output from a test run on ' +
-  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where ' + result + ' passed.');
+  md(ev.date) + ', ' + ev.date.slice(0, 4) + ', where ' + result + ' passed. The scenarios are set on ' +
+  md(index.as_of) + ', ' + index.as_of.slice(0, 4) + ', before the ' + md(index.filing_deadline) + ' filing deadline.');
+ok('scenario date is before the filing deadline', index.as_of < index.filing_deadline);
 ok('proof line is labelled as a sample', proof[0] && cls(proof[0]).includes('sample'));
 
 /* ---- scenarios present, in order ---- */
